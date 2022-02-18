@@ -1,0 +1,53 @@
+
+h1{
+    border-bottom: 2px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+.single_table{
+    width: 100%;
+    border-bottom: 2px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.single_table td{
+    /* border: 1px solid black; */
+    padding: 3px;
+}
+
+.single_table label{
+    text-decoration: underline;
+}
+
+.multiple_table{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.multiple_table th{
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.multiple_table td{
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.foot_table{
+    width: 100%;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.foot_table th{
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.foot_table td{
+    border: 1px solid black;
+    padding: 3px;
+}

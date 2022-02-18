@@ -1,0 +1,22 @@
+
+
+#addmanagementsystempanel,
+#editmanagementsystempanel,
+#deletemanagementsystempanel{
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid black;
+    overflow: auto;
+}
+
+.headerDiv{
+    cursor: move;
+    background: linear-gradient(rgb(71, 71, 71), rgb(46, 45, 45));
+    height: 30px;
+    width: calc(100% + 120px);
+    margin-top: -40px;
+    margin-left: -60px;
+}
