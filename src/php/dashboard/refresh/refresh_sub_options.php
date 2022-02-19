@@ -166,7 +166,6 @@ else{
                     }
                     else if($_POST['option_type'] === "edit_asset"){
                         ?><button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="edit_values_asset_save_btn_click('<?php echo $option_id; ?>', '<?php echo $j; ?>', '<?php echo $option_name; ?>')"><span class="fa fa-save"> </span> Save</button><?php
-                        ?><button class="btn btn-sm btn-danger" onclick="edit_values_asset_cancel_btn_click('<?php echo $option_id; ?>')"><span class="fa fa-times"> </span> Cancel</button><?php
                     }
                 // }
                 echo "</div>";
@@ -698,18 +697,21 @@ function print_options($row, $post, $option_id, $j, $local_conn_db, $row_allow, 
         }
         // echo "</div>";
     } 
+    if($row["option_whole_table_search"] === "True"){
+        ?><div class="input-group mb3"><?php
+    }
     if($row["option_type"] === "Input Text"){
         if($row['field_type'] === 'Grouped'){
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')"
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')"
              onclick="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')"> <?php
         }
         else{
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' onfocusout="inp_onclicks()"> <?php
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' onfocusout="inp_onclicks()"> <?php
         }
     }
     else if($row["option_type"] === "Input Number" || $row["option_type"] === "Input Number With Point"){
         if($row['field_type'] === 'Grouped'){
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')" 
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')" 
             onclick="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')" > <?php
         }
         else if($row['field_type'] === 'Formulated'){
@@ -750,9 +752,10 @@ function print_options($row, $post, $option_id, $j, $local_conn_db, $row_allow, 
     }
     if($row["option_whole_table_search"] === "True"){
     ?>
-    <!-- <div class="input-group-append"> -->
+    <div class="input-group-append">
     <button class="btn btn-sm btn-info" onclick="show_search_panel('<?php echo $row['id']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['option_othr_src_table']; ?>' , '<?php echo $row['option_othr_src_column']; ?>')"><span class="fa fa-search"></span></button>
-    <!-- </div> -->
+    </div>
+    </div>
     <?php
     }
     echo "</div>";

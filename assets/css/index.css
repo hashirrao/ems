@@ -326,15 +326,22 @@ body{
     color: #16c7ff;
   }
 
+  .label-fill{
+    background: #31353d !important;
+    background-color: #31353d !important;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    color: #16c7ff;
+  }
 
-.container-fluid{
-  padding-right: 10px !important;
+
+/* .container-fluid{ */
+  /* padding-right: 10px !important;
   padding-left: 10px !important;
-  margin-left: -10px;
+  margin-left: -10px; */
   /* background: #31353D; */
   /* border-radius: 5px; */
   /* box-shadow: 0 5px 10px rgb(0 0 0 / 0.5); */
-}
+/* } */
 
 .btn-transparent{
   background: transparent;

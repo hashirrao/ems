@@ -14,7 +14,7 @@
     <div id="add_asset_option_panel_messageDiv"></div>
     <strong>Asset Name: </strong> <input id="add_asset_name" class="form-control form-control-sm" placeholder="ASSET NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_asset_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="add_asset_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="add_asset_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
 </div>
 
 <div id="add_entry_panel" class="jumbotron panel">
@@ -27,7 +27,7 @@
     <div id="add_entry_option_panel_messageDiv"></div>
     <strong>Entry Name: </strong> <input id="add_entry_name" class="form-control form-control-sm" placeholder="ENTRY NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_entry_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="add_entry_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="add_entry_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
 </div>
 
 <div id="add_report_panel" class="jumbotron panel">
@@ -46,7 +46,7 @@
     <option>Multi Table</option>
     </select> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_report_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="add_report_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="add_report_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
 </div>
 
 <div id="add_custom_table_panel" class="jumbotron panel">
@@ -60,7 +60,7 @@
     <div id="add_custom_table_option_panel_messageDiv"></div>
     <strong>Custom Table Name: </strong> <input id="add_custom_table_name" class="form-control form-control-sm" placeholder="CUSTOM TABLE NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_custom_table_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="add_custom_table_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="add_custom_table_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
 </div>
 
 <!-- Edit Panels -->
@@ -76,7 +76,7 @@
     <input id="edit_asset_id" class="form-control form-control-sm" type="hidden">
     <strong>Asset Name: </strong> <input id="edit_asset_name" class="form-control form-control-sm" placeholder="ASSET NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="edit_asset_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="edit_asset_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="edit_asset_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-warning" onclick="edit_asset_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
 </div>
 
@@ -91,7 +91,7 @@
     <input id="edit_entry_id" class="form-control form-control-sm" type="hidden">
     <strong>Entry Name: </strong> <input id="edit_entry_name" class="form-control form-control-sm" placeholder="ENTRY NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="edit_entry_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="edit_entry_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="edit_entry_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-warning" onclick="edit_entry_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
 </div>
 
@@ -106,7 +106,7 @@
     <input id="edit_report_id" class="form-control form-control-sm" type="hidden">
     <strong>Report Name: </strong> <input id="edit_report_name" class="form-control form-control-sm" placeholder="REPORT NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="edit_report_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="edit_report_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="edit_report_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-warning" onclick="edit_report_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
 </div>
 
@@ -122,7 +122,7 @@
     <input id="edit_custom_table_id" class="form-control form-control-sm" type="hidden">
     <strong>Custom Table Name: </strong> <input id="edit_custom_table_name" class="form-control form-control-sm" placeholder="CUSTOM Table NAME"> <br>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="edit_custom_table_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="edit_custom_table_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="edit_custom_table_cancel_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-warning" onclick="edit_custom_table_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
 </div>
 
@@ -151,13 +151,17 @@
 </div>
 
 <div id="add_sub_options_panel" class="jumbotron panel">
+    <input id="isEdit" type="hidden" />
     <div class="headerDiv" id="add_sub_options_panelheader">
         <strong style="font-size: 20px;" id="add_sub_option_heading"></strong>
         <button id="add_sub_options_panel_close_btn" class="close_buttons" onclick="add_sub_option_panel_close_btn_click()"></button>
     </div>
     <div id="add_sub_options_panel_content"></div>
-    <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <div style="margin-top: 15px;">
+        <button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
+        <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
+        <!-- <button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
+    </div>
 </div>
 
 <div id="report_add_panel" class="jumbotron panel">
@@ -203,12 +207,13 @@
 </div>
 
 <div id="add_report_sub_options_panel" class="jumbotron panel">
+    <input id="isEdit" type="hidden" />
     <div class="headerDiv" id="add_report_sub_options_panelheader">
         <button id="add_sub_options_panel_close_btn" class="close_buttons" onclick="add_sub_option_panel_close_btn_click()"></button>
     </div>
     <div id="add_report_sub_options_panel_content"></div>
     <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_report_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+    <!-- <button class="btn btn-sm btn-danger" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
 </div>
 
 <div id="settings_sub_options_panel" class="jumbotron panel">
@@ -217,9 +222,11 @@
         <button id="settings_sub_options_panel_close_btn" class="close_buttons" onclick="settings_options_panel_close_btn_click()"></button>
     </div>
     <div id="settings_sub_options_panel_content"></div>
-    <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="settings_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <button class="btn btn-sm btn-danger" onclick="settings_options_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
-    <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-warning" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
+    <div style="margin-top: 15px">
+        <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="settings_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
+        <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-warning" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>
+        <!-- <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_options_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
+    </div>
 </div>
 
 <!-- Search panel -->
@@ -288,7 +295,7 @@
             <input type="text" class="form-control form-control-sm" id="contact" placeholder="CONTACT NO" required>
         </div>
         <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_user_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-        <button class="btn btn-sm btn-danger" onclick="add_user_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+        <!-- <button class="btn btn-sm btn-danger" onclick="add_user_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     </div>
 </div>
 
@@ -357,7 +364,7 @@
             </select>
         </div>
         <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="edit_user_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-        <button class="btn btn-sm btn-danger" onclick="edit_user_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+        <!-- <button class="btn btn-sm btn-danger" onclick="edit_user_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     </div>
 </div>
 
@@ -403,7 +410,7 @@
             <input type="password" class="form-control form-control-sm" id="change_confirmpassword" placeholder="RETYPE PASSWORD" required>
         </div>
         <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="change_password_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-        <button class="btn btn-sm btn-danger" onclick="change_password_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>
+        <!-- <button class="btn btn-sm btn-danger" onclick="change_password_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
     </div>
 </div>
 
