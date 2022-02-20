@@ -59,6 +59,7 @@ if(isset($_POST['asset_name'])){
                         `formula` VARCHAR(255),
                         `editable` VARCHAR(10),
                         `visible` VARCHAR(10),
+                        `table_visible` VARCHAR(10),
                         `reg_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                         ) ";
                     if ($local_conn_db->query($sql) === TRUE) {

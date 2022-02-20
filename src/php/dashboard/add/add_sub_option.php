@@ -61,8 +61,8 @@ if(isset($_POST['sub_option_name'])){
             // Inserting data into database
             $max_priority++;
             if($option_type === "asset"){
-                $sql="INSERT INTO `$table` (`option_name`, `option_type`, `option_empty_check`, `option_similarity_check`, `option_texts`, `option_values`, `option_val_frm_othr_src`, `option_othr_src_table`, `option_othr_src_column`, `option_othr_src_column_value`, `option_whole_table_search`, `option_priority`, `status`, `field_type`, `formula`, `editable`, `visible`) 
-                VALUES ('$sub_option_name', '$sub_option_type', '$sub_option_empty_check', '$sub_option_similarity_check', '$sub_option_texts', '$sub_option_values', '$sub_option_other_source_value', '$sub_option_other_source_table', '$sub_option_other_source_column', '$sub_option_other_source_column_value', '$sub_option_whole_table_search', '$max_priority', 'Activate', '$sub_option_field_type', '$sub_option_formula', '$sub_option_editable', '$sub_option_visible')";
+                $sql="INSERT INTO `$table` (`option_name`, `option_type`, `option_empty_check`, `option_similarity_check`, `option_texts`, `option_values`, `option_val_frm_othr_src`, `option_othr_src_table`, `option_othr_src_column`, `option_othr_src_column_value`, `option_whole_table_search`, `option_priority`, `status`, `field_type`, `formula`, `editable`, `visible`, `table_visible`) 
+                VALUES ('$sub_option_name', '$sub_option_type', '$sub_option_empty_check', '$sub_option_similarity_check', '$sub_option_texts', '$sub_option_values', '$sub_option_other_source_value', '$sub_option_other_source_table', '$sub_option_other_source_column', '$sub_option_other_source_column_value', '$sub_option_whole_table_search', '$max_priority', 'Activate', '$sub_option_field_type', '$sub_option_formula', '$sub_option_editable', '$sub_option_visible', '$sub_option_table_visible')";
             }
             else if($option_type === "entry"){
                 if($sub_option_custom_storage === "True"){
@@ -105,7 +105,7 @@ if(isset($_POST['sub_option_name'])){
                     }
                     $result = mysqli_query($local_conn_db, $sql);
                     if($result){
-                        echo "Added Successfully...!";
+                        echo "Saved Successfully...!";
                     }
                     else{
                         echo "Error in creating cloumn...!";

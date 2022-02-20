@@ -69,6 +69,7 @@ if(isset($_POST['sub_option_name'])){
                 `formula`='$sub_option_formula',
                 `editable`='$sub_option_editable',
                 `visible`='$sub_option_visible',
+                `table_visible`='$sub_option_table_visible',
                 `status`='$status',
                 `option_priority`='$priority' WHERE `id`='$id'";    
             }
@@ -132,7 +133,7 @@ if(isset($_POST['sub_option_name'])){
                     }
                     $result = mysqli_query($local_conn_db, $sql);
                     if($result){
-                        echo "Updated Successfully...!";
+                        echo "Saved Successfully...!";
                     }
                     else{
                         echo "Error in updating cloumn...!";
