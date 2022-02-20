@@ -242,6 +242,7 @@ function refresh_options_in_panel_for_edit(id, name, type, vals, form_length, va
           document.getElementById(input_id).value = vals[i];
         }
         document.getElementById("value_id").value = value_id;
+        $(".select2-single").select2()
       }
     }
     ajax.send("option_id=" + option_id + "&option_name=" + name + "&system_id=" + system_id + "&option_type=edit_asset" + "&entry_form=" + 'Yes');

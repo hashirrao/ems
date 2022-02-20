@@ -1177,11 +1177,11 @@ function report_select_table_change(p_f){
   }
 }
 
-function add_normal_option_btn_click() {
+function add_normal_option_btn_click(isEdit) {
   document.getElementById("add_panel").style.visibility = "hidden";
   document.getElementById("add_sub_options_panel").style.visibility = "visible";
   document.getElementById("add_sub_option_heading").innerHTML = 'Option(Simple)'
-  document.getElementById("add_sub_options_panel_content").innerHTML = '<br>'
+  var str = '<br>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
   + '<div class="row">'
   +   '<input type="hidden" id="field_type" value="Normal">'
@@ -1215,10 +1215,40 @@ function add_normal_option_btn_click() {
   + '<div class="row" id="other_sources_div"></div>'
   + '<div class="row" id="entry_options_div"></div>'
   + '<div class="row" id="entry_custom_storage_options_div"></div>'
+  if(isEdit){
+    str += edit_options()
+  }
+
+  document.getElementById("add_sub_options_panel_content").innerHTML = str
   custom_table_options_div_show();
   add_option_input_change();
   entry_options_div_show();
   $('.select2-single').select2();
+}
+
+function edit_options(){
+  var str = '<div class="row">'
+    + '<div class="col-md-6">'
+    + '<div class="form-group">'
+    +     '<div class="input-group-prepend">'
+    +         '<span class="btn red btn-sm">Priority</span>'
+    +     '</div>'
+    +     '<input type="text" id="add_option_priority" class="form-control form-control-sm" >'
+    + '</div>'
+    + '</div>' 
+    + '<div class="col-md-6">'
+    + '<div class="form-group">'
+    +     '<div class="input-group-prepend">'
+    +         '<span class="btn red btn-sm">Status</span>'
+    +     '</div>'
+    +   '<select id="add_option_status" type="text" class="form-control form-control-sm select2-single" onchange="add_option_other_sources_input_change()">'
+    +      '<option>Activate</option>'
+    +      '<option>Deactivate</option>'
+    +   '</select>'
+    + '</div>'
+    + '</div>'       
+    + '</div>'
+  return str
 }
 
 function add_sub_option_panel_close_btn_click() {
@@ -1226,11 +1256,11 @@ function add_sub_option_panel_close_btn_click() {
   document.getElementById("add_sub_options_panel").style.visibility = "hidden";
 }
 
-function add_formulated_option_btn_click() {
+function add_formulated_option_btn_click(isEdit) {
   document.getElementById("add_panel").style.visibility = "hidden";
   document.getElementById("add_sub_options_panel").style.visibility = "visible";
   document.getElementById("add_sub_option_heading").innerHTML = 'Option(Formulated)'
-  document.getElementById("add_sub_options_panel_content").innerHTML = '<br>'
+  var str = '<br>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
   + '<div class="row">'
   + '<input type="hidden" id="field_type" value="Formulated">'
@@ -1266,13 +1296,17 @@ function add_formulated_option_btn_click() {
   + '</div>'
   + '<div class="row" id="entry_options_div"></div>'
   + '<div class="row" id="entry_custom_storage_options_div"></div>'
-  + '<div class="row" style="margin-top: 20px;">'
+  if(isEdit){
+    str += edit_options()
+  }
+  str += '<div class="row" style="margin-top: 20px;">'
   + '<div class="col-md-12">'
   +    '<button style="float: right;" class="btn btn-default" onclick="add_formula_btn_click()"><span class="fa fa-plus"></span> Add Formula</button>'
   +    '<button style="float: right; margin-right: 5px;" class="btn btn-default" onclick="reset_formula_btn_click()"><span class="fa fa-undo"></span> Reset Formula</button>'
   + '</div>'
   + '</div>'
-  + '<div class="row" id="formulas_div" style="padding-top: 20px;"></div>';
+  + '<div class="row" id="formulas_div" style="padding-top: 20px;"></div>'
+  document.getElementById("add_sub_options_panel_content").innerHTML = str
   document.getElementById("formulas_div").innerHTML = "<div class='col-md-12'><table id='formulas_table' style='width: 100%'></table></div>";
   index_of_formulas_fields = 0;
   add_formula_btn_click();
@@ -1314,7 +1348,7 @@ function adding_rows(rows_to_be_added){
     refresh_options('formula_'+index+'_field_1', table_name);
     refresh_options('formula_'+index+'_field_2', table_name);
 
-    if(document.getElementById('formula_'+index+'_field_2')){
+    if(document.getElementById('formula_'+index+'_field_1')){
       $('#formula_'+index+'_field_1').select2()
       document.getElementById('formula_'+index+'_field_1').onchange()
     }
@@ -2377,6 +2411,14 @@ function add_option_save_btn_click() {
       if(document.getElementById("add_option_table_visible")){
         sub_option_table_visible = document.getElementById("add_option_table_visible").value;
       }
+      var sub_option_priority = "";
+      if(document.getElementById("add_option_priority")){
+        sub_option_priority = document.getElementById("add_option_priority").value;
+      }
+      var sub_option_status = "";
+      if(document.getElementById("add_option_status")){
+        sub_option_status = document.getElementById("add_option_status").value;
+      }
       var sub_option_formula = formula();
       var ajax = new XMLHttpRequest();
       var method = "POST";
@@ -2431,8 +2473,8 @@ function add_option_save_btn_click() {
       + "&sub_option_editable=" + sub_option_editable
       + "&sub_option_visible=" + sub_option_visible
       + "&sub_option_table_visible=" + sub_option_table_visible
-      + "&sub_option_status=" + "Activate"
-      + "&sub_option_priority=" + "10"
+      + "&sub_option_status=" + sub_option_status
+      + "&sub_option_priority=" + sub_option_priority
       + "&sub_option_id=" + sub_option_id
       + "&system_id=" + system_id);
     }
@@ -2445,7 +2487,7 @@ function add_option_save_btn_click() {
 function formula(){
   var sub_option_formula = "";
   if (document.getElementById("formula_1_operator_1")) {
-    for (var i = 0; i <= index_of_formulas_fields; i++) {
+    for (var i = 0; i < index_of_formulas_fields; i++) {
       if (i === 0) {
         var f1 = document.getElementById("formula_" + i + "_field_1");
         var f2 = document.getElementById("formula_" + i + "_field_2");
@@ -2771,16 +2813,17 @@ function settings_sub_option(id, name, type, empty_check,
   {
   if(field_type === "Normal"){
     // settings_normal_option();
-    add_normal_option_btn_click()
+    add_normal_option_btn_click(true)
   }
   else if(field_type === "Formulated"){
     // settings_formulated_option();
-    add_formulated_option_btn_click()
+    add_formulated_option_btn_click(true)
   }
   else if(field_type === "Grouped"){
     // settings_grouped_option();
-    add_grouped_option_btn_click()
+    add_grouped_option_btn_click(true)
   }
+  
   // settings_custom_table_options_div_show(field_type);
   // settings_entry_options_div_show();
   document.getElementById("sub_option_id").value = id
@@ -2880,6 +2923,12 @@ function settings_sub_option(id, name, type, empty_check,
     }, 1000);
 
   }, 500)
+
+  document.getElementById("add_option_priority").value = priority
+  document.getElementById("add_option_status").value = status
+  if(document.getElementById("add_option_status").type == "select-one"){
+    $('#add_option_status').select2()
+  }
 
   if (field_type === "Formulated") {
     var formula_arr = formula.split("-,-");

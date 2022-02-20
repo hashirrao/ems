@@ -200,7 +200,7 @@ else{
             $table = 'asset_'.$option_id;
             $sql="SELECT * FROM `$table`";
             if(isset($_POST['entry_form'])){
-                $sql = $sql." WHERE `status`='Activate'";
+                $sql = $sql." WHERE `status`='Activate' AND `table_visible`!='False'";
             }
             $sql = $sql." ORDER BY `option_priority` ASC";
             $result = mysqli_query($local_conn_db, $sql);

@@ -83,10 +83,11 @@ if(isset($_POST['uid'])){
                               `formula` varchar(255) DEFAULT NULL,
                               `editable` varchar(10) DEFAULT NULL,
                               `visible` varchar(10) DEFAULT NULL,
+                              `table_visible` varchar(10) DEFAULT NULL,
                               `reg_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                               )";
                               if ($local_conn_db->query($sql) === TRUE) {
-                                $sql = "INSERT INTO `asset_1` VALUES (1,'Business Name','Input Text','True','True','','','False','','','','',1,'Activate','Normal','','','','2020-05-12 17:16:37'),(2,'Address','Input Text','False','False','','','False','','','','',2,'Activate','Normal','','','','2020-03-26 14:19:50'),(3,'Contact','Input Text','False','False','','','False','','','','',3,'Activate','Normal','','','','2020-04-03 17:35:11'),(4,'Remarks','Input Text','False','False','','','False','','','','',4,'Activate','Normal','','','','2020-03-26 14:08:30'),(5,'NTN No','Input Text','False','False','','','False','','','','',5,'Activate','Normal','','','','2020-05-12 17:16:57');";
+                                $sql = "INSERT INTO `asset_1` VALUES (1,'Business Name','Input Text','True','True','','','False','','','','',1,'Activate','Normal','','','','','2020-05-12 17:16:37'),(2,'Address','Input Text','False','False','','','False','','','','',2,'Activate','Normal','','','','','2020-03-26 14:19:50'),(3,'Contact','Input Text','False','False','','','False','','','','',3,'Activate','Normal','','','','','2020-04-03 17:35:11'),(4,'Remarks','Input Text','False','False','','','False','','','','',4,'Activate','Normal','','','','','2020-03-26 14:08:30'),(5,'NTN No','Input Text','False','False','','','False','','','','',5,'Activate','Normal','','','','','2020-05-12 17:16:57');";
                                   if ($local_conn_db->query($sql) === TRUE) {
                                     
                                       $sql = "CREATE TABLE `asset_1_values` (
