@@ -35,7 +35,7 @@
                 $sql="SELECT * FROM $table WHERE `$column_against`='$value_against' AND `added_for`='$business'";
             }
             else{
-                $sql="SELECT * FROM $table WHERE `$column_against`='$value_against' AND `entry_of`='$business'";
+                $sql="SELECT * FROM $table WHERE `$column_against`='$value_against' AND `added_for`='$business'";
             }
             // echo $sql;
             $result = mysqli_query($local_conn_db, $sql);

@@ -161,8 +161,8 @@ else if(isset($_POST['entry_name'])){
                         $sql = "CREATE TABLE IF NOT EXISTS entry_".$entry_id."_values (
                             `id` INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                             `voucher_no` INT(11) UNSIGNED,
-                            `entry_by` VARCHAR(30),
-                            `entry_of` VARCHAR(30),
+                            `added_by` VARCHAR(30),
+                            `added_for` VARCHAR(30),
                             `reg_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                             ) ";
                         if ($local_conn_db->query($sql) === TRUE) {

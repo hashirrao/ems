@@ -31,14 +31,14 @@ if($database_name != ""){
     $cash_deposit_amount = 0;
     $cash_withdrawal_amount = 0;
     
-    $sql1="SELECT SUM(`opt_5`) as `cash_deposit_amount` FROM `$cash_deposit_table` WHERE `opt_1`<='$date' AND `opt_3`='$account_id'"." AND `entry_of`='$business'";
+    $sql1="SELECT SUM(`opt_5`) as `cash_deposit_amount` FROM `$cash_deposit_table` WHERE `opt_1`<='$date' AND `opt_3`='$account_id'"." AND `added_for`='$business'";
     $result1 = mysqli_query($local_conn_db, $sql1);
     if($result1->num_rows > 0){
         while($row1 = $result1->fetch_assoc()){
             $cash_deposit_amount = floatval($row1["cash_deposit_amount"]);
         }
     }
-    $sql1="SELECT SUM(`opt_5`) as `cash_withdrawal_amount` FROM `$cash_withdrawal_table` WHERE `opt_1`<='$date' AND `opt_3`='$account_id'"." AND `entry_of`='$business'";
+    $sql1="SELECT SUM(`opt_5`) as `cash_withdrawal_amount` FROM `$cash_withdrawal_table` WHERE `opt_1`<='$date' AND `opt_3`='$account_id'"." AND `added_for`='$business'";
     $result1 = mysqli_query($local_conn_db, $sql1);
     if($result1->num_rows > 0){
         while($row1 = $result1->fetch_assoc()){

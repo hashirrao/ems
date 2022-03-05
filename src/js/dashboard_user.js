@@ -420,48 +420,48 @@ function list_assets_cancel_btn_click(option_id){
   document.getElementById("dashboard_main_div").innerHTML = "";
 }
 
-function edit_values_asset_save_btn_click(option_id, form_length, option_name){
-  var values = Array();
-  var inp_ids = Array();
-  var value_id = document.getElementById("value_id").value;
-  var business = document.getElementById("select_business").value;
-  for(var i = 0; i < form_length; i++){
-    var input_id = document.getElementById(option_id+"_label_"+i).innerHTML;
-    var input_value = document.getElementById(input_id).value;
-    inp_ids.push(input_id);
-    values.push(input_value);
-  }
-  var ajax = new XMLHttpRequest();
-  var method = "POST";
-  var url = "./dashboard/edit/edit_values.php";
-  var asynchronous = true;
-  ajax.open(method, url, asynchronous);
-  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  ajax.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      if (this.responseText == "Updated Successfully...!") {
-        document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
-          + this.responseText + "</div>";
-        setTimeout(function () {
-          document.getElementById("edit_" + option_id + "_panel").style.visibility = "hidden";
-          for (var i = 0; i < form_length; i++) {
-            var input_id = document.getElementById(option_id + "_label_" + i).innerHTML;
-            document.getElementById(input_id).value = "";
-          }
-          document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "";
-          admin_list_asset_link_click(option_id, option_name);
-          // refresh_entries_for_customized_options();
-          // refresh_entries_for_edit_options();
-        }, 700);
-      }
-      else {
-        document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
-          + this.responseText + "</div>";
-      }
-    }
-  }
-  ajax.send("option_type=asset" + "&option_id=" + option_id + "&inp_ids=" + inp_ids +  "&values=" + values + "&system_id=" + system_id + "&value_id=" + value_id + "&business=" + business);
-}
+// function edit_values_asset_save_btn_click(option_id, form_length, option_name){
+//   var values = Array();
+//   var inp_ids = Array();
+//   var value_id = document.getElementById("value_id").value;
+//   var business = document.getElementById("select_business").value;
+//   for(var i = 0; i < form_length; i++){
+//     var input_id = document.getElementById(option_id+"_label_"+i).innerHTML;
+//     var input_value = document.getElementById(input_id).value;
+//     inp_ids.push(input_id);
+//     values.push(input_value);
+//   }
+//   var ajax = new XMLHttpRequest();
+//   var method = "POST";
+//   var url = "./dashboard/edit/edit_values.php";
+//   var asynchronous = true;
+//   ajax.open(method, url, asynchronous);
+//   ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//   ajax.onreadystatechange = function () {
+//     if (this.readyState == 4 && this.status == 200) {
+//       if (this.responseText == "Updated Successfully...!") {
+//         document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
+//           + this.responseText + "</div>";
+//         setTimeout(function () {
+//           document.getElementById("edit_" + option_id + "_panel").style.visibility = "hidden";
+//           for (var i = 0; i < form_length; i++) {
+//             var input_id = document.getElementById(option_id + "_label_" + i).innerHTML;
+//             document.getElementById(input_id).value = "";
+//           }
+//           document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "";
+//           admin_list_asset_link_click(option_id, option_name);
+//           // refresh_entries_for_customized_options();
+//           // refresh_entries_for_edit_options();
+//         }, 700);
+//       }
+//       else {
+//         document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
+//           + this.responseText + "</div>";
+//       }
+//     }
+//   }
+//   ajax.send("option_type=asset" + "&option_id=" + option_id + "&inp_ids=" + inp_ids +  "&values=" + values + "&system_id=" + system_id + "&value_id=" + value_id + "&business=" + business);
+// }
 
 function edit_values_asset_cancel_btn_click(option_id){
   document.getElementById("edit_"+option_id+"_panel").style.visibility = "hidden";
@@ -487,7 +487,7 @@ function admin_entry_link_click(id, name) {
       }
     }
   }
-  setTimeout(refresh_show_options(id, name, "entry"), 500);
+  setTimeout(refresh_show_options(id, name, "entry"), 1000);
 }
 
 function report_cancel_btn_click(option_id){
@@ -518,12 +518,6 @@ function entry_add_to_table_btn_click(option_id, names, types,
     whole_tbl_srch, entry_sum, custom_storage, field_type, formula,
     editable, visible, table_visible);
   
-}
-
-function fetch_order_btn_click(option_id, heading){
-  var tbl_name = "entry_"+option_id;
-  var h_name = heading;
-  show_search_panel("5", h_name, tbl_name, "voucher_no", "fetch_order");
 }
 
 var row_index = 0;
@@ -567,7 +561,8 @@ function add_to_table(option_id, names, types,
     }
     str += "><div class='input-group mb-3'>"
     if(types[i] === "Select"){
-      str += "<select class='form-control table_inputs'>"
+      str += "<select id='"+names[i]+"_"+row_index+"' class='form-control table_inputs'>"
+      
       str += "</select>"
     }
     else{
@@ -612,20 +607,49 @@ function add_to_table(option_id, names, types,
   row_index++;
   for(var j=0; j<row_index; j++){
     for(var i=0; i<names.length; i++){
-      set_onfocus(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm);
-      set_onfocusin(i, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum);
-      set_onkeyup(option_id, i, j, names);
-      set_btn_onclick(i, j, option_id, names, othr_src_tbl, othr_src_clm, whole_tbl_srch);
+      if(types[i] != "Select"){
+        set_onfocus(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm);
+        set_onfocusin(i, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum);
+        set_btn_onclick(i, j, option_id, names, othr_src_tbl, othr_src_clm, whole_tbl_srch);
+      }
+      else{
+        load_select(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm, othr_src_clm_val)
+      }
     }
   }
   for(var i=0; i<preset_values.length; i++){
     document.getElementById(preset_ids[i]).value = preset_values[i];
   }
-  if(inp_0){
-    inp_0.onfocus();
-  }
+  // if(inp_0){
+  //   inp_0.onfocus();
+  // }
   entry_sum_func(names, entry_sum);
   
+}
+
+function load_select(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm, othr_src_clm_val){
+  if(val_frm_othr_src[i] === "True"){
+    var business = document.getElementById("select_business").value;
+    var ajax = new XMLHttpRequest();
+    var method = "POST";
+    var url = "./dashboard/fetch/fetch_select_values.php";
+    var asynchronous = true;
+    ajax.open(method, url, asynchronous);
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById(names[i]+"_"+j).innerHTML = this.responseText
+        $('#'+names[i]+"_"+j).select2()
+      }
+    }
+    ajax.send(
+      "system_id=" + system_id 
+      + "&business=" + business
+      + "&othr_src_tbl=" + othr_src_tbl
+      + "&othr_src_clm=" + othr_src_clm
+      + "&othr_src_clm_val=" + othr_src_clm_val
+      );
+    }
 }
 
 function set_onfocus(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm){
@@ -664,257 +688,6 @@ function set_onfocusin(i, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val
   }
 }
 
-function set_onkeyup(option_id, i, j, names){
-  var business = document.getElementById("select_business").value;
-  document.getElementById(names[i]+"_"+j).onkeyup = function(){
-    if(option_id === "5"){
-      product_id = document.getElementById("Product Code"+"_"+j).value;
-      quantity = document.getElementById("Quantity_"+j).value;
-      var ajax = new XMLHttpRequest();
-      var method = "POST";
-      var url = "./dashboard/check/check_purchase_pending_order.php";
-      var asynchronous = true;
-      ajax.open(method, url, asynchronous);
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          if(this.responseText === "Cleared"){
-            document.getElementById("entry_5_panel_messageDiv").innerHTML = "";
-          }
-          else{
-            var msg = this.responseText.split("--sp--");
-            document.getElementById("entry_5_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + 
-            msg[0] + "</div>";
-            // document.getElementById("Quantity_"+j).value = msg[1];
-          }
-        }
-      }
-      ajax.send("product_id=" + product_id + "&quantity=" + quantity + "&system_id=" + system_id + "&business=" + business);
-    }
-    else if(option_id === "6"){
-      product_id = document.getElementById("Product ID"+"_"+j).value;
-      quantity = document.getElementById("Quantity_"+j).value;
-      van_id = document.getElementById("Van ID").value;
-      if(document.getElementById("Van").value !== ""){
-        var ajax = new XMLHttpRequest();
-        var method = "POST";
-        var url = "./dashboard/check/check_sale_clearance.php";
-        var asynchronous = true;
-        ajax.open(method, url, asynchronous);
-        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            if(this.responseText === "Cleared"){
-              document.getElementById("entry_6_panel_messageDiv").innerHTML = "";
-            }
-            else{
-              var msg = this.responseText.split("--sp--");
-              document.getElementById("entry_6_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + 
-              msg[0] + " Quantity='"+ msg[1] + "</div>";
-              // document.getElementById("Quantity_"+j).value = msg[1];
-            }
-          }
-        }
-        ajax.send("product_id=" + product_id + "&quantity=" + quantity + "&van_id=" + van_id + "&system_id=" + system_id + "&business=" + business);
-      }
-      else if(option_id === "16"){
-        product_id = document.getElementById("Product ID"+"_"+j).value;
-        quantity = document.getElementById("Quantity_"+j).value;
-        var ajax = new XMLHttpRequest();
-        var method = "POST";
-        var url = "./dashboard/check/check_van_issue_clearance.php";
-        var asynchronous = true;
-        ajax.open(method, url, asynchronous);
-        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        ajax.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            if(this.responseText === "Cleared"){
-              document.getElementById("entry_16_panel_messageDiv").innerHTML = "";
-            }
-            else{
-              var msg = this.responseText.split("--sp--");
-              document.getElementById("entry_16_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>" + 
-              msg[0] +"'</div>";
-              document.getElementById("Quantity_"+j).value = msg[1];
-            }
-          }
-        }
-        ajax.send("product_id=" + product_id + "&quantity=" + quantity + "&system_id=" + system_id + "&business=" + business);
-      }
-    }
-    else if(option_id === "7"){
-      date = document.getElementById("Date").value;
-      account_id = document.getElementById("Account").value;
-      amount = document.getElementById("Amount_"+j).value;
-      var ajax = new XMLHttpRequest();
-      var method = "POST";
-      var url = "";
-      if(account_id === "0"){
-        url = "./dashboard/check/check_cash_in_hand.php";  
-      }
-      else{
-        url = "./dashboard/check/check_account_cash.php";  
-      }
-      var asynchronous = true;
-      ajax.open(method, url, asynchronous);
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          if(this.responseText === "Cleared"){
-            document.getElementById("entry_7_panel_messageDiv").innerHTML = "";
-          }
-          else{
-            var msg = this.responseText.split("--sp--");
-            if(account_id === "0"){
-              document.getElementById("entry_7_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + msg[0] + " Cash in hand='"+msg[1]+"'</div>";  
-            }
-            else{
-              document.getElementById("entry_7_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + msg[0] + " Balance='"+msg[1]+"'</div>";
-            }
-            // document.getElementById("Amount_"+j).value = msg[1];
-          }
-        }
-      }
-      if(account_id === "0"){
-        ajax.send("amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&business=" + business);
-      }
-      else{
-        ajax.send("amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&account_id=" + account_id + "&business=" + business);
-      }
-    }
-    else if(option_id === "14"){
-      date = document.getElementById("Date").value;
-      account_id = document.getElementById("Account").value;
-      amount = document.getElementById("Amount_"+j).value;
-      var ajax = new XMLHttpRequest();
-      var method = "POST";
-      var url = "";
-      if(account_id === "0"){
-        url = "./dashboard/check/check_cash_in_hand.php";  
-      }
-      else{
-        url = "./dashboard/check/check_account_cash.php";  
-      }
-      var asynchronous = true;
-      ajax.open(method, url, asynchronous);
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          if(this.responseText === "Cleared"){
-            document.getElementById("entry_14_panel_messageDiv").innerHTML = "";
-          }
-          else{
-            var msg = this.responseText.split("--sp--");
-            if(account_id === "0"){
-              document.getElementById("entry_14_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + msg[0] + " Cash in hand='"+msg[1]+"'</div>";  
-            }
-            else{
-              document.getElementById("entry_14_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + msg[0] + " Balance='"+msg[1]+"'</div>";
-            }
-            // document.getElementById("Amount_"+j).value = msg[1];
-          }
-        }
-      }
-      if(account_id === "0"){
-        ajax.send("amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&business=" + business);
-      }
-      else{
-        ajax.send("amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&account_id=" + account_id + "&business=" + business);
-      }
-    }
-    else if(option_id === "17"){
-      date = document.getElementById("Date").value;
-      account_id = document.getElementById("Account").value;
-      amount = document.getElementById("Total Salary_"+j).value;
-      var ajax = new XMLHttpRequest();
-      var method = "POST";
-      var url = "";
-      if(account_id === "0"){
-        url = "./dashboard/check/check_cash_in_hand.php";  
-      }
-      else{
-        url = "./dashboard/check/check_account_cash.php";  
-      }
-      var asynchronous = true;
-      ajax.open(method, url, asynchronous);
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          if(this.responseText === "Cleared"){
-            document.getElementById("entry_17_panel_messageDiv").innerHTML = "";
-          }
-          else{
-            var msg = this.responseText.split("--sp--");
-            if(account_id === "0"){
-              document.getElementById("entry_17_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + msg[0] + " Cash in hand='"+msg[1]+"'</div>";  
-            }
-            else{
-              document.getElementById("entry_17_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + msg[0] + " Balance='"+msg[1]+"'</div>";
-            }
-            // document.getElementById("Amount_"+j).value = msg[1];
-          }
-        }
-      }
-      if(account_id === "0"){
-        ajax.send("amount=" + amount + "&date=" + date + "&system_id=" + system_id  + "&business=" + business);
-      }
-      else{
-        ajax.send("amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&account_id=" + account_id + "&business=" + business);
-      }
-    }
-    else if(option_id === "50"){
-      date = document.getElementById("Date").value;
-      account_id = document.getElementById("Account ID"+"_"+j).value;
-      amount = document.getElementById("Amount_"+j).value;
-      var ajax = new XMLHttpRequest();
-      var method = "POST";
-      var url = "./dashboard/check/check_cash_in_hand.php";
-      var asynchronous = true;
-      ajax.open(method, url, asynchronous);
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          if(this.responseText === "Cleared"){
-            document.getElementById("entry_50_panel_messageDiv").innerHTML = "";
-          }
-          else{
-            var msg = this.responseText.split("--sp--");
-            document.getElementById("entry_50_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + 
-            msg[0] + " Cash in hand='"+msg[1]+"'</div>";
-            // document.getElementById("Amount_"+j).value = msg[1];
-          }
-        }
-      }
-      ajax.send("account_id=" + account_id + "&amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&business=" + business);
-    }
-    else if(option_id === "51"){
-      date = document.getElementById("Date").value;
-      account_id = document.getElementById("Account ID"+"_"+j).value;
-      amount = document.getElementById("Amount_"+j).value;
-      var ajax = new XMLHttpRequest();
-      var method = "POST";
-      var url = "./dashboard/check/check_account_cash.php";
-      var asynchronous = true;
-      ajax.open(method, url, asynchronous);
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      ajax.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          if(this.responseText === "Cleared"){
-            document.getElementById("entry_51_panel_messageDiv").innerHTML = "";
-          }
-          else{
-            var msg = this.responseText.split("--sp--");
-            document.getElementById("entry_51_panel_messageDiv").innerHTML = "<div class='alert alert-warning' role='alert'>" + 
-            msg[0] + " Balance='"+msg[1]+"'</div>";
-            // document.getElementById("Amount_"+j).value = msg[1];
-          }
-        }
-      }
-      ajax.send("account_id=" + account_id + "&amount=" + amount + "&date=" + date + "&system_id=" + system_id + "&business=" + business);
-    }
-  }
-}
-
 function set_btn_onclick(i, j, option_id, names, othr_src_tbl, othr_src_clm, whole_tbl_srch){
   if(whole_tbl_srch[i] === "True"){
     document.getElementById(names[i]+"_"+j+'_btn').onclick = function(){
@@ -938,36 +711,6 @@ function entry_sum_func(names, entry_sum){
         document.getElementById("sum_"+names[i]).innerHTML = (parseFloat(document.getElementById("sum_"+names[i]).innerHTML === "" ? 0 : document.getElementById("sum_"+names[i]).innerHTML) + parseFloat(document.getElementById(names[i]+"_"+j).value === "" ? 0 : document.getElementById(names[i]+"_"+j).value));
       }
     }
-  }
-  if(document.getElementById("entry_5_panel_content_div") || document.getElementById("entry_6_panel_content_div") || document.getElementById("entry_42_panel_content_div") || document.getElementById("entry_43_panel_content_div")){
-    bags_bundles_sum();
-  }
-}
-
-function bags_bundles_sum(){
-  var bundles_sum = 0;
-  var sub_bundles_sum = 0;
-  var bags_sum = 0;
-  var sub_bags_sum = 0;
-  for(var j=0; j<row_index; j++){
-    if(document.getElementById("P Packing 2_"+j).value === "Bags"){
-      bags_sum += parseInt(document.getElementById("P Packing 1_"+j).value === "" ? 0 : (parseFloat(document.getElementById("Quantity_"+j).value)/parseFloat(document.getElementById("P Packing 1_"+j).value)));
-      sub_bags_sum += (document.getElementById("P Packing 1_"+j).value === "" ? 0 : (parseInt(document.getElementById("Quantity_"+j).value)%parseInt(document.getElementById("P Packing 1_"+j).value)));
-    }
-    else if(document.getElementById("P Packing 2_"+j).value === "Bundles"){
-      bundles_sum += parseInt(document.getElementById("P Packing 1_"+j).value === "" ? 0 : (parseFloat(document.getElementById("Quantity_"+j).value)/parseFloat(document.getElementById("P Packing 1_"+j).value)));
-      sub_bundles_sum += (document.getElementById("P Packing 1_"+j).value === "" ? 0 : (parseInt(document.getElementById("Quantity_"+j).value)%parseInt(document.getElementById("P Packing 1_"+j).value)));
-    }
-  }
-  if(!isNaN(bundles_sum)){
-    document.getElementById("total_bundles").value = bundles_sum+"."+sub_bundles_sum;
-  }
-  if(!isNaN(bags_sum)){
-    document.getElementById("total_bags").value = bags_sum+"."+sub_bags_sum;
-  }
-  if(document.getElementById("discount_in_per")){
-    search_discount_set();
-    payable_amount();
   }
 }
 
@@ -1145,8 +888,8 @@ function fetch_voucher_no(){
 }
 
 function disable_form(){
-  var option_id = document.getElementById("e_option_id").value;
-  var single_form_length = document.getElementById("e_single_form_length").value;
+  var option_id = document.getElementById("e_option_id") ? document.getElementById("e_option_id").value : null;
+  var single_form_length = document.getElementById("e_single_form_length") ? document.getElementById("e_single_form_length").value : 0;
   var inp_id;
   var inp;
   document.getElementById("entry_" + option_id + "_panel_messageDiv").innerHTML = ""
@@ -1166,8 +909,8 @@ function disable_form(){
 }
 
 function enable_form(){
-  var option_id = document.getElementById("e_option_id").value;
-  var single_form_length = document.getElementById("e_single_form_length").value;
+  var option_id = document.getElementById("e_option_id") ? document.getElementById("e_option_id").value : null;
+  var single_form_length = document.getElementById("e_single_form_length") ? document.getElementById("e_single_form_length").value : 0;
   var inp_id;
   var inp;
   document.getElementById("entry_" + option_id + "_panel_messageDiv").innerHTML = ""
@@ -1189,8 +932,8 @@ function enable_form(){
 function entry_add_new_btn_click(){
   row_index = 0;
   entry_edit = false;
-  var option_id = document.getElementById("e_option_id").value;
-  var single_form_length = document.getElementById("e_single_form_length").value;
+  var option_id = document.getElementById("e_option_id") ? document.getElementById("e_option_id").value : null;
+  var single_form_length = document.getElementById("e_single_form_length") ? document.getElementById("e_single_form_length").value : 0;
   var inp_id;
   var inp;
   document.getElementById("entry_" + option_id + "_panel_messageDiv").innerHTML = ""
@@ -1223,8 +966,8 @@ function entry_save_btn_click(){
 }
 
 function save_entry(entry_edit){
-  var option_id = document.getElementById("e_option_id").value;
-  var single_form_length = document.getElementById("e_single_form_length").value;
+  var option_id = document.getElementById("e_option_id") ? document.getElementById("e_option_id").value : null;
+  var single_form_length = document.getElementById("e_single_form_length") ? document.getElementById("e_single_form_length").value : 0;
   var inp_id;
   var inp;
   var single_ids = new Array();
@@ -1280,8 +1023,8 @@ function save_entry(entry_edit){
 function insert_entry(){
   document.getElementById("e_save_btn").disabled = true;
   var e_voucher_no = document.getElementById("e_voucher_no").value;
-  var option_id = document.getElementById("e_option_id").value;
-  var single_form_length = document.getElementById("e_single_form_length").value;
+  var option_id = document.getElementById("e_option_id") ? document.getElementById("e_option_id").value : null;
+  var single_form_length = document.getElementById("e_single_form_length") ? document.getElementById("e_single_form_length").value : 0;
   var inp_id;
   var inp;
   var single_ids = new Array();
@@ -1473,7 +1216,7 @@ function inp_onclicks(){
     for(var i=0; i<global_names.length; i++){
       inp_id = global_names[i]+"_"+j;
       inp = document.getElementById(inp_id);
-      if(typeof inp.onclick === "function"){
+      if(typeof inp.onclick == "function"){
         if(inp.type === "hidden"){
           inp.onclick();
         }
@@ -1611,7 +1354,7 @@ function search_panel_close_btn_click(){
   document.getElementById("search_panel").style.visibility = "hidden";
 }
 
-function filtered_list_row_click(val, table, type, option_id, entry_by){
+function filtered_list_row_click(val, table, type, option_id, added_by){
   var x = document.getElementById("heading_search_panel").innerHTML.replace("Search ", "");
   if(document.getElementById(x)){
     document.getElementById(x).value = val;
@@ -1619,13 +1362,13 @@ function filtered_list_row_click(val, table, type, option_id, entry_by){
   else{
     if(document.getElementById("e_voucher_no")){
       document.getElementById("e_voucher_no").value = val;
-      populate_entry_form(val, table, type, option_id, entry_by);
+      populate_entry_form(val, table, type, option_id, added_by);
     }
   }
   search_panel_close_btn_click();
 }
 
-function populate_entry_form(voucher_no, table, type, option_id, entry_by){
+function populate_entry_form(voucher_no, table, type, option_id, added_by){
   var ajax = new XMLHttpRequest();
   var method = "POST";
   var url = "./dashboard/populate/populate_entry.php";
@@ -1661,10 +1404,15 @@ function populate_entry_form(voucher_no, table, type, option_id, entry_by){
       }
       for(var j=0; j<row_index; j++){
         for(var i=0; i<global_names.length; i++){
-          set_onfocus(i, j, global_names, global_val_frm_othr_src, global_othr_src_tbl, global_othr_src_clm);
-          set_onfocusin(i, j, global_names, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val, global_formula, global_field_type, global_entry_sum);
-          set_onkeyup(option_id, i, j, global_names);
-          set_btn_onclick(i, j, option_id, global_names, global_othr_src_tbl, global_othr_src_clm, global_whole_tbl_srch);
+          if(types[i] != "Select"){
+            set_onfocus(i, j, global_names, global_val_frm_othr_src, global_othr_src_tbl, global_othr_src_clm);
+            set_onfocusin(i, j, global_names, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val, global_formula, global_field_type, global_entry_sum);
+            set_btn_onclick(i, j, option_id, global_names, global_othr_src_tbl, global_othr_src_clm, global_whole_tbl_srch);
+          }
+          else{
+            load_select(i, j, global_names, global_val_frm_othr_src, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val)
+          }
+          
         }
       }
       entry_sum_func(global_names, global_entry_sum);
@@ -1687,7 +1435,7 @@ function populate_entry_form(voucher_no, table, type, option_id, entry_by){
       }
     }
   }
-  ajax.send("voucher_no=" + voucher_no +"&table=" + table + "&system_id=" + system_id + "&entry_by=" + entry_by);
+  ajax.send("voucher_no=" + voucher_no +"&table=" + table + "&system_id=" + system_id + "&added_by=" + added_by);
 }
 
 // Use of program funcs ends....................!

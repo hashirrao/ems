@@ -149,8 +149,8 @@ elseif($_POST['option_type'] === "entry"){
         // Fetching input ids from database
         for($i=0; $i<count($multiple_ids)-1; $i++){
             $opt_id = "";
-            $sql_columns = "";
-            $sql_values = "";
+            $sql_columns = "`voucher_no`,`added_by`,`added_for`";
+            $sql_values = "'".$voucher_no."','".$user."','".$business."'";
             $table = $option_type.'_'.$option_id;
             $empty_check = "False";
             $similarity_check = "False";
@@ -176,14 +176,8 @@ elseif($_POST['option_type'] === "entry"){
                                 break;
                             }
                         }
-                        if($sql_columns == ""){
-                            $sql_columns = "`voucher_no`,`entry_by`,`entry_of`,`opt_".$row["id"]."`";
-                            $sql_values = "'".$voucher_no."','".$user."','".$business."','".$single_values[$j]."'";
-                        }
-                        else{
-                            $sql_columns = $sql_columns.",`opt_".$row["id"]."`";
-                            $sql_values = $sql_values.",'".$single_values[$j]."'";
-                        }
+                        $sql_columns = $sql_columns.",`opt_".$row["id"]."`";
+                        $sql_values = $sql_values.",'".$single_values[$j]."'";
                     }
                     if($empty_check === "True"){
                     break;

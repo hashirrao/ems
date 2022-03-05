@@ -7,7 +7,7 @@ if(isset($_POST['voucher_no'])){
     $voucher_no = $_POST['voucher_no'];
     $table = $_POST['table'];
     $system_id = $_POST['system_id'];
-    $user = $_POST['entry_by'];
+    $user = $_POST['added_by'];
     $database_name = "";
     // Getting Database
     $sql="SELECT * FROM `systems` WHERE `id` = $system_id";
@@ -27,7 +27,7 @@ if(isset($_POST['voucher_no'])){
         if($result->num_rows > 0){
             while($row = $result->fetch_assoc()){
                 $table1 = $table."_values";
-                $sql1="SELECT * FROM `$table1` WHERE `voucher_no`='$voucher_no' AND `entry_by`='$user'";
+                $sql1="SELECT * FROM `$table1` WHERE `voucher_no`='$voucher_no' AND `added_by`='$user'";
                 $result1 = mysqli_query($local_conn_db, $sql1);
                 if($result1->num_rows > 0){
                     while($row1 = $result1->fetch_assoc()){
@@ -38,7 +38,7 @@ if(isset($_POST['voucher_no'])){
         }
         echo "--SM--";
         $table1 = $table."_values";
-        $sql1="SELECT * FROM `$table1` WHERE `voucher_no`='$voucher_no' AND `entry_by`='$user'";
+        $sql1="SELECT * FROM `$table1` WHERE `voucher_no`='$voucher_no' AND `added_by`='$user'";
         $result1 = mysqli_query($local_conn_db, $sql1);
         if($result1->num_rows > 0){
             $j = 0;

@@ -31,10 +31,10 @@
             $sql = "SELECT * FROM ".$table."_values WHERE `added_for`='$business' AND ";
         }
         else{
-            $sql = "SELECT * FROM ".$table."_values WHERE `entry_of`='$business' AND ";
+            $sql = "SELECT * FROM ".$table."_values WHERE `added_for`='$business' AND ";
         }
         if($user_type === "User"){
-            $sql = $sql."`entry_by`='$user' AND";
+            $sql = $sql."`added_by`='$user' AND";
         }
         for($i=0; $i < (count($column_names)-1); $i++){
             $sql2 = "SELECT ".$column_names[$i]." FROM ".$table."_values LIMIT 1";
@@ -91,7 +91,7 @@
                     }
                 }
                 else{
-                    ?>onclick='filtered_list_row_click("<?php echo $row[$selected_clm]; ?>", "<?php echo $table; ?>", "<?php echo $type; ?>", "<?php echo $option_id; ?>", "<?php if(isset($row["entry_by"])){echo $row["entry_by"];} ?>")'<?php
+                    ?>onclick='filtered_list_row_click("<?php echo $row[$selected_clm]; ?>", "<?php echo $table; ?>", "<?php echo $type; ?>", "<?php echo $option_id; ?>", "<?php if(isset($row["added_by"])){echo $row["added_by"];} ?>")'<?php
                 }
                 ?>
                 >
@@ -99,7 +99,7 @@
                 echo "<td>".$row["id"]."</td>";
                 if(substr($table,0,5) === "entry"){
                     echo "<td>".$row["voucher_no"]."</td>";
-                    echo "<td>".$row["entry_by"]."</td>";
+                    echo "<td>".$row["added_by"]."</td>";
                 }
                 for($i=0; $i < (count($columns_arr)); $i++){
                     $x = explode("--", $row[$columns_arr[$i]]);

@@ -17,8 +17,8 @@ var addOptionsDiv = document.getElementById("add_panel");
 dragElement(addOptionsDiv);
 var addSubOptionsDiv = document.getElementById("add_sub_options_panel");
 dragElement(addSubOptionsDiv);
-var subSettingsOptionsDiv = document.getElementById("settings_sub_options_panel");
-dragElement(subSettingsOptionsDiv);
+// var subSettingsOptionsDiv = document.getElementById("settings_sub_options_panel");
+// dragElement(subSettingsOptionsDiv);
 var searchDiv = document.getElementById("search_panel");
 dragElement(searchDiv);
 
@@ -80,11 +80,11 @@ addSubOptionsDiv.onclick = function(){
     }
 }
 
-subSettingsOptionsDiv.onclick = function(){
-    if(subSettingsOptionsDiv.style.zIndex < greatestID){
-        subSettingsOptionsDiv.style.zIndex = ++greatestID;
-    }
-}
+// subSettingsOptionsDiv.onclick = function(){
+//     if(subSettingsOptionsDiv.style.zIndex < greatestID){
+//         subSettingsOptionsDiv.style.zIndex = ++greatestID;
+//     }
+// }
 
 searchDiv.onclick = function(){
     if(searchDiv.style.zIndex < greatestID){

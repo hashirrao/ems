@@ -267,42 +267,42 @@ if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
                         echo "<tr>";
                         echo "<td>".$row["opt_1"]."</td>";
-                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_sale = floatval($row1["opening_sale"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale_return` FROM `$sale_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale_return` FROM `$sale_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_sale_return = floatval($row1["opening_sale_return"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $sale = floatval($row1["opening_sale"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `sale_return` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `sale_return` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
@@ -353,42 +353,42 @@ if($result->num_rows > 0){
                                 echo "<tr>";
                                 echo "<td>".$row2["opt_1"]."</td>";
                                 echo "<td>".$row["opt_1"]."</td>";
-                                $sql1="SELECT SUM(`opt_12`) as `opening_van_stock` FROM `$van_issue_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `entry_of`='$business'";
+                                $sql1="SELECT SUM(`opt_12`) as `opening_van_stock` FROM `$van_issue_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `added_for`='$business'";
                                 $result1 = mysqli_query($local_conn_db, $sql1);
                                 if($result1->num_rows > 0){
                                     while($row1 = $result1->fetch_assoc()){
                                         $opening_van_stock = floatval($row1["opening_van_stock"]);
                                     }
                                 }
-                                $sql1="SELECT SUM(`opt_12`) as `opening_van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `entry_of`='$business'";
+                                $sql1="SELECT SUM(`opt_12`) as `opening_van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `added_for`='$business'";
                                 $result1 = mysqli_query($local_conn_db, $sql1);
                                 if($result1->num_rows > 0){
                                     while($row1 = $result1->fetch_assoc()){
                                         $opening_van_stock_return = floatval($row1["opening_van_stock_return"]);
                                     }
                                 }
-                                $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_19`='".$row["id"]."' AND `opt_7`='".$row2["id"]."'"." AND `entry_of`='$business'";
+                                $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_19`='".$row["id"]."' AND `opt_7`='".$row2["id"]."'"." AND `added_for`='$business'";
                                 $result1 = mysqli_query($local_conn_db, $sql1);
                                 if($result1->num_rows > 0){
                                     while($row1 = $result1->fetch_assoc()){
                                         $opening_sale = floatval($row1["opening_sale"]);
                                     }
                                 }
-                                $sql1="SELECT SUM(`opt_12`) as `van_issue` FROM `$van_issue_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `entry_of`='$business'";
+                                $sql1="SELECT SUM(`opt_12`) as `van_issue` FROM `$van_issue_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `added_for`='$business'";
                                 $result1 = mysqli_query($local_conn_db, $sql1);
                                 if($result1->num_rows > 0){
                                     while($row1 = $result1->fetch_assoc()){
                                         $van_stock = floatval($row1["van_issue"]);
                                     }
                                 }
-                                $sql1="SELECT SUM(`opt_12`) as `van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `entry_of`='$business'";
+                                $sql1="SELECT SUM(`opt_12`) as `van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."' AND `opt_3`='".$row2["id"]."'"." AND `added_for`='$business'";
                                 $result1 = mysqli_query($local_conn_db, $sql1);
                                 if($result1->num_rows > 0){
                                     while($row1 = $result1->fetch_assoc()){
                                         $van_stock_return = floatval($row1["van_stock_return"]);
                                     }
                                 }
-                                $sql1="SELECT SUM(`opt_16`) as `sale` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."' AND `opt_7`='".$row2["id"]."'"." AND `entry_of`='$business'";
+                                $sql1="SELECT SUM(`opt_16`) as `sale` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."' AND `opt_7`='".$row2["id"]."'"." AND `added_for`='$business'";
                                 $result1 = mysqli_query($local_conn_db, $sql1);
                                 if($result1->num_rows > 0){
                                     while($row1 = $result1->fetch_assoc()){
@@ -434,70 +434,70 @@ if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
                         echo "<tr>";
                         echo "<td>".$row["opt_1"]."</td>";
-                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."' AND `opt_6`=''"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$sale_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."' AND `opt_6`=''"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_sale = floatval($row1["opening_sale"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale_return` FROM `$sale_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale_return` FROM `$sale_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_sale_return = floatval($row1["opening_sale_return"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `opening_van_issue` FROM `$van_issue_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_van_issue` FROM `$van_issue_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_van_issue = floatval($row1["opening_van_issue"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `opening_van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_van_stock_return = floatval($row1["opening_van_stock_return"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `purchase` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `purchase` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $purchase = floatval($row1["purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `sale` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."' AND `opt_6`='' AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `sale` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."' AND `opt_6`='' AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $sale = floatval($row1["sale"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `sale_return` FROM `$sale_return_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."' AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `sale_return` FROM `$sale_return_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."' AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $sale_return = floatval($row1["sale_return"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `van_issue` FROM `$van_issue_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `van_issue` FROM `$van_issue_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $van_issue = floatval($row1["van_issue"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `van_stock_return` FROM `$van_stock_return_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
@@ -543,28 +543,28 @@ if($result->num_rows > 0){
                 $result = mysqli_query($local_conn_db, $sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        $sql2="SELECT (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_purchase_amount += ($row2['sum_purchase_amount']-($row2['sum_purchase_amount'] * $row2['discount'] / 100));
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`<'".$_POST['Date']."'  AND `opt_6`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`<'".$_POST['Date']."'  AND `opt_6`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_payment_amount = $row2['sum_payment_amount'];
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_debit_amount = $row2['sum_debit_amount'];
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -585,7 +585,7 @@ if($result->num_rows > 0){
                             $sum_debit_amount = 0;
                             $sum_credit_amount = 0;
                             $sum_builty_amount = 0;
-                            $sql2="SELECT `voucher_no`, (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1`='".$start_date."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT `voucher_no`, (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1`='".$start_date."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 $i=0;
@@ -627,7 +627,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT `voucher_no`, `opt_4` as `remarks`, SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT `voucher_no`, `opt_4` as `remarks`, SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 $i=0;
@@ -669,7 +669,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 $i=0;
@@ -711,7 +711,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -757,42 +757,42 @@ if($result->num_rows > 0){
                     $result1 = mysqli_query($local_conn_db, $sql1);
                     if($result1->num_rows > 0){
                         while($row1 = $result1->fetch_assoc()){
-                            $sql2="SELECT (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
                                     $sum_sale_amount += ($row2['sum_sale_amount'] - ($row2['sum_sale_amount']*$row2['discount']/100));
                                 }
                             }
-                            $sql2="SELECT (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
                                     $sum_sale_return_amount += ($row2['sum_sale_return_amount'] - ($row2['sum_sale_return_amount']*$row2['discount']/100));
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_4`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_4`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
                                     $sum_reciept_amount += $row2['sum_reciept_amount'];
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
                                     $sum_debit_amount += $row2['sum_debit_amount'];
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
                                     $sum_credit_amount += $row2['sum_credit_amount'];
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -813,7 +813,7 @@ if($result->num_rows > 0){
                                 $sum_debit_amount = 0;
                                 $sum_credit_amount = 0;
                                 $sum_builty_amount = 0;
-                                $sql2="SELECT `voucher_no`, (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                                $sql2="SELECT `voucher_no`, (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                                 $result2 = mysqli_query($local_conn_db, $sql2);
                                 if($result2->num_rows > 0){
                                     $i=0;
@@ -856,7 +856,7 @@ if($result->num_rows > 0){
                                         }
                                     }
                                 }
-                                $sql2="SELECT `voucher_no`, (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                                $sql2="SELECT `voucher_no`, (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                                 $result2 = mysqli_query($local_conn_db, $sql2);
                                 if($result2->num_rows > 0){
                                     $i=0;
@@ -899,7 +899,7 @@ if($result->num_rows > 0){
                                         }
                                     }
                                 }
-                                $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, (`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1`='".$start_date."' AND `opt_4`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                                $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, (`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1`='".$start_date."' AND `opt_4`='".$row1["id"]."'"." AND `added_for`='$business'";
                                 $result2 = mysqli_query($local_conn_db, $sql2);
                                 if($result2->num_rows > 0){
                                     $i=0;
@@ -941,7 +941,7 @@ if($result->num_rows > 0){
                                         }
                                     }
                                 }
-                                $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, (`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                                $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, (`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                                 $result2 = mysqli_query($local_conn_db, $sql2);
                                 if($result2->num_rows > 0){
                                     $i=0;
@@ -983,7 +983,7 @@ if($result->num_rows > 0){
                                         }
                                     }
                                 }
-                                $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, (`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                                $sql2="SELECT `voucher_no`, (`opt_2`) as `remarks`, (`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                                 $result2 = mysqli_query($local_conn_db, $sql2);
                                 if($result2->num_rows > 0){
                                     $i=0;
@@ -1025,7 +1025,7 @@ if($result->num_rows > 0){
                                         }
                                     }
                                 }
-                                $sql2="SELECT `voucher_no`, (`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                                $sql2="SELECT `voucher_no`, (`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                                 $result2 = mysqli_query($local_conn_db, $sql2);
                                 if($result2->num_rows > 0){
                                     $i=0;
@@ -1096,28 +1096,28 @@ if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
                         echo "<tr>";
                         echo "<td>".$row["opt_1"]."</td>";
-                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_sale = floatval($row1["opening_sale"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_12`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_12`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_5`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
@@ -1152,28 +1152,28 @@ if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
                         echo "<tr>";
                         echo "<td>".$row["opt_1"]."</td>";
-                        $sql1="SELECT SUM(`opt_16`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` < '".$_POST["Date"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $opening_sale = floatval($row1["opening_sale"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
                                 $purchase = floatval($row1["opening_purchase"]);
                             }
                         }
-                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql1="SELECT SUM(`opt_16`) as `opening_sale` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$_POST["Date"]."' AND '".$_POST["To"]."' AND `opt_9`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result1 = mysqli_query($local_conn_db, $sql1);
                         if($result1->num_rows > 0){
                             while($row1 = $result1->fetch_assoc()){
@@ -1216,35 +1216,35 @@ if($result->num_rows > 0){
                 $result = mysqli_query($local_conn_db, $sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
-                        $sql2="SELECT SUM(`opt_5`) as `sum_cash_deposit_amount` FROM `$cash_deposit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_cash_deposit_amount` FROM `$cash_deposit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_3`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_cash_deposit_amount = $row2['sum_cash_deposit_amount'];
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_cash_withdrawal_amount` FROM `$cash_withdrawal_table` WHERE `opt_1`<'".$_POST['Date']."'  AND `opt_3`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_cash_withdrawal_amount` FROM `$cash_withdrawal_table` WHERE `opt_1`<'".$_POST['Date']."'  AND `opt_3`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_cash_withdrawal_amount = $row2['sum_cash_withdrawal_amount'];
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='A-".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='A-".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_debit_amount = $row2['sum_debit_amount'];
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='A-".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_6`='A-".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 $sum_credit_amount = $row2['sum_credit_amount'];
                             }
                         }
-                        $sql2="SELECT SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_7`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_7`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1253,7 +1253,7 @@ if($result->num_rows > 0){
                                     }
                             }
                         }
-                        $sql2="SELECT SUM(`opt_3`) as `sum_expense_amount` FROM `$expense_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_4`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_3`) as `sum_expense_amount` FROM `$expense_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_4`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1262,7 +1262,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                         }
-                        $sql2="SELECT SUM(`opt_6`) as `sum_salary_amount` FROM `$salary_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_7`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_6`) as `sum_salary_amount` FROM `$salary_table` WHERE `opt_1`<'".$_POST['Date']."' AND `opt_7`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1277,7 +1277,7 @@ if($result->num_rows > 0){
                         $end_date = $_POST['To'];
                         $closing_balance = $opening_balance;
                         while (strtotime($start_date) <= strtotime($end_date)) {
-                            $sql2="SELECT SUM(`opt_5`) as `sum_cash_deposit_amount` FROM `$cash_deposit_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_5`) as `sum_cash_deposit_amount` FROM `$cash_deposit_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1295,7 +1295,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_5`) as `sum_cash_withdrawal_amount` FROM `$cash_withdrawal_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_5`) as `sum_cash_withdrawal_amount` FROM `$cash_withdrawal_table` WHERE `opt_1`='".$start_date."' AND `opt_3`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1313,7 +1313,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='A-".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='A-".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1331,7 +1331,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='A-".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`='".$start_date."' AND `opt_6`='A-".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1349,7 +1349,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_5`) as `sum_payment_amount`, `opt_4` as remarks FROM `$payment_table` WHERE `opt_1`='".$start_date."' AND `opt_7`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_5`) as `sum_payment_amount`, `opt_4` as remarks FROM `$payment_table` WHERE `opt_1`='".$start_date."' AND `opt_7`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1367,7 +1367,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_3`) as `sum_expense_amount` FROM `$expense_table` WHERE `opt_1`='".$start_date."' AND `opt_4`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_3`) as `sum_expense_amount` FROM `$expense_table` WHERE `opt_1`='".$start_date."' AND `opt_4`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1385,7 +1385,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_6`) as `sum_salary_amount` FROM `$salary_table` WHERE `opt_1`='".$start_date."' AND `opt_7`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_6`) as `sum_salary_amount` FROM `$salary_table` WHERE `opt_1`='".$start_date."' AND `opt_7`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1445,7 +1445,7 @@ if($result->num_rows > 0){
                             $price = 0;
                             $sum_price = 0;
                             // $sum_purchase_amount = 0;
-                            $sql3="SELECT * FROM `$purchase_table` WHERE `opt_5`='".$row2['id']."'"." AND `entry_of`='$business'";
+                            $sql3="SELECT * FROM `$purchase_table` WHERE `opt_5`='".$row2['id']."'"." AND `added_for`='$business'";
                             $result3 = mysqli_query($local_conn_db, $sql3);
                             if($result3->num_rows > 0){
                                 $i=0;
@@ -1457,7 +1457,7 @@ if($result->num_rows > 0){
                                 }
                             }
                             $avg_price = $sum_price/$i;
-                            $sql3="SELECT * FROM `$sale_table` WHERE `opt_1`='".$start_date."' AND `opt_9`='".$row2['id']."'"." AND `entry_of`='$business'";
+                            $sql3="SELECT * FROM `$sale_table` WHERE `opt_1`='".$start_date."' AND `opt_9`='".$row2['id']."'"." AND `added_for`='$business'";
                             $result3 = mysqli_query($local_conn_db, $sql3);
                             if($result3->num_rows > 0){
                                 while($row3 = $result3->fetch_assoc()){
@@ -1468,7 +1468,7 @@ if($result->num_rows > 0){
                         }
                     }
                     echo "<td style='text-align: center'>".$sum_purchase_amount."</td>";
-                    $sql2="SELECT `opt_17` as `sum_sale_amount`, `opt_27` as `discount` FROM `$sale_table` WHERE `opt_1`='".$start_date."'"." AND `entry_of`='$business'";
+                    $sql2="SELECT `opt_17` as `sum_sale_amount`, `opt_27` as `discount` FROM `$sale_table` WHERE `opt_1`='".$start_date."'"." AND `added_for`='$business'";
                     $result2 = mysqli_query($local_conn_db, $sql2);
                     if($result2->num_rows > 0){
                         while($row2 = $result2->fetch_assoc()){
@@ -1481,7 +1481,7 @@ if($result->num_rows > 0){
                         }
                     }
                     echo "<td style='text-align: center'>".$sum_sale_amount."</td>";
-                    $sql2="SELECT SUM(`opt_3`) as `sum_expense_amount` FROM `$expense_table` WHERE `opt_1`='".$start_date."'"." AND `entry_of`='$business'";
+                    $sql2="SELECT SUM(`opt_3`) as `sum_expense_amount` FROM `$expense_table` WHERE `opt_1`='".$start_date."'"." AND `added_for`='$business'";
                     $result2 = mysqli_query($local_conn_db, $sql2);
                     if($result2->num_rows > 0){
                         while($row2 = $result2->fetch_assoc()){
@@ -1494,7 +1494,7 @@ if($result->num_rows > 0){
                         }
                     }
                     echo "<td style='text-align: center'>".$sum_expense_amount."</td>";
-                    $sql2="SELECT SUM(`opt_7`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`='".$start_date."'"." AND `entry_of`='$business'";
+                    $sql2="SELECT SUM(`opt_7`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`='".$start_date."'"." AND `added_for`='$business'";
                     $result2 = mysqli_query($local_conn_db, $sql2);
                     if($result2->num_rows > 0){
                         while($row2 = $result2->fetch_assoc()){
@@ -1507,7 +1507,7 @@ if($result->num_rows > 0){
                         }
                     }
                     echo "<td style='text-align: center'>".$sum_builty_amount."</td>";
-                    $sql2="SELECT SUM(`opt_6`) as `sum_salary_amount` FROM `$salary_table` WHERE `opt_1`='".$start_date."'"." AND `entry_of`='$business'";
+                    $sql2="SELECT SUM(`opt_6`) as `sum_salary_amount` FROM `$salary_table` WHERE `opt_1`='".$start_date."'"." AND `added_for`='$business'";
                     $result2 = mysqli_query($local_conn_db, $sql2);
                     if($result2->num_rows > 0){
                         while($row2 = $result2->fetch_assoc()){
@@ -1593,7 +1593,7 @@ if($result->num_rows > 0){
                         $end_date = $_POST['To'];
 
 
-                        $sql2="SELECT (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1`<'".$start_date."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1`<'".$start_date."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1602,7 +1602,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT `opt_4` as `remarks`, SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT `opt_4` as `remarks`, SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1611,7 +1611,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1620,7 +1620,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1640,7 +1640,7 @@ if($result->num_rows > 0){
                         $sum_credit_amount = 0;
                         $sum_builty_amount = 0;
                         // while (strtotime($start_date) <= strtotime($end_date)) {
-                            $sql2="SELECT (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_15`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_13`) as `sum_purchase_amount`, (`opt_23`) as `discount` FROM `$purchase_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_15`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1649,7 +1649,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT `opt_4` as `remarks`, SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT `opt_4` as `remarks`, SUM(`opt_5`) as `sum_payment_amount` FROM `$payment_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1658,7 +1658,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1667,7 +1667,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='S-".$row["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='S-".$row["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1711,7 +1711,7 @@ if($result->num_rows > 0){
                         $closing_balance = 0;
                         $start_date = $_POST['Date'];
                         $end_date = $_POST['To'];
-                        $sql2="SELECT (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1`<'".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1`<'".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1720,7 +1720,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1`<'".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1`<'".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1729,7 +1729,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1`<'".$start_date."' AND `opt_4`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1`<'".$start_date."' AND `opt_4`='".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1738,7 +1738,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1747,7 +1747,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1`<'".$start_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1756,7 +1756,7 @@ if($result->num_rows > 0){
                                 }
                             }
                         }
-                        $sql2="SELECT SUM(`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`<'".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                        $sql2="SELECT SUM(`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1`<'".$start_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                         $result2 = mysqli_query($local_conn_db, $sql2);
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
@@ -1778,7 +1778,7 @@ if($result->num_rows > 0){
 
 
                         // while (strtotime($start_date) <= strtotime($end_date)) {
-                            $sql2="SELECT (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_17`) as `sum_sale_amount`, (`opt_27`) as `discount` FROM `$sale_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1787,7 +1787,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_17`) as `sum_sale_return_amount`, (`opt_27`) as `discount` FROM `$sale_return_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1796,7 +1796,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_4`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_6`) as `sum_reciept_amount` FROM `$reciept_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_4`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1805,7 +1805,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_debit_amount` FROM `$debit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1814,7 +1814,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT (`opt_2`) as `remarks`, SUM(`opt_5`) as `sum_credit_amount` FROM `$credit_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_6`='C-".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1823,7 +1823,7 @@ if($result->num_rows > 0){
                                     }
                                 }
                             }
-                            $sql2="SELECT SUM(`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_3`='".$row1["id"]."'"." AND `entry_of`='$business'";
+                            $sql2="SELECT SUM(`opt_17`) as `sum_builty_amount` FROM `$builty_table` WHERE `opt_1` BETWEEN '".$start_date."' AND '".$end_date."' AND `opt_3`='".$row1["id"]."'"." AND `added_for`='$business'";
                             $result2 = mysqli_query($local_conn_db, $sql2);
                             if($result2->num_rows > 0){
                                 while($row2 = $result2->fetch_assoc()){
@@ -1864,7 +1864,7 @@ if($result->num_rows > 0){
             }
             else{
                     echo "<tbody>";
-                    $sql = "SELECT * FROM ".$tables.$filters." AND `entry_of`='$business'";
+                    $sql = "SELECT * FROM ".$tables.$filters." AND `added_for`='$business'";
                     // echo $sql;
                     $sum = array();
                     $column = explode(",", $columns);

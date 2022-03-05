@@ -21,12 +21,19 @@
   top: 50%;
   left: calc(50% + 115px);
   transform: translate(-50%, -50%);
-  width: 70%;
+  width: 75%;
   max-height: calc(100vh - 30px);
   /* border: 3px solid black; */
   box-shadow: 0 5px 10px rgb(0 0 0 / 0.5);
-  overflow: auto;
+  /* overflow: auto; */
   background: rgb(49,53,61,0.95);
+}
+
+.content{
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 5px;
 }
 
 .entry_panel{
@@ -38,7 +45,8 @@
   border-top: 3px solid black;
   border-bottom: 3px solid black;
   border-radius: 0px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* .content_div{

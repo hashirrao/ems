@@ -154,10 +154,6 @@ else{
                     $j++;
                 }
                 echo "</div>";
-                if(isset($_POST['entry_form'])){
-                    echo '<input id="e_option_id" type="hidden" value="'.$option_id.'" >';
-                    echo '<input id="e_single_form_length" type="hidden" value="'.$j.'" >';
-                }
                 // if(isset($_POST['entry_form'])){
                     if($_POST['option_type'] === "asset"){
                         if(isset($row['option_name']))echo $row['option_name'];
@@ -173,6 +169,10 @@ else{
         }
         else{
             echo "Database not found...!";
+        }
+        if(isset($_POST['entry_form'])){
+            echo '<input id="e_option_id" type="hidden" value="'.$option_id.'" >';
+            echo '<input id="e_single_form_length" type="hidden" value="'.$j.'" >';
         }
     }
     
@@ -301,9 +301,6 @@ else{
                 die("Failed to connect with MySQL: " . $local_conn_db->connect_error);
             }
             $table = $option_type.'_'.$option_id;
-            if($option_id === "5"){
-                ?><button style='float: right;' class='btn btn-default' onclick='fetch_order_btn_click("42", "Purchase Order")'><span class="fa fa-shopping-cart"> </span> Fetch Order</button><?php
-            }
             $sql="SELECT * FROM `$table` WHERE `entry_type`='Single'";
             if(isset($_POST['entry_form'])){
                 $sql = $sql." AND `status`='Activate'";
@@ -320,12 +317,11 @@ else{
                     print_options($row, isset($_POST['entry_form']), $option_id, $j, $local_conn_db, false, true);
                     $j++;
                 }
+                echo "</div>";
+                echo "</div>";
                 if(isset($_POST['entry_form'])){
-                    echo '<input id="e_option_id" type="hidden" value="'.$option_id.'" >';
                     echo '<input id="e_single_form_length" type="hidden" value="'.$j.'" >';
                 }
-                echo "</div>";
-                echo "</div>";
             }
                 // echo "<div class='col-sm-12' style='max-height: calc(100vh - 450px); overflow: auto;'>";
                 $j = 0;
@@ -461,6 +457,10 @@ else{
         }
         else{
             echo "Database not found...!";
+        }
+        
+        if(isset($_POST['entry_form'])){
+            echo '<input id="e_option_id" type="hidden" value="'.$option_id.'" >';
         }
     }
     

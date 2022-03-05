@@ -81,7 +81,7 @@ function list_asset_link_click(id) {
         add_option_input_change();
         entry_options_div_show();
       }
-      settings_options_panel_close_btn_click();
+      // settings_options_panel_close_btn_click();
       refresh_sub_options_in_panel();
     }
   }
@@ -173,7 +173,7 @@ function list_entry_link_click(id) {
         add_option_input_change();
         entry_options_div_show();
       }
-      settings_options_panel_close_btn_click();
+      // settings_options_panel_close_btn_click();
     }
   }
   ajax.send("entry_id=" + entry_id + "&entry_name=" + entry_name + "&system_id=" + system_id + "&type=" + 'entry');
@@ -267,7 +267,7 @@ function list_report_link_click(id) {
         add_option_input_change();
         // report_options_div_show();
       }
-      settings_options_panel_close_btn_click();
+      // settings_options_panel_close_btn_click();
     }
   }
   ajax.send("report_id=" + report_id + "&report_name=" + report_name + "&system_id=" + system_id + "&type=" + 'report');
@@ -351,7 +351,7 @@ function list_custom_tables_link_click(id) {
         add_option_input_change();
         entry_options_div_show();
       }
-      settings_options_panel_close_btn_click();
+      // settings_options_panel_close_btn_click();
       refresh_sub_options_in_panel();
     }
   }
@@ -1220,6 +1220,15 @@ function add_normal_option_btn_click(isEdit) {
   }
 
   document.getElementById("add_sub_options_panel_content").innerHTML = str
+  if(isEdit){
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+    + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
+    // + '<button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>'
+    str += edit_options()
+  }
+  else{
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+  }
   custom_table_options_div_show();
   add_option_input_change();
   entry_options_div_show();
@@ -1305,9 +1314,18 @@ function add_formulated_option_btn_click(isEdit) {
   +    '<button style="float: right; margin-right: 5px;" class="btn btn-default" onclick="reset_formula_btn_click()"><span class="fa fa-undo"></span> Reset Formula</button>'
   + '</div>'
   + '</div>'
-  + '<div class="row" id="formulas_div" style="padding-top: 20px;"></div>'
+  + '<div class="row" style="padding-top: 20px;"><div class="col-12" id="formulas_div"></div></div>'
   document.getElementById("add_sub_options_panel_content").innerHTML = str
   document.getElementById("formulas_div").innerHTML = "<div class='col-md-12'><table id='formulas_table' style='width: 100%'></table></div>";
+  if(isEdit){
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+    + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
+    // + '<button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>'
+    str += edit_options()
+  }
+  else{
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+  }
   index_of_formulas_fields = 0;
   add_formula_btn_click();
   custom_table_options_div_show("formulated");
@@ -1359,7 +1377,7 @@ function adding_rows(rows_to_be_added){
         document.getElementById('formula_'+index+'_field_2').onchange()
       }
     }
-    if(document.getElementById('formula_'+index+'_field_2')){
+    if(document.getElementById('formula_'+index+'_operator_1')){
       $('#formula_'+index+'_operator_1').select2()
     }
 
@@ -1506,6 +1524,15 @@ function add_grouped_option_btn_click() {
   custom_table_options_div_show("grouped");
   entry_options_div_show();
   setTimeout(group_with_select_change, 500);
+  if(isEdit){
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+    + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
+    // + '<button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>'
+    str += edit_options()
+  }
+  else{
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+  }
   var table_name = "";
   if(document.getElementById("entry_id_options_panels_dev")){
     table_name = "entry_"+document.getElementById("entry_id_options_panels_dev").innerHTML;
@@ -1537,7 +1564,7 @@ function add_formula_btn_click(){
 }
 
 function reset_formula_btn_click(){
-  document.getElementById("formulas_div").innerHTML = "<table id='formulas_table' style='width: 100%'></table>"
+  document.getElementById("formulas_div").innerHTML = "<div class='col-md-12'><table id='formulas_table' style='width: 100%'></table></div>";
   index_of_formulas_fields = 0;
   add_formula_btn_click();
 }
@@ -1870,12 +1897,14 @@ function entry_type_select_change(){
 
 function custom_storage_select_change(){
   if(document.getElementById("custom_storage_select").value === "True"){
-    document.getElementById("entry_custom_storage_options_div").innerHTML = '<div class="form-group">'
+    document.getElementById("entry_custom_storage_options_div").innerHTML = '<div class="col-md-6 col-sm-12">'
     +  '<div class="input-group-prepend">'
     +     '<span class="btn red btn-sm">Custom Table</span>'
     +   '</div>'
     +   '<select id="custom_storage_tables_select" type="text" class="form-control form-control-sm select2-single" >'
     +   '</select>'
+    + '</div>'
+    + '<div class="col-md-6 col-sm-12">'
     +  '<div class="input-group-prepend">'
     +     '<span class="btn red btn-sm">Custom Column</span>'
     +   '</div>'
@@ -1893,7 +1922,7 @@ function custom_storage_select_change(){
 }
 
 function entry_options_html(){
-  var str = '<div class="form-group">'
+  var str = '<div class="col-md-6 col-sm-12">'
     +  '<div class="input-group-prepend">'
     +     '<span class="btn red btn-sm">Entry Type</span>'
     +   '</div>'
@@ -1901,6 +1930,8 @@ function entry_options_html(){
     +      '<option>Single</option>'
     +      '<option>Multiple</option>'
     +   '</select>'
+    + '</div>'
+    + '<div class="col-md-6 col-sm-12">'
     +  '<div class="input-group-prepend">'
     +     '<span class="btn red btn-sm">Custom Storage</span>'
     +   '</div>'
@@ -2773,7 +2804,7 @@ function refresh_sub_options_in_panel(){
       if (this.readyState == 4 && this.status == 200) {
         // console.log(this.responseText)
         document.getElementById("show_frontend_div").innerHTML = this.responseText;
-        if(options_table){
+        if(document.getElementById("options_table")){
          $('#options_table').DataTable({
             "scrollX": true,
             "scrollY": 250,
@@ -3773,14 +3804,14 @@ function settings_option_delete_btn_click() {
     option_id = document.getElementById("custom_table_id_options_panels_dev").innerHTML;
   }
   if(option_type !== ""){
-    var sub_option_id = document.getElementById("settings_sub_option_id").value;
-    var sub_option_name = document.getElementById("settings_option_name").value;
-    var sub_option_type = document.getElementById("settings_option_input_type").value;
-    var sub_option_priority = document.getElementById("settings_option_priority").value;
+    var sub_option_id = document.getElementById("sub_option_id").value;
+    var sub_option_name = document.getElementById("add_option_name").value;
+    var sub_option_type = document.getElementById("add_option_input_type").value;
+    var sub_option_priority = document.getElementById("add_option_priority").value;
     var sub_option_texts = Array();
     var sub_option_values = Array();
-    if(document.getElementById("settings_option_values_table")){
-      var sub_option_values_table = document.getElementById("settings_option_values_table");
+    if(document.getElementById("option_values_table")){
+      var sub_option_values_table = document.getElementById("option_values_table");
       for (var i = 0; i < sub_option_values_table.rows.length; i++) {
         sub_option_texts[i] = sub_option_values_table.rows[i].cells[0].innerHTML;
         if(sub_option_values_table.rows[i].cells.length === 3){
@@ -3797,20 +3828,20 @@ function settings_option_delete_btn_click() {
     ajax.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         if (this.responseText == "Deleted Successfully...!") {
-          document.getElementById("settings_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
+          document.getElementById("add_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
             + this.responseText + "</div>";
           setTimeout(function () {
-            document.getElementById("settings_sub_options_panel").style.visibility = "hidden";
-            document.getElementById("settings_option_name").value = "";
-            document.getElementById("settings_option_input").value = "";
-            if(document.getElementById("settings_option_values_table"))
-              document.getElementById("settings_option_values_table").innerHTML = "";
-            document.getElementById("settings_sub_options_panel_messageDiv").innerHTML = "";
+            document.getElementById("sub_options_panel").style.visibility = "hidden";
+            document.getElementById("add_option_name").value = "";
+            document.getElementById("add_option_input").value = "";
+            if(document.getElementById("add_option_values_table"))
+              document.getElementById("add_option_values_table").innerHTML = "";
+            document.getElementById("add_sub_options_panel_messageDiv").innerHTML = "";
             refresh_sub_options_in_panel();
           }, 700);
         }
         else {
-          document.getElementById("settings_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
+          document.getElementById("add_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
             + this.responseText + "</div>";
         }
       }
@@ -3820,9 +3851,9 @@ function settings_option_delete_btn_click() {
   }
 }
 
-function settings_options_panel_close_btn_click(){
-  document.getElementById("settings_sub_options_panel").style.visibility = "hidden";
-}
+// function settings_options_panel_close_btn_click(){
+//   document.getElementById("settings_sub_options_panel").style.visibility = "hidden";
+// }
 
 // End functionalities of sub options..........!
 

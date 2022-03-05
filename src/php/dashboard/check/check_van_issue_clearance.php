@@ -27,14 +27,14 @@ if($database_name != ""){
     $purchase_table = "entry_16_values";
     $opening_purchase = 0;
     $opening_sale = 0;
-    $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_5`='$product_id'"." AND `entry_of`='$business'";
+    $sql1="SELECT SUM(`opt_12`) as `opening_purchase` FROM `$purchase_order_table` WHERE `opt_5`='$product_id'"." AND `added_for`='$business'";
     $result1 = mysqli_query($local_conn_db, $sql1);
     if($result1->num_rows > 0){
         while($row1 = $result1->fetch_assoc()){
             $opening_purchase = floatval($row1["opening_purchase"]);
         }
     }
-    $sql1="SELECT SUM(`opt_12`) as `opening_sale` FROM `$purchase_table` WHERE `opt_15`='$product_id'"." AND `entry_of`='$business'";
+    $sql1="SELECT SUM(`opt_12`) as `opening_sale` FROM `$purchase_table` WHERE `opt_15`='$product_id'"." AND `added_for`='$business'";
     $result1 = mysqli_query($local_conn_db, $sql1);
     if($result1->num_rows > 0){
         while($row1 = $result1->fetch_assoc()){
