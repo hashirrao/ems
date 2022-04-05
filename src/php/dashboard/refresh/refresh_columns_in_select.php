@@ -45,7 +45,7 @@
                 <?php }
                 while($row = $result->fetch_assoc()){ 
                     if($field_type === "grouped"){ ?>
-                        <option value='<?php echo $row['option_othr_src_table']."--".$row['option_othr_src_column']; ?>'>
+                        <option value='<?php echo $row['option_othr_src_table']."--".$row['option_othr_src_column_value']; ?>'>
                       <?php echo $row['option_name']; ?>
                     </option>
                     <?php }

@@ -4,6 +4,8 @@ include('../../connections/connection.php');
 include('../../connections/local_connection.php');
 
 if(isset($_POST['voucher_no'])){
+    $values = '';
+
     $voucher_no = $_POST['voucher_no'];
     $table = $_POST['table'];
     $system_id = $_POST['system_id'];
@@ -51,38 +53,53 @@ if(isset($_POST['voucher_no'])){
                         if($row["visible"] === "False"){
                             echo "class='d-none d-xs-none'";
                         }
-                        echo "><div class='input-group mb-3'><input autocomplete='off' id='".$row["option_name"]."_".$j."' style=";
-                        echo "'width: 100%;'";
-                        echo "class='form-control table_inputs' placeholder='".$row["option_name"]."'";
-                        if($row["option_type"] === "Input Number" || $row["option_type"] === "Input Number With Point"){
-                            if($row["visible"] === "False"){
-                                echo "type='hidden'";
+                        echo ">";
+                        echo "<label class='col-form-label col-form-label-sm red'>".$row["option_name"]."</label><br>";
+                        if($row["option_type"] === "Select"){
+                            if($values == ""){
+                                $values = $row1["opt_".$row["id"]];
                             }
                             else{
-                                echo "type='number'";
+                                $values = $values."-+-".$row1["opt_".$row["id"]];
+                            }
+                            echo "<select id='".$row["option_name"]."_".$j."' style=";
+                            echo "'width: 100%;'";
+                            echo "class='form-control form-control-sm table_inputs ".$row["option_name"]."s' ></select>";
+                        }
+                        else{
+                            echo "<input autocomplete='off' id='".$row["option_name"]."_".$j."' style=";
+                            echo "'width: 100%;'";
+                            echo "class='form-control form-control-sm table_inputs ".$row["option_name"]."s' placeholder='".$row["option_name"]."'";
+                            if($row["option_type"] === "Input Number" || $row["option_type"] === "Input Number With Point"){
+                                if($row["visible"] === "False"){
+                                    echo "type='hidden'";
+                                }
+                                else{
+                                    echo "type='number'";
+                                }
+                            }
+                            else if($row["option_type"] === "Input Text"){
+                                if($row["visible"] === "False"){
+                                    echo "type='hidden'";
+                                }
+                                else{
+                                    echo "type='text'";
+                                }
+                            }
+                            echo " value='".$row1["opt_".$row["id"]]."' ";
+                            if($row["editable"] === "False"){
+                                echo "readonly ";
+                            }
+                            echo "/>";
+                            if($row["option_whole_table_search"] === "True"){
+                                ?>
+                                <div class="input-group-append">
+                                <button id="<?php echo $row["option_name"]."_".$j; ?>_btn" class="input-group-text btn btn-success"><span class="fa fa-search"></span></button>
+                                </div>
+                                <?php
                             }
                         }
-                        else if($row["option_type"] === "Input Text"){
-                            if($row["visible"] === "False"){
-                                echo "type='hidden'";
-                            }
-                            else{
-                                echo "type='text'";
-                            }
-                        }
-                        echo " value='".$row1["opt_".$row["id"]]."' ";
-                        if($row["editable"] === "False"){
-                            echo "readonly ";
-                        }
-                        echo "/>";
-                        if($row["option_whole_table_search"] === "True"){
-                            ?>
-                            <div class="input-group-append">
-                            <button id="<?php echo $row["option_name"]."_".$j; ?>_btn" class="input-group-text btn btn-success"><span class="fa fa-search"></span></button>
-                            </div>
-                            <?php
-                            }
-                        echo "</div></td>";
+                        echo "</td>";
                     }
                 }
                 echo "--re--";
@@ -206,6 +223,21 @@ if(isset($_POST['voucher_no'])){
                 $i++;
             }
         }
+        echo "--SM--";
+        $sql="SELECT * FROM `$table` WHERE `entry_type`='Multiple' AND `status`='Activate' ORDER BY `option_priority` ASC";
+        $result = mysqli_query($local_conn_db, $sql);
+        if($result->num_rows > 0){
+            $i=0;
+            while($row = $result->fetch_assoc()){
+                echo $row["option_type"];
+                if(mysqli_num_rows($result)-1 > $i){
+                    echo "-+-";
+                }
+                $i++;
+            }
+        }
+        echo "--SM--";
+        echo $values;
     }
 }
 

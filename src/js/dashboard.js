@@ -1215,11 +1215,11 @@ function add_normal_option_btn_click(isEdit) {
   + '<div class="row" id="other_sources_div"></div>'
   + '<div class="row" id="entry_options_div"></div>'
   + '<div class="row" id="entry_custom_storage_options_div"></div>'
-  if(isEdit){
-    str += edit_options()
-  }
 
-  document.getElementById("add_sub_options_panel_content").innerHTML = str
+  // if(isEdit){
+  //   str += edit_options()
+  // }
+  
   if(isEdit){
     document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
     + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
@@ -1229,6 +1229,7 @@ function add_normal_option_btn_click(isEdit) {
   else{
     document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
   }
+  document.getElementById("add_sub_options_panel_content").innerHTML = str
   custom_table_options_div_show();
   add_option_input_change();
   entry_options_div_show();
@@ -1315,17 +1316,17 @@ function add_formulated_option_btn_click(isEdit) {
   + '</div>'
   + '</div>'
   + '<div class="row" style="padding-top: 20px;"><div class="col-12" id="formulas_div"></div></div>'
-  document.getElementById("add_sub_options_panel_content").innerHTML = str
-  document.getElementById("formulas_div").innerHTML = "<div class='col-md-12'><table id='formulas_table' style='width: 100%'></table></div>";
   if(isEdit){
     document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
     + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
     // + '<button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>'
-    str += edit_options()
+    // str += edit_options()
   }
   else{
     document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
   }
+  document.getElementById("add_sub_options_panel_content").innerHTML = str
+  document.getElementById("formulas_div").innerHTML = "<div class='col-md-12'><table id='formulas_table' style='width: 100%'></table></div>";
   index_of_formulas_fields = 0;
   add_formula_btn_click();
   custom_table_options_div_show("formulated");
@@ -1380,16 +1381,6 @@ function adding_rows(rows_to_be_added){
     if(document.getElementById('formula_'+index+'_operator_1')){
       $('#formula_'+index+'_operator_1').select2()
     }
-
-    // purchase_invoice_commission_holder_type_onchange(index)
-
-    // purchase_invoice_button_set_onclick(index)
-
-    // document.getElementById("commission_holder_type_"+index).onchange()
-    
-    // if(add_rows == rows_to_be_added-1){
-      // document.getElementById("commission_holder_type_"+(index - (rows_to_be_added-1))).focus()
-    // }
   }
 }
 
@@ -1457,11 +1448,11 @@ function formula_row(index_of_formulas_fields){
 }
 
 
-function add_grouped_option_btn_click() {
+function add_grouped_option_btn_click(isEdit) {
   document.getElementById("add_panel").style.visibility = "hidden";
   document.getElementById("add_sub_options_panel").style.visibility = "visible";
   document.getElementById("add_sub_option_heading").innerHTML = 'Option(Grouped)'
-  document.getElementById("add_sub_options_panel_content").innerHTML = '<br>'
+  var str = '<br>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
   + '<input type="hidden" id="field_type" value="Grouped">'
   +   '<input type="hidden" id="sub_option_id" class="form-control form-control-sm" placeholder="Option ID">'
@@ -1504,6 +1495,17 @@ function add_grouped_option_btn_click() {
   + '<div class="row" id="entry_options_div"></div>'
   + '<div class="row" id="entry_custom_storage_options_div"></div>';
 
+  if(isEdit){
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+    + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
+    // + '<button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>'
+    str += edit_options()
+  }
+  else{
+    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
+  }
+  document.getElementById("add_sub_options_panel_content").innerHTML = str
+
   document.getElementById("other_sources_div").innerHTML = '<input id="add_option_other_source_value" type="hidden" value="True" >'
     + '<input id="add_option_select_table" class="form-control form-control-sm" type="hidden" value="True" >'
     + '<input id="add_option_select_column_value" class="form-control form-control-sm" type="hidden">'
@@ -1524,15 +1526,6 @@ function add_grouped_option_btn_click() {
   custom_table_options_div_show("grouped");
   entry_options_div_show();
   setTimeout(group_with_select_change, 500);
-  if(isEdit){
-    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
-    + '<button style="float: right; margin-left: 5px;" class="btn btn-sm btn-danger" onclick="settings_option_delete_btn_click()"><span class="fa fa-trash"> </span> Delete</button>'
-    // + '<button style="float:right;" class="btn btn-sm btn-secondary" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button>'
-    str += edit_options()
-  }
-  else{
-    document.getElementById("add_sub_options_panel_buttons_div").innerHTML = '<button style="float:right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>'
-  }
   var table_name = "";
   if(document.getElementById("entry_id_options_panels_dev")){
     table_name = "entry_"+document.getElementById("entry_id_options_panels_dev").innerHTML;
@@ -1569,109 +1562,109 @@ function reset_formula_btn_click(){
   add_formula_btn_click();
 }
 
-var parameters_fields_in_formula = Array();
-var index_of_formulas_fields_mt_report = 0;
-function add_mt_report_formula_btn_click(){
-  parameters_fields = 0;
-  var formula = "";
-  var formula_vals = "";
-  if (document.getElementById("formula_1_field_1")) {
-    for (var i = 1; i <= index_of_formulas_fields_mt_report; i++) {
-      if (i === 1) {
-        formula += "formula_" + i + "_field_t_1";
-        formula +=  "-,-" + "formula_" + i + "_field_1";
-        var ft1 = document.getElementById("formula_" + i + "_field_t_1");
-        var f1 = document.getElementById("formula_" + i + "_field_1");
-        formula_vals += ft1.value;
-        formula_vals += "-,-" + f1.value;
-      }
-      else {
-        formula += "-,-" + "formula_" + i + "_operator_1";
-        formula += "-,-" + "formula_" + i + "_field_t_1";
-        formula += "-,-" + "formula_" + i + "_field_1";
-        var ft1 = document.getElementById("formula_" + i + "_field_t_1");
-        var f1 = document.getElementById("formula_" + i + "_field_1");
-        formula_vals += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
-        formula_vals += "-,-" + ft1.value;
-        formula_vals += "-,-" + f1.value;
-      }
-    }
-  }
+// var parameters_fields_in_formula = Array();
+// var index_of_formulas_fields_mt_report = 0;
+// function add_mt_report_formula_btn_click(){
+//   parameters_fields = 0;
+//   var formula = "";
+//   var formula_vals = "";
+//   if (document.getElementById("formula_1_field_1")) {
+//     for (var i = 1; i <= index_of_formulas_fields_mt_report; i++) {
+//       if (i === 1) {
+//         formula += "formula_" + i + "_field_t_1";
+//         formula +=  "-,-" + "formula_" + i + "_field_1";
+//         var ft1 = document.getElementById("formula_" + i + "_field_t_1");
+//         var f1 = document.getElementById("formula_" + i + "_field_1");
+//         formula_vals += ft1.value;
+//         formula_vals += "-,-" + f1.value;
+//       }
+//       else {
+//         formula += "-,-" + "formula_" + i + "_operator_1";
+//         formula += "-,-" + "formula_" + i + "_field_t_1";
+//         formula += "-,-" + "formula_" + i + "_field_1";
+//         var ft1 = document.getElementById("formula_" + i + "_field_t_1");
+//         var f1 = document.getElementById("formula_" + i + "_field_1");
+//         formula_vals += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
+//         formula_vals += "-,-" + ft1.value;
+//         formula_vals += "-,-" + f1.value;
+//       }
+//     }
+//   }
   
-  index_of_formulas_fields_mt_report++;
-  if (index_of_formulas_fields_mt_report === 1) {
-    document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
-      + '<div class="form-group">'
-      + '<div class="input-group-prepend">'
-      + '<span class="btn red btn-sm">Table</span>'
-      + '</div>'
-      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-      + '</select>'
-      + '<div class="input-group-prepend">'
-      + '<span class="btn red btn-sm">Column</span>'
-      + '</div>'
-      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-      + '</select>'
-      + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
-      + '</div>'
-      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
-      + '</div>'
-      + '</div>'
-      + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
-      + '</div>';
-  }
-  else {
-    document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
-      + '<div class="form-group">'
-      + '<div class="input-group-prepend">'
-      + '<span class="btn red btn-sm">Operator</span>'
-      + '</div>'
-      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_operator_1" class="form-control form-control-sm select2-single">'
-      + '<option>Sum</option>'
-      + '<option>Subtract</option>'
-      + '<option>Multiplication</option>'
-      + '<option>Division</option>'
-      + '<option>Modulus</option>'
-      + '</select>'
-      + '<div class="input-group-prepend">'
-      + '<span class="btn red btn-sm">Table</span>'
-      + '</div>'
-      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-      + '</select>'
-      + '<div class="input-group-prepend">'
-      + '<span class="btn red btn-sm">Column</span>'
-      + '</div>'
-      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-      + '</select>'
-      + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
-      + '</div>'
-      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
-      + '</div>'
-      + '</div>'
-      + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
-      + '</div>';
-  }
+//   index_of_formulas_fields_mt_report++;
+//   if (index_of_formulas_fields_mt_report === 1) {
+//     document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
+//       + '<div class="form-group">'
+//       + '<div class="input-group-prepend">'
+//       + '<span class="btn red btn-sm">Table</span>'
+//       + '</div>'
+//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+//       + '</select>'
+//       + '<div class="input-group-prepend">'
+//       + '<span class="btn red btn-sm">Column</span>'
+//       + '</div>'
+//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+//       + '</select>'
+//       + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
+//       + '</div>'
+//       + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
+//       + '</div>'
+//       + '</div>'
+//       + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
+//       + '</div>';
+//   }
+//   else {
+//     document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
+//       + '<div class="form-group">'
+//       + '<div class="input-group-prepend">'
+//       + '<span class="btn red btn-sm">Operator</span>'
+//       + '</div>'
+//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_operator_1" class="form-control form-control-sm select2-single">'
+//       + '<option>Sum</option>'
+//       + '<option>Subtract</option>'
+//       + '<option>Multiplication</option>'
+//       + '<option>Division</option>'
+//       + '<option>Modulus</option>'
+//       + '</select>'
+//       + '<div class="input-group-prepend">'
+//       + '<span class="btn red btn-sm">Table</span>'
+//       + '</div>'
+//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+//       + '</select>'
+//       + '<div class="input-group-prepend">'
+//       + '<span class="btn red btn-sm">Column</span>'
+//       + '</div>'
+//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+//       + '</select>'
+//       + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
+//       + '</div>'
+//       + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
+//       + '</div>'
+//       + '</div>'
+//       + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
+//       + '</div>';
+//   }
 
-  add_parmeters_btn_click();
+//   add_parmeters_btn_click();
 
-  for(var ij=1; ij<=index_of_formulas_fields_mt_report; ij++){
-    refresh_tables_in_select('formula_'+ij+'_field_t_1', ij);
-  }
+//   for(var ij=1; ij<=index_of_formulas_fields_mt_report; ij++){
+//     refresh_tables_in_select('formula_'+ij+'_field_t_1', ij);
+//   }
 
-  if(formula !== ""){
-    var formula_arr = formula.split("-,-");
-    var formula_vals_arr = formula_vals.split("-,-");
-    for(var i=0; i<formula_arr.length; i++){
-      document.getElementById(formula_arr[i]).value = formula_vals_arr[i];
-    }
-  }
-}
+//   if(formula !== ""){
+//     var formula_arr = formula.split("-,-");
+//     var formula_vals_arr = formula_vals.split("-,-");
+//     for(var i=0; i<formula_arr.length; i++){
+//       document.getElementById(formula_arr[i]).value = formula_vals_arr[i];
+//     }
+//   }
+// }
 
-function reset_mt_report_formula_btn_click(){
-  document.getElementById("mt_formulas_div").innerHTML = "";
-  index_of_formulas_fields_mt_report = 0;
-  add_mt_report_formula_btn_click();
-}
+// function reset_mt_report_formula_btn_click(){
+//   document.getElementById("mt_formulas_div").innerHTML = "";
+//   index_of_formulas_fields_mt_report = 0;
+//   add_mt_report_formula_btn_click();
+// }
 
 function set_onchange_formula_select(i){
   if(document.getElementById("formula_"+i+"_field_1").value === "Custom"){
@@ -1870,6 +1863,7 @@ function value_from_other_src_div_show(){
 function entry_options_div_show(){
   if(document.getElementById("entry_id_options_panels_dev")){
     document.getElementById("entry_options_div").innerHTML = entry_options_html();
+    $('.select2-single').select2()
     custom_storage_select_change();
   }
   else{
@@ -1892,6 +1886,8 @@ function entry_type_select_change(){
     document.getElementById("entry_type_select").value = e_type;
     document.getElementById("custom_storage_select").value = c_storage;
     document.getElementById("entry_type_select").focus();
+    
+    $('.select2-single').select2()
   }
 }
 
@@ -1944,7 +1940,7 @@ function entry_options_html(){
 }
 
 function entry_options_html_multiple(){
-  var str = '<div class="form-group">'
+  var str = '<div class="col-md-4 col-sm-12">'
   + '<div class="input-group-prepend">'
   + '<span class="btn red btn-sm">Entry Type</span>'
   + '</div>'
@@ -1952,6 +1948,8 @@ function entry_options_html_multiple(){
   + '<option>Single</option>'
   + '<option>Multiple</option>'
   + '</select>'
+  + '</div>'
+  + '<div class="col-md-4 col-sm-12">'
   + '<div class="input-group-prepend">'
   + '<span class="btn red btn-sm">Entry Sum</span>'
   + '</div>'
@@ -1959,6 +1957,8 @@ function entry_options_html_multiple(){
   + '<option>False</option>'
   + '<option>True</option>'
   + '</select>'
+  + '</div>'
+  + '<div class="col-md-4 col-sm-12">'
   + '<div class="input-group-prepend">'
   + '<span class="btn red btn-sm">Custom Storage</span>'
   + '</div>'
@@ -2284,7 +2284,7 @@ function refresh_columns_in_select(clm_id, table_name) {
         if(document.getElementById(clm_id)){
           document.getElementById(clm_id).innerHTML = this.responseText;
           if(document.getElementById("field_type").value = "Grouped"){
-            document.getElementById("add_option_select_column").innerHTML += "<option value='id'>id</option>";
+            document.getElementById("add_option_select_column").innerHTML += "<option value='id'>ID</option>";
             $("#add_option_select_column").select2()
           }
           if (this.responseText === "<option>NO RESULTS</option>") {
@@ -2517,7 +2517,7 @@ function add_option_save_btn_click() {
 
 function formula(){
   var sub_option_formula = "";
-  if (document.getElementById("formula_1_operator_1")) {
+  if (document.getElementById("formula_0_operator_1")) {
     for (var i = 0; i < index_of_formulas_fields; i++) {
       if (i === 0) {
         var f1 = document.getElementById("formula_" + i + "_field_1");
@@ -2895,6 +2895,24 @@ function settings_sub_option(id, name, type, empty_check,
   if(document.getElementById("add_option_table_visible")){
     document.getElementById("add_option_table_visible").value = table_visible
     $('#add_option_table_visible').select2()
+  }
+  if(document.getElementById("entry_type_select")){
+    document.getElementById("entry_type_select").value = entry_type
+    $('#entry_type_select').select2()
+    document.getElementById("entry_type_select").onchange()
+  }
+  if(document.getElementById("entry_sum_select")){
+    document.getElementById("entry_sum_select").value = entry_sum
+    $('#entry_sum_select').select2()
+  }
+  if(document.getElementById("add_option_whole_table_search")){
+    document.getElementById("add_option_whole_table_search").value = whole_tbl_srch
+    $('#add_option_whole_table_search').select2()
+  }
+  if(document.getElementById("custom_storage_select")){
+    document.getElementById("custom_storage_select").value = custom_storage
+    $('#custom_storage_select').select2()
+    document.getElementById("custom_storage_select").onchange()
   }
 
   if (document.getElementById("option_values_table")) {
@@ -3831,7 +3849,7 @@ function settings_option_delete_btn_click() {
           document.getElementById("add_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
             + this.responseText + "</div>";
           setTimeout(function () {
-            document.getElementById("sub_options_panel").style.visibility = "hidden";
+            document.getElementById("sub_options_panel") ? document.getElementById("sub_options_panel").style.visibility = "hidden" : "";
             document.getElementById("add_option_name").value = "";
             document.getElementById("add_option_input").value = "";
             if(document.getElementById("add_option_values_table"))
@@ -3864,3 +3882,10 @@ function settings_option_delete_btn_click() {
 //   })
 // }, 2000);
 
+
+
+function getStringBetween(str, start, end) {
+  const result = str.match(new RegExp(start + "(.*)" + end));
+
+  return result[1];
+}

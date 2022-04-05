@@ -28,7 +28,12 @@
             die("Failed to connect with MySQL: " . $local_conn_db->connect_error);
         }
         if (strpos($table, 'asset') !== false) {
-            $sql = "SELECT * FROM ".$table."_values WHERE `added_for`='$business' AND ";
+            if($table == "asset_1"){
+                $sql = "SELECT * FROM ".$table."_values WHERE ";
+            }
+            else{
+                $sql = "SELECT * FROM ".$table."_values WHERE `added_for`='$business' AND ";
+            }
         }
         else{
             $sql = "SELECT * FROM ".$table."_values WHERE `added_for`='$business' AND ";
@@ -125,6 +130,8 @@
                         }
                         else{
                             echo "<td>".$row[$columns_arr[$i]]."</td>";
+                            // echo $columns_arr[$i];
+                            // print_r($row);
                         }
                     }
                 }

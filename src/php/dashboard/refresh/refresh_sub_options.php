@@ -344,8 +344,8 @@ else{
                 $visible = "";
                 $table_visible = "";
                 ?>
-                <table id="entries_table" class="table">
-                    <thead id="entries_table_head">
+                <table id="entries_table" style="width: 100%">
+                    <!-- <thead id="entries_table_head">
                         <tr><?php
                         $table = $option_type.'_'.$option_id;
                         $sql="SELECT * FROM `$table` WHERE `entry_type`='Multiple' AND `status`='Activate' ORDER BY `option_priority` ASC";
@@ -414,7 +414,7 @@ else{
                             }
                         }
                         ?></tr>
-                    </thead>
+                    </thead> -->
                     <tbody id="entries_table_body">
                         
                     </tbody>
@@ -422,7 +422,7 @@ else{
                 <?php
                 if(isset($_POST['entry_form'])){
                     if($_POST['option_type'] === "entry"){
-                        ?><button id="entry_add_to_table_btn" style="float: right; margin: 0 0 8px 14px; height: 38px" class="btn btn-success" onclick="entry_add_to_table_btn_click(
+                        ?><button id="entry_add_to_table_btn" style="float: right; margin: 20px 0 8px 14px; height: 38px" class="btn btn-primary btn-sm" onclick="entry_add_to_table_btn_click(
                         '<?php echo $option_id; ?>',
                         '<?php echo $names; ?>',
                         '<?php echo $types; ?>',
@@ -447,7 +447,7 @@ else{
                 }
                 ?>
                 <br>
-                <table style="width: 100%; border-top: 2px solid rgb(161, 163, 168); border-bottom: 2px solid rgb(161, 163, 168);">
+                <table style="width: 100%;">
                     <tbody id='sum_tbl_bdy'></tbody>
                 </table>
                 <br>
@@ -524,32 +524,32 @@ else{
                             echo "<strong id='".$option_id."_label_".$j."' class='input-group-text'>".$row["column_name"]."</strong>";
                             echo "</div>"; 
                             if($row["column_name"] === "Party" && $option_id === "41" && $option_type === "report"){
-                                ?> <input autocomplete="off" type='text' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' 
+                                ?> <input autocomplete="off" type='text' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' 
                                 onfocus='autocomplete_with_db("<?php echo $row["column_name"]; ?>", "<?php echo "True"; ?>", "<?php echo $row["table"]; ?>", "<?php echo $row["column"]; ?>" )' required> <?php
                             }
                             else if($row["column_name"] === "Account" && $option_id === "55" && $option_type === "report"){
-                                ?> <input autocomplete="off" type='text' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' 
+                                ?> <input autocomplete="off" type='text' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' 
                                 onfocus='autocomplete_with_db("<?php echo $row["column_name"]; ?>", "<?php echo "True"; ?>", "<?php echo $row["against_table"]; ?>", "<?php echo $row["against_column"]; ?>" )' required> <?php
                             }
                             else{
-                                ?> <input autocomplete="off" type='text' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' > <?php
+                                ?> <input autocomplete="off" type='text' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' > <?php
                             }
                         }
                         else if($row["column_type"] === "Number"){
                             echo "<div class='input-group-prepend'>";
                             echo "<strong id='".$option_id."_label_".$j."' class='input-group-text'>".$row["column_name"]."</strong>";
                             echo "</div>"; 
-                            ?> <input autocomplete="off" type='number' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' > <?php
+                            ?> <input autocomplete="off" type='number' id='<?php echo $row["column_name"]; ?>' name='<?php echo $row["column_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["column_name"] ?>' aria-describedby='basic-addon1' > <?php
                         }
                         else if($row["column_type"] === "Date"){
                             echo "<div class='input-group-prepend'>";
                             echo "<strong id='".$option_id."_label_".$j++."' class='input-group-text'>".$row["column_name"]."</strong>";
                             echo "</div>";
-                            echo "<input type='date' id='".$row["column_name"]."' name='".$row["column_name"]."' class='form-control' aria-describedby='basic-addon1' required>";    
+                            echo "<input type='date' id='".$row["column_name"]."' name='".$row["column_name"]."' class='form-control form-control-sm' aria-describedby='basic-addon1' required>";    
                             echo "<div class='input-group-prepend'>";
                             echo "<strong id='".$option_id."_label_".$j."' class='input-group-text'>To</strong>";
                             echo "</div>";
-                            echo "<input type='date' id='To' name='To' class='form-control' aria-describedby='basic-addon1' required>";
+                            echo "<input type='date' id='To' name='To' class='form-control form-control-sm' aria-describedby='basic-addon1' required>";
                         }
                         echo "</div>";
                         echo "</div>";
@@ -769,30 +769,30 @@ function print_options_spec($row, $post, $option_id, $j, $local_conn_db, $row_al
 {
     if($row["option_type"] === "Input Text"){
         if($row['field_type'] === 'Grouped'){
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')"
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')"
              onclick="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')"> <?php
         }
         else{
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' onfocusout="inp_onclicks()"> <?php
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "text"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' placeholder='<?php echo $row["option_name"] ?>' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' onfocusout="inp_onclicks()"> <?php
         }
     }
     else if($row["option_type"] === "Input Number" || $row["option_type"] === "Input Number With Point"){
         if($row['field_type'] === 'Grouped'){
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')" 
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')" 
             onclick="fetch_value('<?php echo $row['option_othr_src_table']; ?>', '<?php echo $row['option_othr_src_column']; ?>', '<?php echo $row['option_othr_src_column_value']; ?>', '<?php echo $row['option_name']; ?>', '<?php echo $row['formula']; ?>')" > <?php
         }
         else if($row['field_type'] === 'Formulated'){
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="run_formula('<?php echo $row['formula']; ?>', '<?php echo $row['option_name']; ?>')" onclick="run_formula('<?php echo $row['formula']; ?>', '<?php echo $row['option_name']; ?>')" > <?php
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' aria-describedby='basic-addon1' onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusin="run_formula('<?php echo $row['formula']; ?>', '<?php echo $row['option_name']; ?>')" onclick="run_formula('<?php echo $row['formula']; ?>', '<?php echo $row['option_name']; ?>')" > <?php
         }
         else{
-            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control' aria-describedby='basic-addon1'  onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusout="inp_onclicks()"> <?php
+            ?> <input autocomplete="off" type='<?php if($row["visible"] === "False"){ echo "hidden"; }else{ echo "number"; } ?>' id='<?php echo $row["option_name"]; ?>' name='<?php echo $row["option_name"]; ?>' class='form-control form-control-sm' aria-describedby='basic-addon1'  onfocus='autocomplete_with_db("<?php echo $row["option_name"]; ?>", "<?php echo $row["option_val_frm_othr_src"]; ?>", "<?php echo $row["option_othr_src_table"]; ?>", "<?php echo $row["option_othr_src_column"]; ?>" )' <?php if($row["editable"] === "False"){ echo "readonly"; } ?> onfocusout="inp_onclicks()"> <?php
         }
     }
     else if($row["option_type"] === "Input Date"){
-        echo "<input type='date' id='".$row["option_name"]."' name='".$row["option_name"]."' class='form-control' aria-describedby='basic-addon1'>";
+        echo "<input type='date' id='".$row["option_name"]."' name='".$row["option_name"]."' class='form-control form-control-sm' aria-describedby='basic-addon1'>";
     }
     else if($row["option_type"] === "Select"){
-        echo "<select id='".$row["option_name"]."' name='".$row["option_name"]."' class='form-control' aria-describedby='basic-addon1'>";
+        echo "<select id='".$row["option_name"]."' name='".$row["option_name"]."' class='form-control form-control-sm' aria-describedby='basic-addon1'>";
             $opt_texts = explode(",", $row["option_texts"]);
             $opt_values = explode(",", $row["option_values"]);
             if($opt_texts[0] != ""){

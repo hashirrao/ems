@@ -140,12 +140,12 @@
     <div id="add_panel_messageDiv"></div>
     <div class="text-center">
     <div>
-        <button style="width: 40%;" class="btn btn-default" onclick="add_normal_option_btn_click()"><span>Simple Option</span></button>
-        <button style="width: 40%;" class="btn btn-default" onclick="add_formulated_option_btn_click()"><span>Formulated Option</span></button>
+        <button style="width: 40%;" class="btn btn-default" onclick="add_normal_option_btn_click(false)"><span>Simple Option</span></button>
+        <button style="width: 40%;" class="btn btn-default" onclick="add_formulated_option_btn_click(false)"><span>Formulated Option</span></button>
     </div>
     <div style="margin-top: 5px">
         <!-- <button style="width: 40%;" class="btn btn-default" onclick="add_merged_option_btn_click()"><span>Merged Option</span></button> -->
-        <button style="width: 80%;" class="btn btn-default" onclick="add_grouped_option_btn_click()"><span>Grouped Option</span></button>
+        <button style="width: 80%;" class="btn btn-default" onclick="add_grouped_option_btn_click(false)"><span>Grouped Option</span></button>
     </div>
     </div>
 </div>

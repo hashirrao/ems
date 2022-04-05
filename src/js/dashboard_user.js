@@ -9,6 +9,9 @@ var global_formula;
 var global_field_type;
 var global_entry_sum;
 var global_whole_tbl_srch;
+var global_types;
+var global_option_id;
+var global_values;
 
 function create_panel(id, name, type){
   var heading = "";
@@ -545,67 +548,76 @@ function add_to_table(option_id, names, types,
   visible = visible.split(",,");
   table_visible = table_visible.split(",,");
   var tbl_bdy = document.getElementById("entries_table_body");
-  var str = "<tr style='cursor: pointer;' ondblclick=entries_table_body_double_click(this)>";
-  var preset_ids = Array();
-  var preset_values = Array();
-  for(var j=0; j<row_index; j++){
-    for(var i=0; i<names.length; i++){
-      preset_ids.push(names[i]+"_"+j);
-      preset_values.push(document.getElementById(names[i]+"_"+j).value);
-    }
-  }
+  // var str = "<tr style='cursor: pointer;' ondblclick=entries_table_body_double_click(this)>";
+  var str = "";
+  // var preset_ids = Array();
+  // var preset_values = Array();
+  // for(var j=0; j<row_index; j++){
+  //   for(var i=0; i<names.length; i++){
+  //     preset_ids.push(names[i]+"_"+j);
+  //     preset_values.push(document.getElementById(names[i]+"_"+j).value)
+  //   }
+  // }
   for(var i=0; i<names.length; i++){
     str += "<td "; 
     if(visible[i] === "False"){
-      str += "class='d-none d-xs-none'";
+      str += "class='d-none d-xs-none'"
     }
-    str += "><div class='input-group mb-3'>"
+    str += ">"
+    // str += "<div class='input-group-prepend'>"
+    str += "<label class='col-form-label col-form-label-sm red'>"+names[i]+"</label><br>"
+    // str += "</div'>"
     if(types[i] === "Select"){
-      str += "<select id='"+names[i]+"_"+row_index+"' class='form-control table_inputs'>"
+      str += "<select id='"+names[i]+"_"+row_index+"' class='form-control form-control-sm table_inputs "+names[i]+"s'>"
       
       str += "</select>"
     }
     else{
-      str += "<input autocomplete='off' id='"+names[i]+"_"+row_index+"' style=";
-      str += "'width: auto;'";
-      str += "class='form-control table_inputs' placeholder='"+names[i]+"'";
+      str += "<input autocomplete='off' id='"+names[i]+"_"+row_index+"' style="
+      str += "''"
+      str += "class='form-control form-control-sm table_inputs "+names[i]+"s' placeholder='"+names[i]+"'"
       if(types[i] === "Input Number" || types[i] === "Input Number With Point"){
         if(visible[i] === "False"){
-          str += "type='hidden'";
+          str += "type='hidden'"
         }
         else{
-          str += "type='number'";
+          str += "type='number'"
         }
       }
       else if(types[i] === "Input Text"){
         if(visible[i] === "False"){
-          str += "type='hidden'";
+          str += "type='hidden'"
         }
         else{
-          str += "type='text'";
+          str += "type='text'"
         }
       }
       if(editable[i] === "False"){
-        str += "readonly ";
+        str += "readonly "
       }
       str += "/>"; 
       if(whole_tbl_srch[i] === "True"){
         str += '<div class="input-group-append">'
           + '<button id="'+names[i]+"_"+row_index+'_btn" class="input-group-text btn btn-success"><span class="fa fa-search"></span></button>'
-          + '</div>';
+          + '</div>'
       }
     }
-    str += "</div>"
-    str += "</td>";
+    str += "</td>"
   }
-  str += "</tr>";
-  tbl_bdy.innerHTML += str;
+  str += "<td>"
+  str += "<button class='entry_table_remove_btn' id='remove_"+row_index+"'><span class='fa fa-times'></span></button>"
+  str += "</td>"
+  // str += "</tr>"
+  var row = tbl_bdy.insertRow()
+  row.innerHTML = str
+  // tbl_bdy.innerHTML += str
   var inp_0 = document.getElementById(names[0]+"_"+row_index)
   if(inp_0){
     inp_0.focus();
   }
   row_index++;
   for(var j=0; j<row_index; j++){
+    set_remove_btn_onclick(0, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum, types, val_frm_othr_src, option_id, whole_tbl_srch);
     for(var i=0; i<names.length; i++){
       if(types[i] != "Select"){
         set_onfocus(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm);
@@ -613,15 +625,13 @@ function add_to_table(option_id, names, types,
         set_btn_onclick(i, j, option_id, names, othr_src_tbl, othr_src_clm, whole_tbl_srch);
       }
       else{
-        load_select(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm, othr_src_clm_val)
+        if(j == row_index-1)
+          load_select(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm, othr_src_clm_val)
       }
     }
   }
-  for(var i=0; i<preset_values.length; i++){
-    document.getElementById(preset_ids[i]).value = preset_values[i];
-  }
-  // if(inp_0){
-  //   inp_0.onfocus();
+  // for(var i=0; i<preset_values.length; i++){
+  //   document.getElementById(preset_ids[i]).value = preset_values[i];
   // }
   entry_sum_func(names, entry_sum);
   
@@ -639,60 +649,92 @@ function load_select(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm, 
     ajax.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById(names[i]+"_"+j).innerHTML = this.responseText
+        if(global_values){
+          document.getElementById(names[i]+"_"+j).value = global_values[j]
+        }
         $('#'+names[i]+"_"+j).select2()
       }
     }
     ajax.send(
       "system_id=" + system_id 
       + "&business=" + business
-      + "&othr_src_tbl=" + othr_src_tbl
-      + "&othr_src_clm=" + othr_src_clm
-      + "&othr_src_clm_val=" + othr_src_clm_val
+      + "&othr_src_tbl=" + othr_src_tbl[i]
+      + "&othr_src_clm=" + othr_src_clm[i]
+      + "&othr_src_clm_val=" + othr_src_clm_val[i]
       );
     }
 }
 
 function set_onfocus(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm){
-  if(val_frm_othr_src[i] === "True"){
-    document.getElementById(names[i]+"_"+j).onfocus = function(){
-      autocomplete_with_db(names[i]+"_"+j, val_frm_othr_src[i], othr_src_tbl[i], othr_src_clm[i]);
+  if(val_frm_othr_src){
+    if(val_frm_othr_src[i] == "True"){
+      document.getElementById(names[i]+"_"+j).onfocus = function(){
+        autocomplete_with_db(names[i]+"_"+j, val_frm_othr_src[i], othr_src_tbl[i], othr_src_clm[i]);
+      }
     }
   }
 }
 
 function set_onfocusin(i, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum){
-  if(field_type[i] === "Grouped"){
-    document.getElementById(names[i]+"_"+j).onfocusin = function(){
-      fetch_value(othr_src_tbl[i], othr_src_clm[i], othr_src_clm_val[i], names[i]+"_"+j, formula[i]+"_"+j);
+  if(field_type){
+    if(field_type[i] === "Grouped"){
+      document.getElementById(names[i]+"_"+j).onfocusin = function(){
+        fetch_value(othr_src_tbl[i], othr_src_clm[i], othr_src_clm_val[i], names[i]+"_"+j, formula[i]+"_"+j);
+      }
+      document.getElementById(names[i]+"_"+j).onclick = function(){
+        fetch_value(othr_src_tbl[i], othr_src_clm[i], othr_src_clm_val[i], names[i]+"_"+j, formula[i]+"_"+j);
+      }
     }
-    document.getElementById(names[i]+"_"+j).onclick = function(){
-      fetch_value(othr_src_tbl[i], othr_src_clm[i], othr_src_clm_val[i], names[i]+"_"+j, formula[i]+"_"+j);
+    else if(field_type[i] === "Formulated"){
+      document.getElementById(names[i]+"_"+j).onfocusin = function(){
+        run_formula_entry_multiple(formula[i], names[i]+"_"+j, j);
+        entry_sum_func(names, entry_sum);
+      }
+      document.getElementById(names[i]+"_"+j).onclick = function(){
+        run_formula_entry_multiple(formula[i], names[i]+"_"+j, j);
+        entry_sum_func(names, entry_sum);
+      }
     }
-  }
-  else if(field_type[i] === "Formulated"){
-    document.getElementById(names[i]+"_"+j).onfocusin = function(){
-      run_formula_entry_multiple(formula[i], names[i]+"_"+j, j);
+    document.getElementById(names[i]+"_"+j).onfocusout = function(){
+      inp_onclicks();
+    }
+    document.getElementById(names[i]+"_"+j).onchange = function(){
+      inp_onclicks();
       entry_sum_func(names, entry_sum);
     }
-    document.getElementById(names[i]+"_"+j).onclick = function(){
-      run_formula_entry_multiple(formula[i], names[i]+"_"+j, j);
-      entry_sum_func(names, entry_sum);
-    }
-  }
-  document.getElementById(names[i]+"_"+j).onfocusout = function(){
-    inp_onclicks();
-  }
-  document.getElementById(names[i]+"_"+j).onchange = function(){
-    inp_onclicks();
-    entry_sum_func(names, entry_sum);
   }
 }
 
 function set_btn_onclick(i, j, option_id, names, othr_src_tbl, othr_src_clm, whole_tbl_srch){
-  if(whole_tbl_srch[i] === "True"){
-    document.getElementById(names[i]+"_"+j+'_btn').onclick = function(){
-      show_search_panel(option_id, names[i]+"_"+j, othr_src_tbl[i], othr_src_clm[i]);
+  if(whole_tbl_srch){
+    if(whole_tbl_srch[i] === "True"){
+      document.getElementById(names[i]+"_"+j+'_btn').onclick = function(){
+        show_search_panel(option_id, names[i]+"_"+j, othr_src_tbl[i], othr_src_clm[i]);
+      }
     }
+  }
+}
+
+function set_remove_btn_onclick(i_index, j_index, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum, types, val_frm_othr_src, option_id, whole_tbl_srch){
+  document.getElementById("remove_"+j_index).onclick = function(){
+    var tbody = document.getElementById("entries_table_body")
+    tbody.deleteRow(j_index);
+
+    row_index--
+
+    for(var j=0; j<row_index; j++){
+      document.getElementsByClassName("entry_table_remove_btn")[j].id = "remove_"+j;
+      set_remove_btn_onclick(i_index, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum, types);
+      for(var i=0; i<names.length; i++){
+        document.getElementsByClassName(names[i]+"s")[j].id = names[i]+"_"+j;
+        if(types[i] != "Select"){
+          set_onfocus(i, j, names, val_frm_othr_src, othr_src_tbl, othr_src_clm);
+          set_onfocusin(i, j, names, othr_src_tbl, othr_src_clm, othr_src_clm_val, formula, field_type, entry_sum);
+          set_btn_onclick(i, j, option_id, names, othr_src_tbl, othr_src_clm, whole_tbl_srch);
+        }
+      }
+    }
+
   }
 }
 
@@ -700,7 +742,7 @@ function entry_sum_func(names, entry_sum){
   var str = "<tr>";
   for(var i=0; i<names.length; i++){
     if(entry_sum[i] === "True"){
-      str += "<td><strong>"+names[i]+": </strong><label id='sum_"+names[i]+"'></label><td>";
+      str += "<td><strong>"+names[i]+": </strong><br><input id='sum_"+names[i]+"' class='form-control form-control-sm' readonly/><td>";
     }
   }
   str += "</tr>";
@@ -708,7 +750,7 @@ function entry_sum_func(names, entry_sum){
   for(var j=0; j<row_index; j++){
     for(var i=0; i<names.length; i++){
       if(entry_sum[i] === "True"){
-        document.getElementById("sum_"+names[i]).innerHTML = (parseFloat(document.getElementById("sum_"+names[i]).innerHTML === "" ? 0 : document.getElementById("sum_"+names[i]).innerHTML) + parseFloat(document.getElementById(names[i]+"_"+j).value === "" ? 0 : document.getElementById(names[i]+"_"+j).value));
+        document.getElementById("sum_"+names[i]).value = (parseFloat(document.getElementById("sum_"+names[i]).value === "" ? 0 : document.getElementById("sum_"+names[i]).value) + parseFloat(document.getElementById(names[i]+"_"+j).value === "" ? 0 : document.getElementById(names[i]+"_"+j).value));
       }
     }
   }
@@ -841,29 +883,31 @@ function run_formula_entry_multiple(formula, inp_id, r_index){
 }
 
 function fetch_value(table, column, column_against, inp_id, inp_id_against_val){
-  var user_id = document.getElementById("user_id").value;
-  var user_type = document.getElementById("user_type").innerHTML;
-  var business = document.getElementById("select_business").value;
-  var val = document.getElementById(inp_id_against_val).value;
-  var ajax = new XMLHttpRequest();
-  var method = "POST";
-  var url = "./dashboard/fetch/fetch_value_for_inp.php";
-  var asynchronous = true;
-  ajax.open(method, url, asynchronous);
-  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  ajax.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      if(this.responseText !== "NO RESULT" || this.responseText !== "Database not found...!"){
-        if(document.getElementById(inp_id)){
-          document.getElementById(inp_id).value = this.responseText;
+  if(inp_id_against_val){
+    var user_id = document.getElementById("user_id").value;
+    var user_type = document.getElementById("user_type").innerHTML;
+    var business = document.getElementById("select_business").value;
+    var val = document.getElementById(inp_id_against_val).value;
+    var ajax = new XMLHttpRequest();
+    var method = "POST";
+    var url = "./dashboard/fetch/fetch_value_for_inp.php";
+    var asynchronous = true;
+    ajax.open(method, url, asynchronous);
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText !== "NO RESULT" || this.responseText !== "Database not found...!"){
+          if(document.getElementById(inp_id)){
+            document.getElementById(inp_id).value = this.responseText;
+          }
+        }
+        else{
+          alert(this.responseText);
         }
       }
-      else{
-        alert(this.responseText);
-      }
     }
+    ajax.send("table=" + table + "&column=" + column + "&column_against=" + column_against + "&value_against=" + val + "&system_id=" + system_id + "&user_id=" + user_id + "&user_type=" + user_type + "&business=" + business);
   }
-  ajax.send("table=" + table + "&column=" + column + "&column_against=" + column_against + "&value_against=" + val + "&system_id=" + system_id + "&user_id=" + user_id + "&user_type=" + user_type + "&business=" + business);
 }
 
 function fetch_voucher_no(){
@@ -1255,7 +1299,7 @@ function show_search_panel(id, name, tbl_name, clm_name, type){
     +     '<h2 id="heading_search_panel">'+heading+'</h2>'
     + '</div>'
     + '<div id="search_panel_messageDiv"></div>'
-    + '<div id="search_panel_filters_div"></div>'
+    + '<div id="search_panel_filters_div"><table style="width: 100%" ><tbody id="search_panel_filters_tbody"></tbody></table></div>'
     + '<table class="table dtHorizontalExampleWrapper" cellspacing="0" width="100%" id="search_panel_table">'
     + '<thead id="search_panel_table_head"></thead>'
     + '<tbody id="search_panel_table_body"></tbody>';
@@ -1265,32 +1309,34 @@ function show_search_panel(id, name, tbl_name, clm_name, type){
   setTimeout(()=>{
     document.getElementById("search_panel_content_div").innerHTML = str;
     document.getElementById("search_panel").style.zIndex = ++greatestID;
-    add_filter_options(tbl_name, clm_name);
     document.getElementById("search_panel_add_filter_btn").onclick = function (){
       add_filter_options(tbl_name, clm_name);
+      $("#"+'search_panel_select_'+filter_inputs).select2()
     }
     document.getElementById("search_panel_search_btn").onclick = function(){
       show_filter_table_values(tbl_name, clm_name, type, id);
       document.getElementById("buttons_div").innerHTML = "";
-      document.getElementById("search_panel_filters_div").innerHTML = "";
+      document.getElementById("search_panel_filters_tbody").innerHTML = "";
     }
+    add_filter_options(tbl_name, clm_name)
+    $("#"+'search_panel_select_'+filter_inputs).select2()
   }, 100);
 }
 
 function add_filter_options(tbl_name, clm_name){
   filter_inputs++;
-  var str = '<div class="input-group mb-3">'
-    + '<div class="input-group-prepend">'
-    +   '<span class="input-group-text">Filter</span>'
-    + '</div>'
-    + '<input autocomplete="off" type="text" id="search_panel_input_'+filter_inputs+'" class="form-control" placeholder="Filter" aria-describedby="basic-addon1">'
-    + '<div class="input-group-prepend">'
-    +      '<span class="input-group-text">By</span>'
-    + '</div>'
-    + '<select id="search_panel_select_'+filter_inputs+'" class="form-control" aria-describedby="basic-addon1">'
+  var str = '<td>'
+    +   '<label class="col-form-label col-form-label-sm red" for="search_panel_input_'+filter_inputs+'">Filter</label><br>'
+    + '<input autocomplete="off" type="text" id="search_panel_input_'+filter_inputs+'" class="form-control form-control-sm" placeholder="Filter" aria-describedby="basic-addon1">'
+    + '</td>'
+    + '<td>'
+    +  '<label class="col-form-label col-form-label-sm red">By</label><br>'
+    + '<select id="search_panel_select_'+filter_inputs+'" class="form-control form-control-sm" aria-describedby="basic-addon1">'
     + '</select>'
-    + '</div>';
-  document.getElementById("search_panel_filters_div").innerHTML += str;
+    + '</td>';
+  var tbl_bdy = document.getElementById("search_panel_filters_tbody")
+  var row = tbl_bdy.insertRow()
+  row.innerHTML = str
   load_search_panel_select(tbl_name, filter_inputs);
 }
 
@@ -1314,8 +1360,11 @@ function show_filter_table_values(tbl_name, clm_name, type, option_id){
   var user_type = document.getElementById("user_type").innerHTML;
   var business = document.getElementById("select_business").value;
   var x = document.getElementById("search_panel_select_1").innerHTML.replace(/<option/g, "<th");
+  // console.log(x)
   x = x.replace(/option>/g, "th>");
   x = x.replace(/value=/g, "id=");
+  const bw_txt = getStringBetween(x, "data-select2-id=\"", "\"")
+  x = x.replace('data-select2-id="'+bw_txt+'"', "");
   var str = x;
   var columns_arr = getFromBetween.get(str,'"','"');
   var column_names = "";
@@ -1389,50 +1438,57 @@ function populate_entry_form(voucher_no, table, type, option_id, added_by){
       global_field_type = entries_arr[8].split("-+-");
       global_entry_sum = entries_arr[9].split("-+-");
       global_whole_tbl_srch = entries_arr[10].split("-+-");
+      global_types = entries_arr[11].split("-+-");
+      global_values = entries_arr[12].split("-+-");
       for(var i=0; i<entries_arr_single.length-1; i+=2){
         if(document.getElementById(entries_arr_single[i])){
           document.getElementById(entries_arr_single[i]).value = entries_arr_single[i+1];
         }
       }
       document.getElementById("entries_table_body").innerHTML = "";
+      debugger
       for(var i=0; i<entries_arr_multiple_rows.length-1; i++){
-        document.getElementById("entries_table_body").innerHTML += "<tr style='cursor: pointer;' ondblclick=entries_table_body_double_click(this)>"+entries_arr_multiple_rows[i]+"</tr>";
-        row_index = i+1;
+        // document.getElementById("entries_table_body").innerHTML += "<tr style='cursor: pointer;' ondblclick=entries_table_body_double_click(this)>"+entries_arr_multiple_rows[i]+"</tr>";
+        var str = entries_arr_multiple_rows[i]
+        str += "<td>"
+        str += "<button class='entry_table_remove_btn' id='remove_"+i+"'><span class='fa fa-times'></span></button>"
+        str += "</td>"
+        var tbl_bdy = document.getElementById("entries_table_body")
+        var row = tbl_bdy.insertRow()
+        row.innerHTML = str;
+        row_index = i+1
       }
-      if(document.getElementById("discount_in_per")){
-        document.getElementById("discount_in_per").value = "";
+      var inp_0 = document.getElementById(global_names[0]+"_"+row_index)
+      if(inp_0){
+        inp_0.focus();
       }
+
       for(var j=0; j<row_index; j++){
+        set_remove_btn_onclick(0, j, global_names, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val, global_formula, global_field_type, global_entry_sum, global_types, global_val_frm_othr_src, option_id, global_whole_tbl_srch);
         for(var i=0; i<global_names.length; i++){
-          if(types[i] != "Select"){
+          if(global_types[i] != "Select"){
             set_onfocus(i, j, global_names, global_val_frm_othr_src, global_othr_src_tbl, global_othr_src_clm);
             set_onfocusin(i, j, global_names, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val, global_formula, global_field_type, global_entry_sum);
             set_btn_onclick(i, j, option_id, global_names, global_othr_src_tbl, global_othr_src_clm, global_whole_tbl_srch);
           }
           else{
-            load_select(i, j, global_names, global_val_frm_othr_src, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val)
+            // if(j == row_index-1)
+              load_select(i, j, global_names, global_val_frm_othr_src, global_othr_src_tbl, global_othr_src_clm, global_othr_src_clm_val)
+
           }
-          
         }
       }
       entry_sum_func(global_names, global_entry_sum);
-      if(type !== "fetch_order"){
-        document.getElementById("e_save_btn").disabled = true;
-        document.getElementById("e_save_btn").innerHTML = "<span class='fa fa-ban'></span><div class='entry_buttons_writting_span'>Save</div>";
-        document.getElementById("e_edit_btn").disabled = false;
-        document.getElementById("e_edit_btn").innerHTML = "<span class='fa fa-edit'></span><div class='entry_buttons_writting_span'>Edit</div>";
-        document.getElementById("e_search_btn").disabled = true;
-        document.getElementById("e_search_btn").innerHTML = "<span class='fa fa-ban'></span><div class='entry_buttons_writting_span'>Search</div>";
-        document.getElementById("e_print_btn").disabled = false;
-        document.getElementById("e_print_btn").innerHTML = "<span class='fa fa-print'></span><div class='entry_buttons_writting_span'>Print</div>";
-        disable_form();
-      }
-      else{
-        for(var j=0; j<row_index; j++){
-          document.getElementById("Quantity_"+j).onkeyup();
-        }
-        fetch_voucher_no();
-      }
+      disable_form()
+      document.getElementById("e_save_btn").disabled = true;
+      document.getElementById("e_save_btn").innerHTML = "<span class='fa fa-ban'></span><div class='entry_buttons_writting_span'>Save</div>";
+      document.getElementById("e_edit_btn").disabled = false;
+      document.getElementById("e_edit_btn").innerHTML = "<span class='fa fa-edit'></span><div class='entry_buttons_writting_span'>Edit</div>";
+      document.getElementById("e_search_btn").disabled = true;
+      document.getElementById("e_search_btn").innerHTML = "<span class='fa fa-ban'></span><div class='entry_buttons_writting_span'>Search</div>";
+      document.getElementById("e_print_btn").disabled = false;
+      document.getElementById("e_print_btn").innerHTML = "<span class='fa fa-print'></span><div class='entry_buttons_writting_span'>Print</div>";
+      // fetch_voucher_no();
     }
   }
   ajax.send("voucher_no=" + voucher_no +"&table=" + table + "&system_id=" + system_id + "&added_by=" + added_by);
