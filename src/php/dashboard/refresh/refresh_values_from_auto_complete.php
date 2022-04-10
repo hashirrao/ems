@@ -27,8 +27,12 @@
             $table = $table_arr[$k];
             $column = $column_arr[$k];
             $table = $table."_values";
-            $sql="SELECT * FROM $table WHERE `added_for`='$business' AND `$column` LIKE '%".$value."%' LIMIT 100";
-            
+            if($table == "asset_1_values"){
+                $sql="SELECT * FROM $table WHERE `$column` LIKE '%".$value."%' LIMIT 100";
+            }
+            else{
+                $sql="SELECT * FROM $table WHERE `added_for`='$business' AND `$column` LIKE '%".$value."%' LIMIT 100";
+            }
             $result = mysqli_query($local_conn_db, $sql);
             if($result->num_rows > 0){
                 $i=0;

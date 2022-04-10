@@ -26,7 +26,7 @@
                     <li>
                       <a onclick="admin_entry_link_click('<?php echo $row['id']; ?>', '<?php echo $row['name']; ?>')" ondblclick="admin_entry_link_dbl_click('<?php echo $row['id']; ?>', '<?php echo $row['name']; ?>')"><?php echo $row["name"]; ?></a>
                     </li>
-                <?php }  
+                <?php }
             }
             else{
                 echo "<li>NO RESULTS</li>";

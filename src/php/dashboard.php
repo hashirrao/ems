@@ -149,9 +149,9 @@
                 <li>
                   <a onclick="add_report_link_click()">Report</a>
                 </li>
-                <!-- <li>
+                <li>
                   <a onclick="add_custom_table_link_click()">Custom Table</a>
-                </li> -->
+                </li>
               </ul>
             </div>
           </li>
@@ -195,7 +195,7 @@
               </ul>
             </div>
           </li>
-          <!-- <li class="sidebar-dropdown">
+          <li class="sidebar-dropdown">
             <a>
               <i class="fa fa-table"></i>
               <span>Custom Tables</span>
@@ -205,7 +205,7 @@
                 
               </ul>
             </div>
-          </li> -->
+          </li>
         </ul>
         <?php 
         }

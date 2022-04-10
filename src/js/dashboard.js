@@ -2036,7 +2036,7 @@ function custom_table_options_div_show(type){
     }
   }
   else{
-    document.getElementById("add_option_opt_type_and_othr_src_div").innerHTML = '<div class="form-group">'
+    document.getElementById("add_option_opt_type_and_othr_src_div").innerHTML = '<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">'
     + '<div class="input-group-prepend">'
     +    '<span class="btn red btn-sm">Option Type</span>'
     + '</div>'
@@ -2044,7 +2044,8 @@ function custom_table_options_div_show(type){
     +    '<option value="Input Text">Text</option>'
     +    '<option value="Input Number">Number</option>'
     +    '<option value="Input Date">Date</option>'
-    + '</select>';
+    + '</select>'
+    + '</div>';
     document.getElementById("entry_custom_storage_options_div").innerHTML = '';
     document.getElementById("other_sources_div").innerHTML = '';
   }

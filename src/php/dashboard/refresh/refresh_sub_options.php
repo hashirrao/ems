@@ -3,7 +3,7 @@
 include('../../connections/connection.php');
 include('../../connections/local_connection.php');
 
-if(!isset($_POST['entry_form']) && $_POST['option_type'] != "report"){
+if(!isset($_POST['entry_form']) && $_POST['option_type'] != "report" && $_POST['option_type'] != "custom_table"){
     $option_id = $_POST['option_id'];
     $option_type = $_POST['option_type'];
     // if($_POST["option_type"] === "asset"){
