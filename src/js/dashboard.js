@@ -704,25 +704,28 @@ function add_panel_close_btn_click() {
 function add_report_option_btn_click() {
   document.getElementById("report_add_panel").style.visibility = "hidden";
   document.getElementById("add_report_sub_options_panel").style.visibility = "visible";
+  document.getElementById("add_report_sub_option_heading").innerHTML = 'Option(Report)'
   document.getElementById("add_report_sub_options_panel_content").innerHTML = '<br>'
-  + '<div class="page-header text-center">'
-  +    '<h2>Option(Report)</h2>'
-  + '</div>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
   + '<input type="hidden" id="field_type" value="Report">'
-  + '<div class="form-group">'
+  + '<div class="row">'
+  + '<div class="col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Select Table</span>'
   +     '</div>'
   +     '<select id="report_select_table" class="form-control form-control-sm select2-single"></select>'
+  + '</div>'
+  + '<div class="col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Select Column</span>'
   +     '</div>'
   +     '<select id="report_select_column" class="form-control form-control-sm select2-single"></select>'
   + '</div>'
-  + '<div class="form-group" id="report_column_div">'
   + '</div>'
-  + '<div class="form-group">'
+  + '<div class="row" id="report_column_div">'
+  + '</div>'
+  + '<div class="row">'
+  +  '<div class="col-lg-4 col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Is Heading</span>'
   +     '</div>'
@@ -730,6 +733,8 @@ function add_report_option_btn_click() {
   +       '<option>False</option>'
   +       '<option>True</option>'
   +     '</select>'
+  +  '</div>'
+  +  '<div class="col-lg-4 col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Is Visible</span>'
   +     '</div>'
@@ -737,6 +742,8 @@ function add_report_option_btn_click() {
   +       '<option>True</option>'
   +       '<option>False</option>'
   +     '</select>'
+  +  '</div>'
+  +  '<div class="col-lg-4 col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Is Filter</span>'
   +     '</div>'
@@ -744,21 +751,26 @@ function add_report_option_btn_click() {
   +       '<option>True</option>'
   +       '<option>False</option>'
   +     '</select>'
+  + '</div>'
   + '</div>';
   report_coulmn_type_change();
   refresh_tables_in_select("reports_tables");
   document.getElementById("report_select_table").onchange = function(){
     refresh_columns_in_select("report_select_column", document.getElementById("report_select_table").value);
   }
+  $('.select2-single').select2()
 }
 
 function report_coulmn_div_html(){
   var str = "";
   if(document.getElementById("report_select_column_type") && document.getElementById("report_select_column_type").value === "Number"){
-    str = '<div class="input-group-prepend">'
+    str = '<div class="col-md-6 col-sm-12">'
+    +     '<div class="input-group-prepend">'
     +         '<span class="btn red btn-sm">Column Name</span>'
     +     '</div>'
     +     '<input id="report_column_name" placeholder="Column Name" class="form-control form-control-sm">'
+    +   '</div>'
+    +  '<div class="col-lg-3 col-md-6 col-sm-12">'
     +     '<div class="input-group-prepend">'
     +         '<span class="btn red btn-sm">Column Type</span>'
     +     '</div>'
@@ -769,19 +781,25 @@ function report_coulmn_div_html(){
       str += '<option>Date</option>';
     }
     str += '</select>'
+    + '</div>'
+    +  '<div class="col-lg-3 col-md-6 col-sm-12">'
     +     '<div class="input-group-prepend">'
     +         '<span class="btn red btn-sm">Entry Sum</span>'
     +     '</div>'
     +     '<select id="report_entry_sum" class="form-control form-control-sm select2-single">'
     +     '<option>False</option>'
     +     '<option>True</option>'
-    +     '</select>';
+    +     '</select>'
+    +  '</div>';
   }
   else{
-    str = '<div class="input-group-prepend">'
+    str = '<div class="col-md-6 col-sm-12">'
+    +     '<div class="input-group-prepend">'
     +         '<span class="btn red btn-sm">Column Name</span>'
     +     '</div>'
     +     '<input id="report_column_name" placeholder="Column Name" class="form-control form-control-sm">'
+    +  '</div>'
+    +  '<div class="col-md-6 col-sm-12">'
     +     '<div class="input-group-prepend">'
     +         '<span class="btn red btn-sm">Column Type</span>'
     +     '</div>'
@@ -791,7 +809,8 @@ function report_coulmn_div_html(){
     if(!document.getElementById("report_against_table")){
       str += '<option>Date</option>';
     }
-    str += '</select>';
+    str += '</select>'
+    str += '</div>';
   }
   return str;
 }
@@ -1562,109 +1581,109 @@ function reset_formula_btn_click(){
   add_formula_btn_click();
 }
 
-// var parameters_fields_in_formula = Array();
-// var index_of_formulas_fields_mt_report = 0;
-// function add_mt_report_formula_btn_click(){
-//   parameters_fields = 0;
-//   var formula = "";
-//   var formula_vals = "";
-//   if (document.getElementById("formula_1_field_1")) {
-//     for (var i = 1; i <= index_of_formulas_fields_mt_report; i++) {
-//       if (i === 1) {
-//         formula += "formula_" + i + "_field_t_1";
-//         formula +=  "-,-" + "formula_" + i + "_field_1";
-//         var ft1 = document.getElementById("formula_" + i + "_field_t_1");
-//         var f1 = document.getElementById("formula_" + i + "_field_1");
-//         formula_vals += ft1.value;
-//         formula_vals += "-,-" + f1.value;
-//       }
-//       else {
-//         formula += "-,-" + "formula_" + i + "_operator_1";
-//         formula += "-,-" + "formula_" + i + "_field_t_1";
-//         formula += "-,-" + "formula_" + i + "_field_1";
-//         var ft1 = document.getElementById("formula_" + i + "_field_t_1");
-//         var f1 = document.getElementById("formula_" + i + "_field_1");
-//         formula_vals += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
-//         formula_vals += "-,-" + ft1.value;
-//         formula_vals += "-,-" + f1.value;
-//       }
-//     }
-//   }
+var parameters_fields_in_formula = Array();
+var index_of_formulas_fields_mt_report = 0;
+function add_mt_report_formula_btn_click(){
+  parameters_fields = 0;
+  var formula = "";
+  var formula_vals = "";
+  if (document.getElementById("formula_1_field_1")) {
+    for (var i = 1; i <= index_of_formulas_fields_mt_report; i++) {
+      if (i === 1) {
+        formula += "formula_" + i + "_field_t_1";
+        formula +=  "-,-" + "formula_" + i + "_field_1";
+        var ft1 = document.getElementById("formula_" + i + "_field_t_1");
+        var f1 = document.getElementById("formula_" + i + "_field_1");
+        formula_vals += ft1.value;
+        formula_vals += "-,-" + f1.value;
+      }
+      else {
+        formula += "-,-" + "formula_" + i + "_operator_1";
+        formula += "-,-" + "formula_" + i + "_field_t_1";
+        formula += "-,-" + "formula_" + i + "_field_1";
+        var ft1 = document.getElementById("formula_" + i + "_field_t_1");
+        var f1 = document.getElementById("formula_" + i + "_field_1");
+        formula_vals += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
+        formula_vals += "-,-" + ft1.value;
+        formula_vals += "-,-" + f1.value;
+      }
+    }
+  }
   
-//   index_of_formulas_fields_mt_report++;
-//   if (index_of_formulas_fields_mt_report === 1) {
-//     document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
-//       + '<div class="form-group">'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Table</span>'
-//       + '</div>'
-//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Column</span>'
-//       + '</div>'
-//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
-//       + '</div>'
-//       + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
-//       + '</div>'
-//       + '</div>'
-//       + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
-//       + '</div>';
-//   }
-//   else {
-//     document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
-//       + '<div class="form-group">'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Operator</span>'
-//       + '</div>'
-//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_operator_1" class="form-control form-control-sm select2-single">'
-//       + '<option>Sum</option>'
-//       + '<option>Subtract</option>'
-//       + '<option>Multiplication</option>'
-//       + '<option>Division</option>'
-//       + '<option>Modulus</option>'
-//       + '</select>'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Table</span>'
-//       + '</div>'
-//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Column</span>'
-//       + '</div>'
-//       + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
-//       + '</div>'
-//       + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
-//       + '</div>'
-//       + '</div>'
-//       + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
-//       + '</div>';
-//   }
+  index_of_formulas_fields_mt_report++;
+  if (index_of_formulas_fields_mt_report === 1) {
+    document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
+      + '<div class="form-group">'
+      + '<div class="input-group-prepend">'
+      + '<span class="btn red btn-sm">Table</span>'
+      + '</div>'
+      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+      + '</select>'
+      + '<div class="input-group-prepend">'
+      + '<span class="btn red btn-sm">Column</span>'
+      + '</div>'
+      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+      + '</select>'
+      + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
+      + '</div>'
+      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
+      + '</div>'
+      + '</div>'
+      + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
+      + '</div>';
+  }
+  else {
+    document.getElementById("mt_formulas_div").innerHTML += '<div id="formula_' + index_of_formulas_fields_mt_report + '">'
+      + '<div class="form-group">'
+      + '<div class="input-group-prepend">'
+      + '<span class="btn red btn-sm">Operator</span>'
+      + '</div>'
+      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_operator_1" class="form-control form-control-sm select2-single">'
+      + '<option>Sum</option>'
+      + '<option>Subtract</option>'
+      + '<option>Multiplication</option>'
+      + '<option>Division</option>'
+      + '<option>Modulus</option>'
+      + '</select>'
+      + '<div class="input-group-prepend">'
+      + '<span class="btn red btn-sm">Table</span>'
+      + '</div>'
+      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_t_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+      + '</select>'
+      + '<div class="input-group-prepend">'
+      + '<span class="btn red btn-sm">Column</span>'
+      + '</div>'
+      + '<select id="formula_' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single" onchange="set_onchange_formula_select('+index_of_formulas_fields_mt_report+')">'
+      + '</select>'
+      + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields_mt_report + '_field_1">'
+      + '</div>'
+      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields_mt_report + '_field_1" class="form-control form-control-sm select2-single">'
+      + '</div>'
+      + '</div>'
+      + '<div id="parameters_div_' + index_of_formulas_fields_mt_report + '">'
+      + '</div>';
+  }
 
-//   add_parmeters_btn_click();
+  add_parmeters_btn_click();
 
-//   for(var ij=1; ij<=index_of_formulas_fields_mt_report; ij++){
-//     refresh_tables_in_select('formula_'+ij+'_field_t_1', ij);
-//   }
+  for(var ij=1; ij<=index_of_formulas_fields_mt_report; ij++){
+    refresh_tables_in_select('formula_'+ij+'_field_t_1', ij);
+  }
 
-//   if(formula !== ""){
-//     var formula_arr = formula.split("-,-");
-//     var formula_vals_arr = formula_vals.split("-,-");
-//     for(var i=0; i<formula_arr.length; i++){
-//       document.getElementById(formula_arr[i]).value = formula_vals_arr[i];
-//     }
-//   }
-// }
+  if(formula !== ""){
+    var formula_arr = formula.split("-,-");
+    var formula_vals_arr = formula_vals.split("-,-");
+    for(var i=0; i<formula_arr.length; i++){
+      document.getElementById(formula_arr[i]).value = formula_vals_arr[i];
+    }
+  }
+}
 
-// function reset_mt_report_formula_btn_click(){
-//   document.getElementById("mt_formulas_div").innerHTML = "";
-//   index_of_formulas_fields_mt_report = 0;
-//   add_mt_report_formula_btn_click();
-// }
+function reset_mt_report_formula_btn_click(){
+  document.getElementById("mt_formulas_div").innerHTML = "";
+  index_of_formulas_fields_mt_report = 0;
+  add_mt_report_formula_btn_click();
+}
 
 function set_onchange_formula_select(i){
   if(document.getElementById("formula_"+i+"_field_1").value === "Custom"){
@@ -2285,8 +2304,10 @@ function refresh_columns_in_select(clm_id, table_name) {
         if(document.getElementById(clm_id)){
           document.getElementById(clm_id).innerHTML = this.responseText;
           if(document.getElementById("field_type").value = "Grouped"){
-            document.getElementById("add_option_select_column").innerHTML += "<option value='id'>ID</option>";
-            $("#add_option_select_column").select2()
+            if(document.getElementById("add_option_select_column")){
+              document.getElementById("add_option_select_column").innerHTML += "<option value='id'>ID</option>";
+              $("#add_option_select_column").select2()
+            }
           }
           if (this.responseText === "<option>NO RESULTS</option>") {
             document.getElementById(clm_id).style.color = "rgb(201, 30, 44)";

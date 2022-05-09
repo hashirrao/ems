@@ -2,12 +2,10 @@
 
 include('../connections/connection.php');
 include('../connections/local_connection.php');
-$message = '';
 if(isset($_POST['uid'])){
   $date = date("Y-m-d");
   $uid = $_POST['uid'];
   $sname = $_POST['sname'];
-  
   
     $sql="SELECT * FROM `systems` WHERE `user_id`='".$uid."' AND `system_name`='".$sname."'";
     $result = mysqli_query($conn, $sql);

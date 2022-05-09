@@ -206,11 +206,14 @@
 <div id="add_report_sub_options_panel" class="jumbotron panel">
     <input id="isEdit" type="hidden" />
     <div class="headerDiv" id="add_report_sub_options_panelheader">
+        <strong style="font-size: 20px;" id="add_report_sub_option_heading"></strong>
         <button id="add_sub_options_panel_close_btn" class="close_buttons" onclick="add_sub_option_panel_close_btn_click()"></button>
     </div>
     <div id="add_report_sub_options_panel_content" class="content"></div>
-    <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_report_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
-    <!-- <button class="btn btn-sm btn-danger" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
+    <div style="margin-top: 15px;" id="add_report_sub_options_panel_buttons_div">
+        <button style="float: right; margin-left: 5px;" class="btn btn-sm btn-success" onclick="add_report_option_save_btn_click()"><span class="fa fa-save"> </span> Save</button>
+        <!-- <button class="btn btn-sm btn-danger" onclick="add_sub_option_panel_close_btn_click()"><span class="fa fa-times"> </span> Cancel</button> -->
+    </div>
 </div>
 
 <!-- <div id="settings_sub_options_panel" class="jumbotron panel">
