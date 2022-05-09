@@ -3,7 +3,7 @@
 include('../../connections/connection.php');
 include('../../connections/local_connection.php');
 
-if(!isset($_POST['entry_form']) && $_POST['option_type'] != "report" && $_POST['option_type'] != "custom_table"){
+if(!isset($_POST['entry_form'])  && $_POST['option_type'] != "custom_table"){
     $option_id = $_POST['option_id'];
     $option_type = $_POST['option_type'];
     // if($_POST["option_type"] === "asset"){
@@ -35,70 +35,110 @@ if(!isset($_POST['entry_form']) && $_POST['option_type'] != "report" && $_POST['
         if($result->num_rows > 0){
             // Fetching data from database
             echo '<table id="options_table" class="table dtHorizontalExampleWrapper" cellspacing="0" width="100%">';
-            echo "<thead>";
-            echo "<th>Name</th>";
-            echo "<th>Type</th>";
-            echo "<th>Empty Check</th>";
-            echo "<th>Similarity Check</th>";
-            // echo "<th>Texts</th>";
-            // echo "<th>Values</th>";
-            echo "<th>Other Source</th>";
-            echo "<th>Status</th>";
-            // echo "<th>Other Source Table</th>";
-            // echo "<th>Other Source Column</th>";
-            // echo "<th>Other Source Column Value</th>";
-            echo "<th>Edit</th>";
-            echo "</thead>";
-            echo "<tbody>";
-            $j = 0;
-            while($row = $result->fetch_assoc()){
-                
-                    echo "<tr>";
-                    echo "<td>".$row["option_name"]."</td>";
-                    echo "<td>".$row["option_type"]."</td>";
-                    echo "<td>".$row["option_empty_check"]."</td>";
-                    echo "<td>".$row["option_similarity_check"]."</td>";
-                    // echo "<td>".$row["option_texts"]."</td>";
-                    // echo "<td>".$row["option_values"]."</td>";
-                    echo "<td>".$row["option_val_frm_othr_src"]."</td>";
-                    echo "<td>".$row["status"]."</td>";
-                    // echo "<td>".$row["option_othr_src_table"]."</td>";
-                    // echo "<td>".$row["option_othr_src_column"]."</td>";
-                    // echo "<td>".$row["option_othr_src_column_value"]."</td>";
-                    ?><td>
-                    <button class="btn btn-warning btn-sm" onclick="settings_sub_option(
-                    '<?php echo $row['id']; ?>', 
-                    '<?php echo $row['option_name']; ?>', 
-                    '<?php echo $row['option_type']; ?>', 
-                    '<?php echo $row['option_empty_check']; ?>', 
-                    '<?php echo $row['option_similarity_check']; ?>', 
-                    '<?php echo $row['option_texts']; ?>', 
-                    '<?php echo $row['option_values']; ?>',
-                    '<?php echo $row['option_val_frm_othr_src']; ?>',
-                    '<?php echo $row['option_othr_src_table']; ?>', 
-                    '<?php echo $row['option_othr_src_column']; ?>', 
-                    '<?php echo $row['option_othr_src_column_value']; ?>', 
-                    '<?php echo $row['option_whole_table_search']; ?>', 
-                    '<?php echo $row['option_priority']; ?>',
-                    '<?php if(isset($row['entry_type'])) echo $row['entry_type']; ?>',
-                    '<?php if(isset($row['entry_sum'])) echo $row['entry_sum']; ?>',
-                    '<?php if(isset($row['custom_storage']))echo $row['custom_storage']; ?>',
-                    '<?php if(isset($row['status']))echo $row['status']; ?>',
-                    '<?php if(isset($row['field_type']))echo $row['field_type']; ?>',
-                    '<?php if(isset($row['formula']))echo $row['formula']; ?>',
-                    '<?php if(isset($row['editable']))echo $row['editable']; ?>',
-                    '<?php if(isset($row['visible']))echo $row['visible']; ?>',
-                    '<?php if(isset($row['table_visible']))echo $row['table_visible']; ?>'
-                    )">
-                        <span class="fa fa-pencil"></span>
-                    </button>
-                    </td><?php
-                    echo "</tr>";
-                    // echo '<div class="autocomplete"></div>';
-                
-                $j++;
+            if($_POST['option_type'] == "report"){
+                echo "<thead>";
+                echo "<th>Name</th>";
+                echo "<th>Type</th>";
+                echo "<th>Is Heading</th>";
+                echo "<th>Is Visible</th>";
+                echo "<th>Is Filter</th>";
+                echo "<th>Edit</th>";
+                echo "</thead>";
+                echo "<tbody>";
+                $j = 0;
+                while($row = $result->fetch_assoc()){
+                    
+                        echo "<tr>";
+                        echo "<td>".(isset($row["column_name"]) ? $row["column_name"] : "")."</td>";
+                        echo "<td>".(isset($row["column_type"]) ? $row["column_type"] : "")."</td>";
+                        echo "<td>".(isset($row["is_heading"]) ? $row["is_heading"] : "")."</td>";
+                        echo "<td>".(isset($row["is_visible"]) ? $row["is_visible"] : "")."</td>";
+                        echo "<td>".(isset($row["is_filter"]) ? $row["is_filter"] : "")."</td>";
+                        ?><td>
+                        <button class="btn btn-warning btn-sm" onclick="settings_sub_option(
+                        '<?php echo $row['id']; ?>', 
+                        '<?php echo $row['column_name']; ?>', 
+                        '<?php echo $row['column_type']; ?>', 
+                        '<?php echo $row['is_heading']; ?>', 
+                        '<?php echo $row['is_visible']; ?>', 
+                        '<?php echo $row['is_filter']; ?>', 
+                        )">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                        </td><?php
+                        echo "</tr>";
+                        // echo '<div class="autocomplete"></div>';
+                    
+                    $j++;
+                }
+                echo "</tbody>";
             }
-            echo "</tbody>";
+            else{
+                echo "<thead>";
+                echo "<th>Name</th>";
+                echo "<th>Type</th>";
+                echo "<th>Empty Check</th>";
+                echo "<th>Similarity Check</th>";
+                // echo "<th>Texts</th>";
+                // echo "<th>Values</th>";
+                echo "<th>Other Source</th>";
+                echo "<th>Status</th>";
+                // echo "<th>Other Source Table</th>";
+                // echo "<th>Other Source Column</th>";
+                // echo "<th>Other Source Column Value</th>";
+                echo "<th>Edit</th>";
+                echo "</thead>";
+                echo "<tbody>";
+                $j = 0;
+                while($row = $result->fetch_assoc()){
+                    
+                        echo "<tr>";
+                        echo "<td>".(isset($row["option_name"]) ? $row["option_name"] : "")."</td>";
+                        echo "<td>".(isset($row["option_type"]) ? $row["option_type"] : "")."</td>";
+                        echo "<td>".(isset($row["option_empty_check"]) ? $row["option_empty_check"] : "")."</td>";
+                        echo "<td>".(isset($row["option_similarity_check"]) ? $row["option_similarity_check"] : "")."</td>";
+                        // echo "<td>".(isset($row["option_texts"]) ? $row["option_texts"] : "")."</td>";
+                        // echo "<td>".$row["option_values"]."</td>";
+                        echo "<td>".(isset($row["option_val_frm_othr_src"]) ? $row["option_val_frm_othr_src"] : "")."</td>";
+                        echo "<td>".(isset($row["status"]) ? $row["status"] : "")."</td>";
+                        // echo "<td>".$row["option_othr_src_table"]."</td>";
+                        // echo "<td>".$row["option_othr_src_column"]."</td>";
+                        // echo "<td>".$row["option_othr_src_column_value"]."</td>";
+                        ?><td>
+                        <button class="btn btn-warning btn-sm" onclick="settings_sub_option(
+                        '<?php echo $row['id']; ?>', 
+                        '<?php echo $row['option_name']; ?>', 
+                        '<?php echo $row['option_type']; ?>', 
+                        '<?php echo $row['option_empty_check']; ?>', 
+                        '<?php echo $row['option_similarity_check']; ?>', 
+                        '<?php echo $row['option_texts']; ?>', 
+                        '<?php echo $row['option_values']; ?>',
+                        '<?php echo $row['option_val_frm_othr_src']; ?>',
+                        '<?php echo $row['option_othr_src_table']; ?>', 
+                        '<?php echo $row['option_othr_src_column']; ?>', 
+                        '<?php echo $row['option_othr_src_column_value']; ?>', 
+                        '<?php echo $row['option_whole_table_search']; ?>', 
+                        '<?php echo $row['option_priority']; ?>',
+                        '<?php if(isset($row['entry_type'])) echo $row['entry_type']; ?>',
+                        '<?php if(isset($row['entry_sum'])) echo $row['entry_sum']; ?>',
+                        '<?php if(isset($row['custom_storage']))echo $row['custom_storage']; ?>',
+                        '<?php if(isset($row['status']))echo $row['status']; ?>',
+                        '<?php if(isset($row['field_type']))echo $row['field_type']; ?>',
+                        '<?php if(isset($row['formula']))echo $row['formula']; ?>',
+                        '<?php if(isset($row['editable']))echo $row['editable']; ?>',
+                        '<?php if(isset($row['visible']))echo $row['visible']; ?>',
+                        '<?php if(isset($row['table_visible']))echo $row['table_visible']; ?>'
+                        )">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                        </td><?php
+                        echo "</tr>";
+                        // echo '<div class="autocomplete"></div>';
+                    
+                    $j++;
+                }
+                echo "</tbody>";
+            }
             echo "</table>";
         }
     }
