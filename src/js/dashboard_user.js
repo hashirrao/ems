@@ -423,48 +423,48 @@ function list_assets_cancel_btn_click(option_id){
   document.getElementById("dashboard_main_div").innerHTML = "";
 }
 
-// function edit_values_asset_save_btn_click(option_id, form_length, option_name){
-//   var values = Array();
-//   var inp_ids = Array();
-//   var value_id = document.getElementById("value_id").value;
-//   var business = document.getElementById("select_business").value;
-//   for(var i = 0; i < form_length; i++){
-//     var input_id = document.getElementById(option_id+"_label_"+i).innerHTML;
-//     var input_value = document.getElementById(input_id).value;
-//     inp_ids.push(input_id);
-//     values.push(input_value);
-//   }
-//   var ajax = new XMLHttpRequest();
-//   var method = "POST";
-//   var url = "./dashboard/edit/edit_values.php";
-//   var asynchronous = true;
-//   ajax.open(method, url, asynchronous);
-//   ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//   ajax.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       if (this.responseText == "Updated Successfully...!") {
-//         document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
-//           + this.responseText + "</div>";
-//         setTimeout(function () {
-//           document.getElementById("edit_" + option_id + "_panel").style.visibility = "hidden";
-//           for (var i = 0; i < form_length; i++) {
-//             var input_id = document.getElementById(option_id + "_label_" + i).innerHTML;
-//             document.getElementById(input_id).value = "";
-//           }
-//           document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "";
-//           admin_list_asset_link_click(option_id, option_name);
-//           // refresh_entries_for_customized_options();
-//           // refresh_entries_for_edit_options();
-//         }, 700);
-//       }
-//       else {
-//         document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
-//           + this.responseText + "</div>";
-//       }
-//     }
-//   }
-//   ajax.send("option_type=asset" + "&option_id=" + option_id + "&inp_ids=" + inp_ids +  "&values=" + values + "&system_id=" + system_id + "&value_id=" + value_id + "&business=" + business);
-// }
+function edit_values_asset_save_btn_click(option_id, form_length, option_name){
+  var values = Array();
+  var inp_ids = Array();
+  var value_id = document.getElementById("value_id").value;
+  var business = document.getElementById("select_business").value;
+  for(var i = 0; i < form_length; i++){
+    var input_id = document.getElementById(option_id+"_label_"+i).innerHTML;
+    var input_value = document.getElementById(input_id).value;
+    inp_ids.push(input_id);
+    values.push(input_value);
+  }
+  var ajax = new XMLHttpRequest();
+  var method = "POST";
+  var url = "./dashboard/edit/edit_values.php";
+  var asynchronous = true;
+  ajax.open(method, url, asynchronous);
+  ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  ajax.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      if (this.responseText == "Updated Successfully...!") {
+        document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
+          + this.responseText + "</div>";
+        setTimeout(function () {
+          document.getElementById("edit_" + option_id + "_panel").style.visibility = "hidden";
+          for (var i = 0; i < form_length; i++) {
+            var input_id = document.getElementById(option_id + "_label_" + i).innerHTML;
+            document.getElementById(input_id).value = "";
+          }
+          document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "";
+          admin_list_asset_link_click(option_id, option_name);
+          // refresh_entries_for_customized_options();
+          // refresh_entries_for_edit_options();
+        }, 700);
+      }
+      else {
+        document.getElementById("edit_" + option_id + "_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
+          + this.responseText + "</div>";
+      }
+    }
+  }
+  ajax.send("option_type=asset" + "&option_id=" + option_id + "&inp_ids=" + inp_ids +  "&values=" + values + "&system_id=" + system_id + "&value_id=" + value_id + "&business=" + business);
+}
 
 function edit_values_asset_cancel_btn_click(option_id){
   document.getElementById("edit_"+option_id+"_panel").style.visibility = "hidden";

@@ -2,7 +2,9 @@
 
 include('../connections/connection.php');
 include('../connections/local_connection.php');
+
 if(isset($_POST['uid'])){
+
   $date = date("Y-m-d");
   $uid = $_POST['uid'];
   $sname = $_POST['sname'];

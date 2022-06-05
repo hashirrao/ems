@@ -301,7 +301,33 @@ else{
                                     }
                                 }
                                 else{
-                                    echo '<td width="200px">'.$row[$sql_columns[$i]].'</td>';
+                                    $opt_id = explode("_", $sql_columns[$i])[1];
+                                    $sql_tbl = "SELECT * FROM $table WHERE id='$opt_id'";
+                                    $result_tbl = mysqli_query($local_conn_db, $sql_tbl);
+                                    $other_src_check = false;
+                                    if($result_tbl->num_rows > 0){
+                                        while($row_tbl = $result_tbl->fetch_assoc()){
+                                            if($row_tbl["option_type"] == "Select" && $row_tbl["option_val_frm_othr_src"] == "True"){
+                                                $other_src_check = true;
+                                                $other_src_table = $row_tbl["option_othr_src_table"];
+                                                $other_src_column = $row_tbl["option_othr_src_column"];
+                                                $other_src_column_value = $row_tbl["option_othr_src_column_value"];
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if($other_src_check){
+                                        $sql_othr_src = "SELECT $other_src_column FROM ".$other_src_table."_values WHERE $other_src_column_value='".$row[$sql_columns[$i]]."'";
+                                        $result_othr_src = mysqli_query($local_conn_db, $sql_othr_src);
+                                        if($result_othr_src->num_rows > 0){
+                                            while($row_othr_src = $result_othr_src->fetch_assoc()){
+                                                echo "<td>".$row_othr_src[$other_src_column]."</td>";
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        echo '<td width="200px">'.$row[$sql_columns[$i]].'</td>';
+                                    }
                                 }
                                 
                             }

@@ -1414,12 +1414,13 @@ function formula_row(index_of_formulas_fields){
       + '</td>'
       + '<td style="width: 20%">'
       + '<div id="formula_span_div' + index_of_formulas_fields + '_field_1">'
+      + '<label class="col-form-label col-form-label-sm red">Value</label>'
       + '</div>'
-      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields + '_field_1" class="form-control form-control-sm" style="width: auto;">'
+      + '<input type="number" id="formula_custom' + index_of_formulas_fields + '_field_1" class="form-control form-control-sm">'
       + '</td>'
       + '<td style="width: 20%">'
       + '<label class="col-form-label col-form-label-sm red">Operator</label><br>'
-      + '<select id="formula_' + index_of_formulas_fields + '_operator_1" class="form-control form-control-sm" style="width: auto;">'
+      + '<select id="formula_' + index_of_formulas_fields + '_operator_1" class="form-control form-control-sm">'
       + '<option>Sum</option>'
       + '<option>Subtract</option>'
       + '<option>Multiplication</option>'
@@ -1434,8 +1435,9 @@ function formula_row(index_of_formulas_fields){
       + '</td>'
       + '<td style="width: 20%">'
       + '<div id="formula_span_div' + index_of_formulas_fields + '_field_2">'
+      + '<label class="col-form-label col-form-label-sm red">Value</label>'
       + '</div>'
-      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields + '_field_2" class="form-control form-control-sm ">'
+      + '<input type="number" id="formula_custom' + index_of_formulas_fields + '_field_2" class="form-control form-control-sm ">'
       + '</div>'
       + '</td>'
   }
@@ -1458,8 +1460,9 @@ function formula_row(index_of_formulas_fields){
       + '</td>'
       + '<td colspan="2" style="width: 35%">'
       + '<div class="input-group-prepend" id="formula_span_div' + index_of_formulas_fields + '_field_1">'
+      + '<label class="col-form-label col-form-label-sm red">Value</label>'
       + '</div>'
-      + '<input type="hidden" id="formula_custom' + index_of_formulas_fields + '_field_1" class="form-control form-control-sm">'
+      + '<input type="number" id="formula_custom' + index_of_formulas_fields + '_field_1" class="form-control form-control-sm">'
       + '</div>'
       + '</td>'
   }
@@ -1687,23 +1690,27 @@ function reset_mt_report_formula_btn_click(){
 
 function set_onchange_formula_select(i){
   if(document.getElementById("formula_"+i+"_field_1").value === "Custom"){
-    document.getElementById("formula_span_div"+i+"_field_1").innerHTML = '<label class="col-form-label col-form-label-sm red">Value</label>';
-    document.getElementById("formula_custom"+i+"_field_1").type = 'number';
+    // document.getElementById("formula_span_div"+i+"_field_1").innerHTML = '<label class="col-form-label col-form-label-sm red">Value</label>';
+    // document.getElementById("formula_custom"+i+"_field_1").type = 'number';
+    document.getElementById("formula_custom"+i+"_field_1").disabled = false;
   }
   else{
-    document.getElementById("formula_span_div"+i+"_field_1").innerHTML = '';
-    document.getElementById("formula_custom"+i+"_field_1").type = 'hidden';
+    // document.getElementById("formula_span_div"+i+"_field_1").innerHTML = '';
+    // document.getElementById("formula_custom"+i+"_field_1").type = 'hidden';
+    document.getElementById("formula_custom"+i+"_field_1").disabled = true;
   }
 }
 
 function set_onchange_formula_select_2(i){
   if(document.getElementById("formula_"+i+"_field_2").value === "Custom"){
-    document.getElementById("formula_span_div"+i+"_field_2").innerHTML = '<label class="col-form-label col-form-label-sm red">Value</label>';
-    document.getElementById("formula_custom"+i+"_field_2").type = 'number';
+    // document.getElementById("formula_span_div"+i+"_field_2").innerHTML = '<label class="col-form-label col-form-label-sm red">Value</label>';
+    // document.getElementById("formula_custom"+i+"_field_2").type = 'number';
+    document.getElementById("formula_custom"+i+"_field_2").disabled = false;
   }
   else{
-    document.getElementById("formula_span_div"+i+"_field_2").innerHTML = '';
-    document.getElementById("formula_custom"+i+"_field_2").type = 'hidden';
+    // document.getElementById("formula_span_div"+i+"_field_2").innerHTML = '';
+    // document.getElementById("formula_custom"+i+"_field_2").type = 'hidden';
+    document.getElementById("formula_custom"+i+"_field_2").disabled = true;
   }
 }
 
