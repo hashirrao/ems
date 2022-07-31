@@ -157,8 +157,6 @@
                             else{
                                 echo "<td>".$row[$columns_arr[$i]]."</td>";
                             }
-                            // echo $columns_arr[$i];
-                            // print_r($row);
                         }
                     }
                 }

@@ -130,6 +130,7 @@ if(isset($_POST['sub_option_name'])){
 else if(isset($_POST['report_select_table'])){
     $option_id = $_POST['option_id'];
     $option_type = $_POST['option_type'];
+    $field_type = $_POST['field_type'];
     $system_id = $_POST['system_id'];
     $report_parameter_table = "";
     $report_parameter_table = $_POST['report_parameter_table'];
@@ -186,8 +187,8 @@ else if(isset($_POST['report_select_table'])){
             // Inserting data into database
             $max_priority++;
             if($option_type === "report"){
-                $sql="INSERT INTO `$table` (`table`, `against_table`, `column_name`, `column`, `against_column`, `column_type`, `is_heading`, `is_visible`, `is_filter`, `formula`, `entry_sum`, `option_priority`) 
-                VALUES ('$report_select_table', '$report_against_table', '$report_column_name', '$report_select_column', '$report_against_column', '$report_select_column_type', '$report_is_heading', '$report_is_visible', '$report_is_filter', '$report_formula', '$report_entry_sum', '$max_priority')";
+                $sql="INSERT INTO `$table` (`table`, `against_table`, `column_name`, `column`, `against_column`, `column_type`, `is_heading`, `is_visible`, `is_filter`, `formula`, `entry_sum`, `option_priority`, `field_type`) 
+                VALUES ('$report_select_table', '$report_against_table', '$report_column_name', '$report_select_column', '$report_against_column', '$report_select_column_type', '$report_is_heading', '$report_is_visible', '$report_is_filter', '$report_formula', '$report_entry_sum', '$max_priority', '$field_type')";
             }
             else if($option_type === "mt_report"){
                 $sql="INSERT INTO `$table` (`parameter_table`, `table`, `against_table`, `column_name`, `parameter_column`, `column`, `against_column`, `column_type`, `column_selection`, `is_heading`, `is_visible`, `is_filter`, `formula`, `entry_sum`, `option_priority`) 

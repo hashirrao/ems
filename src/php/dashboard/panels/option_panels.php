@@ -39,7 +39,7 @@
     <br>
     <div id="add_report_option_panel_messageDiv"></div>
     <strong>Report Name: </strong> <input id="add_report_name" class="form-control form-control-sm" placeholder="REPORT NAME"> <br>
-    <input id="add_report_type" class="form-control form-control-sm" type="hidden" value="Single Table">
+    <!-- <input id="add_report_type" class="form-control form-control-sm" type="hidden" value="Single Table"> -->
     <strong>Report Type: </strong> 
     <select id="add_report_type" class="form-control form-control-sm">
     <option>Single Table</option>

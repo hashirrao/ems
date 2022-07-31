@@ -198,7 +198,7 @@ function add_report_save_btn_click() {
         if (this.responseText == "Added Successfully...!") {
           document.getElementById("add_report_option_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
             + this.responseText + "</div>";
-          setTimeout(function () {
+          setTimeout(() => {
             document.getElementById("add_report_panel").style.visibility = "hidden";
             document.getElementById("add_report_name").value = "";
             document.getElementById("add_report_option_panel_messageDiv").innerHTML = "";
@@ -682,12 +682,12 @@ function edit_custom_table_cancel_btn_click() {
 
 function add_option_btn_click() {
   if(document.getElementById("report_id_options_panels_dev")){
-    // add_report_option_btn_click();
     if(document.getElementById("report_type_options_panels_dev").innerHTML === "Multi Table"){
       document.getElementById("mt_report_add_panel").style.visibility = "visible";
     }
     else{
-      document.getElementById("report_add_panel").style.visibility = "visible";
+      // document.getElementById("report_add_panel").style.visibility = "visible";
+      add_report_option_btn_click()
     }
   }
   else{
@@ -707,7 +707,7 @@ function add_report_option_btn_click() {
   document.getElementById("add_report_sub_option_heading").innerHTML = 'Option(Report)'
   document.getElementById("add_report_sub_options_panel_content").innerHTML = '<br>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
-  + '<input type="hidden" id="field_type" value="Report">'
+  + '<input type="hidden" id="field_type" value="Normal">'
   + '<div class="row">'
   + '<div class="col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
@@ -832,29 +832,32 @@ function report_coulmn_type_change(){
 function add_formulated_report_option_btn_click() {
   document.getElementById("report_add_panel").style.visibility = "hidden";
   document.getElementById("add_report_sub_options_panel").style.visibility = "visible";
+  document.getElementById("add_report_sub_option_heading").innerHTML = 'Option(Report)'
   document.getElementById("add_report_sub_options_panel_content").innerHTML = '<br>'
-  + '<div class="page-header text-center">'
-  +    '<h2>Option(Report)</h2>'
-  + '</div>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
-  + '<input type="hidden" id="field_type" value="Report">'
-  + '<div class="form-group">'
+  + '<input type="hidden" id="field_type" value="Formulated">'
+  + '<div class="row">'
+  + '<div class="col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Select Table</span>'
   +     '</div>'
   +     '<select id="report_select_table" class="form-control form-control-sm select2-single"></select>'
   + '</div>'
-  + '<div class="form-group">'
+  + '<div class="col-md-6 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Column Name</span>'
   +     '</div>'
   +     '<input id="report_column_name" placeholder="Column Name" class="form-control form-control-sm">'
+  + '</div>'
+  + '<div class="col-md-4 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Column Type</span>'
   +     '</div>'
   +     '<select id="report_select_column_type" class="form-control form-control-sm select2-single">'
   +     '<option>Number</option>'
   +     '</select>'
+  + '</div>'
+  + '<div class="col-md-4 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Entry Sum</span>'
   +     '</div>'
@@ -863,7 +866,7 @@ function add_formulated_report_option_btn_click() {
   +     '<option>True</option>'
   +     '</select>'
   + '</div>'
-  + '<div class="form-group">'
+  + '<div class="col-md-4 col-sm-12">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Is Visible</span>'
   +     '</div>'
@@ -872,11 +875,14 @@ function add_formulated_report_option_btn_click() {
   +       '<option>False</option>'
   +     '</select>'
   + '</div>'
-  + '<div>'
+  + '</div>'
+  + '<div class="row" style="margin-top: 20px;">'
+  + '<div class="col-sm-12">'
   +    '<button style="float: right; margin-bottom: 5px;" class="btn btn-default" onclick="add_formula_btn_click()"><span class="fa fa-plus"></span> Add Formula</button>'
   +    '<button style="float: right; margin-bottom: 5px;margin-right: 5px;" class="btn btn-default" onclick="reset_formula_btn_click()"><span class="fa fa-undo"></span> Reset Formula</button>'
   + '</div>'
-  + '<div id="formulas_div"></div>';
+  + '</div>'
+  + '<div class="row" style="padding-top: 20px;"><div class="col-12" id="formulas_div"></div></div>';
   refresh_tables_in_select("reports_tables");
   document.getElementById("report_select_table").onchange = function(){
     refresh_columns_in_select("report_select_column", document.getElementById("report_select_table").value);
@@ -891,7 +897,7 @@ function add_grouped_report_option_btn_click() {
   +    '<h2>Option(Report)</h2>'
   + '</div>'
   + '<div id="add_sub_options_panel_messageDiv"></div>'
-  + '<input type="hidden" id="field_type" value="Report">'
+  + '<input type="hidden" id="field_type" value="Grouped">'
   + '<div class="form-group">'
   +     '<div class="input-group-prepend">'
   +         '<span class="btn red btn-sm">Select Table</span>'
@@ -1281,6 +1287,8 @@ function edit_options(){
 }
 
 function add_sub_option_panel_close_btn_click() {
+  document.getElementById("add_sub_options_panel_content").innerHTML = "";
+  document.getElementById("add_report_sub_options_panel_content").innerHTML = "";
   document.getElementById("add_report_sub_options_panel").style.visibility = "hidden";
   document.getElementById("add_sub_options_panel").style.visibility = "hidden";
 }
@@ -2310,7 +2318,7 @@ function refresh_columns_in_select(clm_id, table_name) {
       if (this.readyState == 4 && this.status == 200) {
         if(document.getElementById(clm_id)){
           document.getElementById(clm_id).innerHTML = this.responseText;
-          if(document.getElementById("field_type").value = "Grouped"){
+          if(document.getElementById("field_type").value == "Grouped"){
             if(document.getElementById("add_option_select_column")){
               document.getElementById("add_option_select_column").innerHTML += "<option value='id'>ID</option>";
               $("#add_option_select_column").select2()
@@ -2587,44 +2595,44 @@ function formula(){
 }
 
 function formula_report(){
-  var sub_option_formula = "";
-  if (document.getElementById("formula_1_operator_1")) {
-    for (var i = 1; i <= index_of_formulas_fields; i++) {
-      if (i === 1) {
-        var f1 = document.getElementById("formula_" + i + "_field_1");
-        var f2 = document.getElementById("formula_" + i + "_field_2");
-        if (f1.options[f1.selectedIndex].text === "Custom") {
-          sub_option_formula += document.getElementById("formula_custom" + i + "_field_1").value;
-          sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
-        }
-        else {
-          sub_option_formula += f1.value;
-          sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
-        }
-        if (f2.options[f2.selectedIndex].text === "Custom") {
-          sub_option_formula += "-,-" + document.getElementById("formula_custom" + i + "_field_2").value;
-        }
-        else {
-          sub_option_formula += "-,-" + f2.value;
-        }
-      }
-      else {
-        var f1 = document.getElementById("formula_" + i + "_field_1");
-        if (f1.options[f1.selectedIndex].text === "Custom") {
-          sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
-          sub_option_formula += "-,-" + document.getElementById("formula_custom" + i + "_field_1").value;
-        }
-        else {
-          sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
-          sub_option_formula += "-,-" + f1.value;
-        }
-      }
-    }
-  }
-  else if (document.getElementById("option_against_value_inp_id")) {
-    sub_option_formula = document.getElementById("option_against_value_inp_id").value;
-  }
-  return sub_option_formula;
+  // var sub_option_formula = "";
+  // if (document.getElementById("formula_1_operator_1")) {
+  //   for (var i = 1; i <= index_of_formulas_fields; i++) {
+  //     if (i === 1) {
+  //       var f1 = document.getElementById("formula_" + i + "_field_1");
+  //       var f2 = document.getElementById("formula_" + i + "_field_2");
+  //       if (f1.options[f1.selectedIndex].text === "Custom") {
+  //         sub_option_formula += document.getElementById("formula_custom" + i + "_field_1").value;
+  //         sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
+  //       }
+  //       else {
+  //         sub_option_formula += f1.value;
+  //         sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
+  //       }
+  //       if (f2.options[f2.selectedIndex].text === "Custom") {
+  //         sub_option_formula += "-,-" + document.getElementById("formula_custom" + i + "_field_2").value;
+  //       }
+  //       else {
+  //         sub_option_formula += "-,-" + f2.value;
+  //       }
+  //     }
+  //     else {
+  //       var f1 = document.getElementById("formula_" + i + "_field_1");
+  //       if (f1.options[f1.selectedIndex].text === "Custom") {
+  //         sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
+  //         sub_option_formula += "-,-" + document.getElementById("formula_custom" + i + "_field_1").value;
+  //       }
+  //       else {
+  //         sub_option_formula += "-,-" + document.getElementById("formula_" + i + "_operator_1").value;
+  //         sub_option_formula += "-,-" + f1.value;
+  //       }
+  //     }
+  //   }
+  // }
+  // else if (document.getElementById("option_against_value_inp_id")) {
+  //   sub_option_formula = document.getElementById("option_against_value_inp_id").value;
+  // }
+  // return sub_option_formula;
 }
 
 function formula_mt_report(){
@@ -2671,9 +2679,13 @@ function formula_mt_report(){
 function add_report_option_save_btn_click(){
   var option_type = "";
   var option_id = "";
+  var field_type = "";
   if(document.getElementById("report_id_options_panels_dev")){
     option_type = "report";
     option_id = document.getElementById("report_id_options_panels_dev").innerHTML;
+  }
+  if(document.getElementById("field_type")){
+    field_type = document.getElementById("field_type").value;
   }
   var report_parameter_table = "";
   if(document.getElementsByClassName("report_parameter_select_tables").length>0){
@@ -2754,13 +2766,13 @@ function add_report_option_save_btn_click(){
     report_formula = formula_mt_report();
   }
   else{
-    report_formula = formula_report();
+    report_formula = formula(); //formula_report();
   }
-  if(document.getElementById("field_type")){
-    if(document.getElementById("field_type").value === "parameter"){
-      report_formula = "parameter";
-    }
-  }
+  // if(document.getElementById("field_type")){
+  //   if(document.getElementById("field_type").value === "parameter"){
+  //     report_formula = "parameter";
+  //   }
+  // }
 
   var report_entry_sum = "";
   if(document.getElementById("report_entry_sum")){
@@ -2791,6 +2803,7 @@ function add_report_option_save_btn_click(){
   }
   ajax.send("option_id=" + option_id
   + "&option_type=" + option_type
+  + "&field_type=" + field_type
   + "&report_parameter_table=" + report_parameter_table
   + "&report_select_table=" + report_select_table
   + "&report_against_table=" + report_against_table
@@ -2872,15 +2885,12 @@ function settings_sub_option(id, name, type, empty_check,
   field_type, formula, editable, visible, table_visible)
   {
   if(field_type === "Normal"){
-    // settings_normal_option();
     add_normal_option_btn_click(true)
   }
   else if(field_type === "Formulated"){
-    // settings_formulated_option();
     add_formulated_option_btn_click(true)
   }
   else if(field_type === "Grouped"){
-    // settings_grouped_option();
     add_grouped_option_btn_click(true)
   }
   
@@ -3057,6 +3067,10 @@ function settings_sub_option(id, name, type, empty_check,
   // document.getElementById("sub_options_panel").style.visibility = "visible";
 }
 
+function edit_sub_option_report(id, name, type, is_heading, is_visible, is_filter){
+
+}
+
 function setSelectByText(eID,text)
 { //Loop through sequentially//
   var ele=document.getElementById(eID);
@@ -3067,772 +3081,6 @@ function setSelectByText(eID,text)
     }
   return false;
 }
-
-// var settings_index_of_formulas_fields = 0;
-// function settings_formula_btn_click(){
-//   var formula = "";
-//   var formula_vals = "";
-//   if (document.getElementById("settings_formula_1_operator_1")) {
-//     for (var i = 1; i <= settings_index_of_formulas_fields; i++) {
-//       if (i === 1) {
-//         formula += "settings_formula_" + i + "_field_1";
-//         formula += "-,-" + "settings_formula_" + i + "_operator_1";
-//         formula += "-,-" + "settings_formula_" + i + "_field_2";
-//         var f1 = document.getElementById("settings_formula_" + i + "_field_1");
-//         var f2 = document.getElementById("settings_formula_" + i + "_field_2");
-//         formula_vals += f1.value;
-//         formula_vals += "-,-" + document.getElementById("settings_formula_" + i + "_operator_1").value;
-//         formula_vals += "-,-" + f2.value;
-//       }
-//       else {
-//         formula += "-,-" + "settings_formula_" + i + "_operator_1";
-//         formula += "-,-" + "settings_formula_" + i + "_field_1";
-//         var f1 = document.getElementById("settings_formula_" + i + "_field_1");
-//         formula_vals += "-,-" + document.getElementById("settings_formula_" + i + "_operator_1").value;
-//         formula_vals += "-,-" + f1.value;
-//       }
-//     }
-//   }
-  
-//   settings_index_of_formulas_fields++;
-//   if (settings_index_of_formulas_fields === 1) {
-//     document.getElementById("settings_formulas_div").innerHTML += '<div id="settings_formula_' + index_of_formulas_fields + '">'
-//       + '<div class="form-group">'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Option Name</span>'
-//       + '</div>'
-//       + '<select id="settings_formula_' + settings_index_of_formulas_fields + '_field_1" class="form-control form-control-sm select2-single" onchange="settings_set_onchange_formula_select('+settings_index_of_formulas_fields+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend" id="settings_formula_span_div' + index_of_formulas_fields + '_field_1">'
-      
-//       + '</div>'
-//       + '<input type="hidden" id="settings_formula_custom' + settings_index_of_formulas_fields + '_field_1" class="form-control form-control-sm select2-single">'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Operator</span>'
-//       + '</div>'
-//       + '<select id="settings_formula_' + settings_index_of_formulas_fields + '_operator_1" class="form-control form-control-sm select2-single">'
-//       + '<option>Sum</option>'
-//       + '<option>Subtract</option>'
-//       + '<option>Multiplication</option>'
-//       + '<option>Division</option>'
-//       + '<option>Modulus</option>'
-//       + '</select>'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Option Name</span>'
-//       + '</div>'
-//       + '<select id="settings_formula_' + settings_index_of_formulas_fields + '_field_2" class="form-control form-control-sm select2-single" onchange="settings_set_onchange_formula_select_2('+settings_index_of_formulas_fields+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend" id="settings_formula_span_div' + settings_index_of_formulas_fields + '_field_2">'
-      
-//       + '</div>'
-//       + '<input type="hidden" id="settings_formula_custom' + settings_index_of_formulas_fields + '_field_2" class="form-control form-control-sm select2-single">'
-//       + '</div>'
-//       + '</div>';
-//   }
-//   else {
-//     document.getElementById("settings_formulas_div").innerHTML += '<div id="settings_formula_' + settings_index_of_formulas_fields + '">'
-//       + '<div class="form-group">'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Operator</span>'
-//       + '</div>'
-//       + '<select id="settings_formula_' + settings_index_of_formulas_fields + '_operator_1" class="form-control form-control-sm select2-single">'
-//       + '<option>Sum</option>'
-//       + '<option>Subtract</option>'
-//       + '<option>Multiplication</option>'
-//       + '<option>Division</option>'
-//       + '<option>Modulus</option>'
-//       + '</select>'
-//       + '<div class="input-group-prepend">'
-//       + '<span class="btn red btn-sm">Option Name</span>'
-//       + '</div>'
-//       + '<select id="settings_formula_' + settings_index_of_formulas_fields + '_field_1" class="form-control form-control-sm select2-single" onchange="settings_set_onchange_formula_select('+settings_index_of_formulas_fields+')">'
-//       + '</select>'
-//       + '<div class="input-group-prepend" id="settings_formula_span_div' + settings_index_of_formulas_fields + '_field_1">'
-      
-//       + '</div>'
-//       + '<input type="hidden" id="settings_formula_custom' + settings_index_of_formulas_fields + '_field_1" class="form-control form-control-sm select2-single">'
-//       + '</div>'
-//       + '</div>';
-//   }
-
-//   var table_name = "";
-//   if(document.getElementById("entry_id_options_panels_dev")){
-//     table_name = "entry_"+document.getElementById("entry_id_options_panels_dev").innerHTML;
-//   }
-//   else if(table_name = document.getElementById("asset_id_options_panels_dev")){
-//     table_name = "asset_"+document.getElementById("asset_id_options_panels_dev").innerHTML;
-//   }
-  
-//   refresh_options('settings_formula_'+settings_index_of_formulas_fields+'_field_1', table_name);
-//   refresh_options('settings_formula_'+settings_index_of_formulas_fields+'_field_2', table_name);
-
-//   if(formula !== ""){
-//     var formula_arr = formula.split("-,-");
-//     var formula_vals_arr = formula_vals.split("-,-");
-//     for(var i=0; i<formula_arr.length; i++){
-//       document.getElementById(formula_arr[i]).value = formula_vals_arr[i];
-//     }
-//   }
-// }
-
-// function settings_formula_reset_btn_click(){
-//   document.getElementById("settings_formulas_div").innerHTML = "";
-//   settings_index_of_formulas_fields = 0;
-//   settings_formula_btn_click();
-// }
-
-// function settings_set_onchange_formula_select(i){
-//   if(document.getElementById("settings_formula_"+i+"_field_1").value === "Custom"){
-//     document.getElementById("settings_formula_span_div"+i+"_field_1").innerHTML = '<span class="btn red btn-sm">Value</span>';
-//     document.getElementById("settings_formula_custom"+i+"_field_1").type = 'number';
-//   }
-//   else{
-//     document.getElementById("settings_formula_span_div"+i+"_field_1").innerHTML = '';
-//     document.getElementById("settings_formula_custom"+i+"_field_1").type = 'hidden';
-//   }
-// }
-
-// function settings_set_onchange_formula_select_2(i){
-//   if(document.getElementById("settings_formula_"+i+"_field_2").value === "Custom"){
-//     document.getElementById("settings_formula_span_div"+i+"_field_2").innerHTML = '<span class="btn red btn-sm">Value</span>';
-//     document.getElementById("settings_formula_custom"+i+"_field_2").type = 'number';
-//   }
-//   else{
-//     document.getElementById("settings_formula_span_div"+i+"_field_2").innerHTML = '';
-//     document.getElementById("settings_formula_custom"+i+"_field_2").type = 'hidden';
-//   }
-// }
-
-// function settings_option_input_change() {
-//   if(document.getElementById("custom_table_id_options_panels_dev")){
-//     document.getElementById("settings_value_from_other_src_div") ? document.getElementById("settings_value_from_other_src_div").innerHTML = "" : "";
-//   }
-//   else{
-//     var option = document.getElementById("settings_option_input_type").value;
-//     if(document.getElementById("settings_extra_values_div")){
-//       if (option === "Select") {
-//         document.getElementById("settings_extra_values_div").innerHTML = add_text_merge_input_string("Add Option Text", "settings_add_text_input", "settings_texts_add_btn_click()")
-//           + add_text_merge_table_string("settings_option_values_table");
-//       }
-//       else {
-//         document.getElementById("settings_extra_values_div").innerHTML = "";
-//       }
-//       settings_value_from_other_src_div_show();
-//     }
-//   }
-// }
-
-// function settings_entry_options_div_show(){
-//   if(document.getElementById("entry_id_options_panels_dev")){
-//     document.getElementById("settings_entry_options_div").innerHTML = settings_entry_options_html();
-//     settings_custom_storage_select_change();
-//   }
-//   else{
-//     document.getElementById("settings_entry_options_div").innerHTML = "";
-//   }
-// }
-
-// function settings_entry_type_select_change(){
-//   var e_type = document.getElementById("settings_entry_type_select").value;
-//   var c_storage = document.getElementById("settings_custom_storage_select").value;
-//   if(document.getElementById("settings_entry_type_select").value === "Multiple"){
-//     document.getElementById("settings_entry_options_div").innerHTML = '<div class="form-group">'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Entry Type</span>'
-//     +   '</div>'
-//     +   '<select id="settings_entry_type_select" type="text" class="form-control form-control-sm select2-single" onchange="settings_entry_type_select_change()">'
-//     +      '<option>Single</option>'
-//     +      '<option>Multiple</option>'
-//     +   '</select>'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Entry Sum</span>'
-//     +   '</div>'
-//     +   '<select id="settings_entry_sum_select" type="text" class="form-control form-control-sm select2-single">'
-//     +      '<option>False</option>'
-//     +      '<option>True</option>'
-//     +   '</select>'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Custom Storage</span>'
-//     +   '</div>'
-//     +   '<select id="settings_custom_storage_select" type="text" class="form-control form-control-sm select2-single" onchange="settings_custom_storage_select_change()">'
-//     +      '<option>False</option>'
-//     +      '<option>True</option>'
-//     +   '</select>'
-//     + '</div>';
-//   }
-//   else{
-//     document.getElementById("settings_entry_options_div").innerHTML = settings_entry_options_html();
-//   }
-//   document.getElementById("settings_entry_type_select").value = e_type;
-//   document.getElementById("settings_custom_storage_select").value = c_storage;
-//   document.getElementById("settings_entry_type_select").focus();
-// }
-
-// function settings_custom_storage_select_change(){
-//   if(document.getElementById("settings_custom_storage_select").value === "True"){
-//     document.getElementById("settings_entry_custom_storage_options_div").innerHTML = '<div class="form-group">'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Cutom Table</span>'
-//     +   '</div>'
-//     +   '<select id="settings_custom_storage_tables_select" type="text" class="form-control form-control-sm select2-single" >'
-//     +   '</select>'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Custom Column</span>'
-//     +   '</div>'
-//     +   '<select id="settings_custom_storage_columns_select" type="text" class="form-control form-control-sm select2-single" >'
-//     +   '</select>'
-//     + '</div>';
-//     settings_refresh_tables_in_select("custom_tables");
-//     document.getElementById("settings_custom_storage_tables_select").onchange = function(){
-//       settings_refresh_columns_in_select("settings_custom_storage_columns_select", document.getElementById("settings_custom_storage_tables_select").value)
-//     }
-//   }
-//   else{
-//     document.getElementById("settings_entry_custom_storage_options_div").innerHTML = "";
-//   }
-// }
-
-// function settings_entry_options_html(){
-//   var str = '<div class="form-group">'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Entry Type</span>'
-//     +   '</div>'
-//     +   '<select id="settings_entry_type_select" type="text" class="form-control form-control-sm select2-single" onchange="settings_entry_type_select_change()">'
-//     +      '<option>Single</option>'
-//     +      '<option>Multiple</option>'
-//     +   '</select>'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Custom Storage</span>'
-//     +   '</div>'
-//     +   '<select id="settings_custom_storage_select" type="text" class="form-control form-control-sm select2-single" onchange="settings_custom_storage_select_change()">'
-//     +      '<option>False</option>'
-//     +      '<option>True</option>'
-//     +   '</select>'
-//     + '</div>';
-//   return str;
-// }
-
-// function settings_custom_table_options_div_show(type){
-//   if(!document.getElementById("custom_table_id_options_panels_dev")){
-//     if(type === "Grouped"){
-//       document.getElementById("settings_option_opt_type_and_othr_src_div").innerHTML = '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Option Type</span>'
-//       + '<select id="settings_option_input_type" type="text" class="form-control form-control-sm select2-single" onchange="settings_group_with_select_change()">'
-//       +    '<option>Input Text</option>'
-//       +    '<option>Input Number</option>'
-//       +    '<option>Input Number With Point</option>'
-//       + '</select>'
-//       + '</div>'
-//       + '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Empty Check</span>'
-//       + '<select id="settings_option_empty_check" class="form-control form-control-sm select2-single">'
-//       +    '<option>False</option>'
-//       +    '<option>True</option>'
-//       + '</select>'
-//       + '</div>'
-//       + '</div>'
-//     }
-//     else if(type === "Formulated"){
-//       document.getElementById("settings_option_opt_type_and_othr_src_div").innerHTML = '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Option Type</span>'
-//       + '<select id="settings_option_input_type" type="text" class="form-control form-control-sm select2-single" onchange="settings_option_input_change()">'
-//       +    '<option>Input Number</option>'
-//       +    '<option>Input Number With Point</option>'
-//       + '</select>'
-//       + '</div>'
-//       + '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Empty Check</span>'
-//       + '<select id="settings_option_empty_check" class="form-control form-control-sm select2-single">'
-//       +    '<option>False</option>'
-//       +    '<option>True</option>'
-//       + '</select>'
-//       + '</div>'
-//       + '</div>'
-//     }
-//     else{
-//       document.getElementById("settings_option_opt_type_and_othr_src_div").innerHTML = '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Option Type</span>'
-//       +   '<select id="settings_option_input_type" type="text" class="form-control form-control-sm select2-single" onchange="settings_option_input_change()">'
-//       +    '<option>Input Text</option>'
-//       +    '<option>Input Number</option>'
-//       +    '<option>Input Number With Point</option>'
-//       +    '<option>Input Date</option>'
-//       +    '<!-- <option>Check Box</option> -->'
-//       +    '<option>Select</option>'
-//       +    '<!-- <option>Radio Buttons</option>  -->'
-//       + '</select>'
-//       + '</div>'
-//       + '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Empty Check</span>'
-//       + '<select id="settings_option_empty_check" class="form-control form-control-sm select2-single">'
-//       +    '<option>False</option>'
-//       +    '<option>True</option>'
-//       + '</select>'
-//       + '</div>'
-//       + '<div class="col-lg-4 col-md-6 col-sm-12">'
-//       +    '<span class="btn red btn-sm">Similarity Check</span>'
-//       + '<select id="settings_option_similarity_check" class="form-control form-control-sm select2-single">'
-//       +    '<option>False</option>'
-//       +    '<option>True</option>'
-//       + '</select>'
-//       + '</div>'
-//       + '</div>'
-//     }
-//   }
-//   else{
-//     document.getElementById("settings_option_opt_type_and_othr_src_div").innerHTML = '<div class="form-group">'
-//     + '<div class="input-group-prepend">'
-//     +    '<span class="btn red btn-sm">Option Type</span>'
-//     + '</div>'
-//     + '<select id="settings_option_input_type" type="text" class="form-control form-control-sm select2-single" onchange="settings_option_input_change()">'
-//     +    '<option value="Input Text">Text</option>'
-//     +    '<option value="Input Number">Number</option>'
-//     +    '<option value="Input Date">Date</option>'
-//     + '</select>';
-//     document.getElementById("settings_entry_custom_storage_options_div").innerHTML = '';
-//     document.getElementById("settings_other_sources_div").innerHTML = '';
-//   }
-// }
-
-// function settings_texts_add_btn_click() {
-//   var option = document.getElementById("settings_option_input_type").value;
-//   if(option !== "Select"){
-//     if (document.getElementById("settings_option_values_table")) {
-//       var tbl = document.getElementById("settings_option_values_table");
-//       var value = document.getElementById("settings_add_text_input").value;
-//       if (value !== "") {
-//         tbl.innerHTML += "<tr><td width='95%'>" + value + "</td>"
-//           + "<td width='5%'><li class='fa fa-times'></li></td></tr>";
-//       }
-//       settings_remove_row();
-//       document.getElementById("settings_add_text_input").focus();
-//     }
-//   }
-//   else{
-//     var value = document.getElementById("settings_add_text_input").value;
-//     if (value !== "") {
-//       document.getElementById("settings_extra_options_div").style.visibility = "visible";
-//       document.getElementById("settings_option_input").value = document.getElementById("settings_add_text_input").value;
-//       document.getElementById("settings_option_input").focus();
-//     }
-//   }
-// }
-
-// function settings_close_option_btn_click(){
-//   document.getElementById("settings_extra_options_div").style.visibility = "hidden";
-// }
-
-// function settings_options_add_btn_click() {
-//   if (document.getElementById("settings_option_values_table")) {
-//     var tbl = document.getElementById("settings_option_values_table");
-//     var text = document.getElementById("settings_add_text_input").value;
-//     var value = document.getElementById("settings_option_input").value;
-//     if (value !== "") {
-//       tbl.innerHTML += "<tr><td width='45%'>" + text + "</td>"
-//         + "<td width='40%'>" + value + "</td>"
-//         + "<td width='5%'><li class='fa fa-times'></li></td></tr>";
-//     }
-//     settings_remove_row();
-//     document.getElementById("settings_add_text_input").focus();
-//     settings_close_option_btn_click();
-//   }
-// }
-
-// function settings_remove_row() {
-//   var tbl = document.getElementById("settings_option_values_table");
-//   for (var i = 0; i < tbl.rows.length; i++) {
-//     tbl.rows[i].onclick = function (e) {
-//       if (e.target.matches("li")) {
-//         tbl.deleteRow(this.rowIndex);
-//       }
-//     }
-//   }
-// }
-
-// function settings_value_from_other_src_div_show(){
-//   if(document.getElementById("settings_option_input_type").value === "Input Text" || document.getElementById("settings_option_input_type").value === "Input Number" || document.getElementById("settings_option_input_type").value === "Input Number With Point" || document.getElementById("settings_option_input_type").value === "Select"){
-//     document.getElementById("settings_value_from_other_src_div").innerHTML = '<div class="form-group">'
-//     +  '<div class="input-group-prepend">'
-//     +     '<span class="btn red btn-sm">Values From Other Source</span>'
-//     +   '</div>'
-//     +   '<select id="settings_option_other_source_value" type="text" class="form-control form-control-sm select2-single" onchange="settings_option_other_sources_input_change()">'
-//     +      '<option>False</option>'
-//     +      '<option>True</option>'
-//     +   '</select>'
-//     + '</div>'
-//   }
-//   else{
-//     document.getElementById("settings_value_from_other_src_div").innerHTML = "";
-//     if(document.getElementById("settings_other_sources_div")){
-//       document.getElementById("settings_other_sources_div").innerHTML = "";
-//     }
-//   }
-//   settings_option_other_sources_input_change();
-// }
-
-// function settings_option_other_sources_input_change(){
-//   if(document.getElementById("settings_option_other_source_value")){
-//     if(document.getElementById("settings_option_other_source_value").value == "True"){
-//       if(document.getElementById("settings_option_input_type").value == "Select"){
-//         document.getElementById("settings_other_sources_div").innerHTML = '<div class="form-group">'
-//         + '<div class="input-group-prepend">'
-//         +      '<span class="btn red btn-sm">Tables</span>'
-//         + '</div>'
-//         + '<select id="settings_option_select_table" class="form-control form-control-sm select2-single">'
-//         + '</select>'
-//         + '<div class="input-group-prepend">'
-//         +    '<span class="btn red btn-sm">Cloumns Text</span>'
-//         + '</div>'
-//         + '<select id="settings_option_select_column" class="form-control form-control-sm select2-single" >'
-//         + '</select>'
-//         + '<div class="input-group-prepend">'
-//         +    '<span class="btn red btn-sm">Column Value</span>'
-//         + '</div>'
-//         + '<select id="settings_option_select_column_value" class="form-control form-control-sm select2-single" >'
-//         + '</select>'
-//         + '</div>'
-//         + '</div>';
-//       }
-//       else{
-//         document.getElementById("settings_other_sources_div").innerHTML = '<div class="form-group">'
-//         + '<div class="input-group-prepend">'
-//         +      '<span class="btn red btn-sm">Tables</span>'
-//         + '</div>'
-//         + '<select id="settings_option_select_table" class="form-control form-control-sm select2-single">'
-//         + '</select>'
-//         + '<div class="input-group-prepend">'
-//         +    '<span class="btn red btn-sm">Cloumns</span>'
-//         + '</div>'
-//         + '<select id="settings_option_select_column" class="form-control form-control-sm select2-single" >'
-//         + '</select>'
-//         + '<div class="input-group-prepend">'
-//         +    '<span class="btn red btn-sm">Whole Table Search</span>'
-//         + '</div>'
-//         + '<select id="settings_option_whole_table_search" class="form-control form-control-sm select2-single" >'
-//         + '<option>False</option>'
-//         + '<option>True</option>'
-//         + '</select>'
-//         + '</div>'
-//         + '</div>';
-//       }
-//       settings_refresh_tables_in_select("non_custom_tables");
-//       document.getElementById("settings_option_select_table").onchange = function(){
-//         settings_refresh_columns_in_select("settings_option_select_column", document.getElementById("settings_option_select_table").value)
-//       }
-//     }
-//     else{
-//       document.getElementById("settings_other_sources_div").innerHTML = "";
-//     }
-//   }
-// }
-
-// function settings_refresh_tables_in_select(tables_type) {
-//   var ajax = new XMLHttpRequest();
-//   var method = "POST";
-//   var url = "./dashboard/refresh/refresh_tables_in_select.php";
-//   var asynchronous = true;
-//   ajax.open(method, url, asynchronous);
-//   ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//   ajax.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       if(tables_type === "non_custom_tables"){
-//         document.getElementById("settings_option_select_table").innerHTML = this.responseText;
-//         if (this.responseText === "<option>NO RESULTS</option>") {
-//           document.getElementById("settings_option_select_table").style.color = "rgb(201, 30, 44)";
-//         }
-//         else {
-//           document.getElementById("settings_option_select_table").style.color = "#bbd1f3";
-//           settings_refresh_columns_in_select("settings_option_select_column", document.getElementById("settings_option_select_table").value);
-//         }
-//       }
-//       else if(tables_type === "custom_tables"){
-//         document.getElementById("settings_custom_storage_tables_select").innerHTML = this.responseText;
-//         if (this.responseText === "<option>NO RESULTS</option>") {
-//           document.getElementById("settings_custom_storage_tables_select").style.color = "rgb(201, 30, 44)";
-//         }
-//         else {
-//           document.getElementById("settings_custom_storage_tables_select").style.color = "#bbd1f3";
-//           settings_refresh_columns_in_select("settings_custom_storage_columns_select" ,document.getElementById("settings_custom_storage_tables_select").value);
-//         }
-//       }
-//     }
-//   }
-//   ajax.send("system_id=" + system_id + "&tables_type=" + tables_type);
-// }
-
-// function settings_refresh_columns_in_select(clm_id, table_name) {
-//   var ajax = new XMLHttpRequest();
-//   var method = "POST";
-//   var url = "./dashboard/refresh/refresh_columns_in_select.php";
-//   var asynchronous = true;
-//   ajax.open(method, url, asynchronous);
-//   ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//   if(document.getElementById("settings_option_input_type").value === "Select"){
-//     ajax.onreadystatechange = function () {
-//       if (this.readyState == 4 && this.status == 200) {
-//         if(document.getElementById(clm_id)){
-//           document.getElementById(clm_id).innerHTML = this.responseText;
-//           settings_refresh_columns_in_select_for_values();
-//           if (this.responseText === "<option>NO RESULTS</option>") {
-//             document.getElementById(clm_id).style.color = "rgb(201, 30, 44)";
-//           }
-//           else {
-//             document.getElementById(clm_id).style.color = "#bbd1f3";
-//           }
-//         }
-//       }
-//     }
-//   }
-//   else{
-//     ajax.onreadystatechange = function () {
-//       if (this.readyState == 4 && this.status == 200) {
-//         if(document.getElementById(clm_id)){
-//           document.getElementById(clm_id).innerHTML = this.responseText;
-//           if (this.responseText === "<option>NO RESULTS</option>") {
-//             document.getElementById(clm_id).style.color = "rgb(201, 30, 44)";
-//           }
-//           else {
-//             document.getElementById(clm_id).style.color = "#bbd1f3";
-//           }
-//         }
-//       }
-//     }
-//   }
-//   if(document.getElementById("settings_option_input_type").value === "Input Number" || document.getElementById("settings_option_input_type").value === "Input Number With Point"){
-//     ajax.send("system_id=" + system_id + "&table_name=" + table_name + "&inp_type=" + "number");
-//   }
-//   else if(document.getElementById("settings_option_input_type").value === "Select"){
-//     ajax.send("system_id=" + system_id + "&table_name=" + table_name + "&inp_type=" + "select");
-//   }
-//   else{
-//     ajax.send("system_id=" + system_id + "&table_name=" + table_name);
-//   }
-// }
-
-// function settings_refresh_columns_in_select_for_values() {
-//   var table_name = "";
-//   if(document.getElementById("settings_option_select_table")){
-//     table_name = document.getElementById("settings_option_select_table").value;
-//   }
-//   var ajax = new XMLHttpRequest();
-//   var method = "POST";
-//   var url = "./dashboard/refresh/refresh_columns_in_select_for_values.php";
-//   var asynchronous = true;
-//   ajax.open(method, url, asynchronous);
-//   ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  
-//     ajax.onreadystatechange = function () {
-//       if (this.readyState == 4 && this.status == 200) {
-//         if(document.getElementById("settings_option_select_column")){
-//           document.getElementById("settings_option_select_column_value").innerHTML = this.responseText;
-//           if (this.responseText === "<option>NO RESULTS</option>") {
-//             document.getElementById("settings_option_select_column_value").style.color = "rgb(201, 30, 44)";
-//           }
-//           else {
-//             document.getElementById("settings_option_select_column_value").style.color = "#bbd1f3";
-//           }
-//         }
-//       }
-//     }
-  
-//   ajax.send("system_id=" + system_id + "&table_name=" + table_name);
-  
-// }
-
-// function settings_option_save_btn_click() {
-//   var option_type = "";
-//   var option_id = "";
-//   if(document.getElementById("asset_id_options_panels_dev")){
-//     option_type = "asset";
-//     option_id = document.getElementById("asset_id_options_panels_dev").innerHTML;
-//   }
-//   else if(document.getElementById("entry_id_options_panels_dev")){
-//     option_type = "entry";
-//     option_id = document.getElementById("entry_id_options_panels_dev").innerHTML;
-//   }
-//   else if(document.getElementById("custom_table_id_options_panels_dev")){
-//     option_type = "custom_table";
-//     option_id = document.getElementById("custom_table_id_options_panels_dev").innerHTML;
-//   }
-//   if(option_type !== ""){
-//     var sub_option_id = document.getElementById("settings_sub_option_id").value;
-//     var sub_option_name = document.getElementById("settings_option_name").value;
-//     var sub_option_type = document.getElementById("settings_option_input_type").value;
-//     var sub_option_empty_check = "";
-//     if(document.getElementById("settings_option_empty_check")){
-//       sub_option_empty_check = document.getElementById("settings_option_empty_check").value;
-//     }
-//     var sub_option_similarity_check = "";
-//     if(document.getElementById("settings_option_similarity_check")){
-//       sub_option_similarity_check = document.getElementById("settings_option_similarity_check").value;
-//     }
-//     var sub_option_priority = "";
-//     if(document.getElementById("settings_option_priority")){
-//       sub_option_priority = document.getElementById("settings_option_priority").value;
-//     }
-//     var sub_option_status = "";
-//     if(document.getElementById("settings_active_deactive")){
-//       sub_option_status = document.getElementById("settings_active_deactive").value;
-//     }
-//     var sub_option_texts = Array();
-//     var sub_option_values = Array();
-//     var sub_option_other_source_value = "";
-//     var sub_option_other_source_table = "";
-//     var sub_option_other_source_column = "";
-//     var sub_option_other_source_column_value = "";
-//     var sub_option_whole_table_search = "";
-//     if (document.getElementById("settings_option_other_source_value")) {
-//       sub_option_other_source_value = document.getElementById("settings_option_other_source_value").value;
-//       if (sub_option_other_source_value === "True") {
-//         sub_option_other_source_table = document.getElementById("settings_option_select_table").value;
-//         if (sub_option_other_source_column = document.getElementById("settings_option_select_column")) {
-//           sub_option_other_source_column = document.getElementById("settings_option_select_column").value;
-//         }
-//         if (document.getElementById("settings_option_whole_table_search")) {
-//           sub_option_whole_table_search = document.getElementById("settings_option_whole_table_search").value;
-//         }
-//         if (document.getElementById("settings_option_select_column_value")) {
-//           sub_option_other_source_column_value = document.getElementById("settings_option_select_column_value").value;
-//         }
-//       }
-//     }
-//     if(document.getElementById("settings_option_values_table")){
-//       var sub_option_values_table = document.getElementById("settings_option_values_table");
-//       for (var i = 0; i < sub_option_values_table.rows.length; i++) {
-//         sub_option_texts[i] = sub_option_values_table.rows[i].cells[0].innerHTML;
-//         if(sub_option_values_table.rows[i].cells.length === 3){
-//           sub_option_values[i] = sub_option_values_table.rows[i].cells[1].innerHTML;
-//         }
-//       }
-//     }
-    
-//     var sub_option_entry_type = "";
-//     if(document.getElementById("settings_entry_type_select")){
-//       sub_option_entry_type = document.getElementById("settings_entry_type_select").value;
-//     }
-//     var sub_option_custom_storage = "";
-//     if(document.getElementById("settings_custom_storage_select")){
-//       sub_option_custom_storage = document.getElementById("settings_custom_storage_select").value;
-//     }
-//     var sub_option_entry_sum = "";
-//     if(document.getElementById("settings_entry_sum_select")){
-//       sub_option_entry_sum = document.getElementById("settings_entry_sum_select").value;
-//     }
-//     var sub_option_custom_storage_table = "";
-//     if(document.getElementById("settings_custom_storage_tables_select")){
-//       sub_option_custom_storage_table = document.getElementById("settings_custom_storage_tables_select").value;
-//     }
-//     var sub_option_custom_storage_column = "";
-//     if(document.getElementById("settings_custom_storage_columns_select")){
-//       sub_option_custom_storage_column = document.getElementById("settings_custom_storage_columns_select").value;
-//     }
-//     var sub_option_field_type = document.getElementById("settings_field_type").value;
-//     var sub_option_editable = "";
-//     if (document.getElementById("settings_option_editable")) {
-//       sub_option_editable = document.getElementById("settings_option_editable").value;
-//     }
-//     var sub_option_visible = "";
-//     if (document.getElementById("settings_option_visible")) {
-//       sub_option_visible = document.getElementById("settings_option_visible").value;
-//     }
-//     var sub_option_table_visible = "";
-//     if (document.getElementById("settings_option_table_visible")) {
-//       sub_option_table_visible = document.getElementById("settings_option_table_visible").value;
-//     }
-//     var sub_option_formula = "";
-//     if (document.getElementById("settings_formula_1_operator_1")) {
-//       for (var i = 1; i <= settings_index_of_formulas_fields; i++) {
-//         if(i === 1){
-//           var f1 = document.getElementById("settings_formula_"+i+"_field_1");
-//           var f2 = document.getElementById("settings_formula_"+i+"_field_2");
-//           if(f1.options[f1.selectedIndex].text === "Custom"){
-//             sub_option_formula += document.getElementById("settings_formula_custom"+i+"_field_1").value;
-//             sub_option_formula += "-,-"+document.getElementById("settings_formula_"+i+"_operator_1").value;
-//           }
-//           else{
-//             sub_option_formula += f1.options[f1.selectedIndex].text;
-//             sub_option_formula += "-,-"+document.getElementById("settings_formula_"+i+"_operator_1").value;
-            
-//           }
-//           if(f2.options[f2.selectedIndex].text === "Custom"){
-//             sub_option_formula += "-,-"+document.getElementById("settings_formula_custom"+i+"_field_2").value;
-//           }
-//           else{
-//             sub_option_formula += "-,-"+f2.options[f2.selectedIndex].text;
-//           }
-//         }
-//         else{
-//           var f1 = document.getElementById("settings_formula_"+i+"_field_1");
-//           if(f1.options[f1.selectedIndex].text === "Custom"){
-//             sub_option_formula += "-,-"+document.getElementById("settings_formula_"+i+"_operator_1").value;
-//             sub_option_formula += "-,-"+document.getElementById("settings_formula_custom"+i+"_field_1").value;
-//           }
-//           else{
-//             sub_option_formula += "-,-"+document.getElementById("settings_formula_"+i+"_operator_1").value;
-//             sub_option_formula += "-,-"+f1.options[f1.selectedIndex].text;
-//           }
-//         }
-//       }
-//     }
-//     else if(document.getElementById("settings_option_against_value_inp_id")){
-//       sub_option_formula = document.getElementById("settings_option_against_value_inp_id").value;
-//     }
-//     var ajax = new XMLHttpRequest();
-//     var method = "POST";
-//     var url = "./dashboard/edit/edit_sub_option.php";
-//     var asynchronous = true;
-//     ajax.open(method, url, asynchronous);
-//     ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//     ajax.onreadystatechange = function () {
-//       if (this.readyState == 4 && this.status == 200) {
-//         if (this.responseText == "Updated Successfully...!") {
-//           document.getElementById("settings_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-success' role='alert'>"
-//             + this.responseText + "</div>";
-//           setTimeout(function () {
-//             document.getElementById("settings_sub_options_panel").style.visibility = "hidden";
-//             document.getElementById("settings_option_name").value = "";
-//             // document.getElementById("settings_option_input").value = "";
-//             if(document.getElementById("settings_option_values_table"))
-//               document.getElementById("settings_option_values_table").innerHTML = "";
-//             document.getElementById("settings_sub_options_panel_messageDiv").innerHTML = "";
-//             refresh_sub_options_in_panel();
-//           }, 700);
-//         }
-//         else {
-//           document.getElementById("settings_sub_options_panel_messageDiv").innerHTML = "<div class='alert alert-danger' role='alert'>"
-//             + this.responseText + "</div>";
-//         }
-//       }
-//     }
-//     ajax.send("option_id=" + option_id 
-//       + "&option_type=" + option_type
-//       + "&sub_option_name=" + sub_option_name
-//       + "&sub_option_type=" + sub_option_type
-//       + "&sub_option_empty_check=" + sub_option_empty_check
-//       + "&sub_option_similarity_check=" + sub_option_similarity_check
-//       + "&sub_option_texts=" + sub_option_texts
-//       + "&sub_option_values=" + sub_option_values
-//       + "&sub_option_other_source_value=" + sub_option_other_source_value
-//       + "&sub_option_other_source_table=" + sub_option_other_source_table
-//       + "&sub_option_other_source_column=" + sub_option_other_source_column
-//       + "&sub_option_other_source_column_value=" + sub_option_other_source_column_value
-//       + "&sub_option_whole_table_search=" + sub_option_whole_table_search
-//       + "&sub_option_priority=" + sub_option_priority
-//       + "&sub_option_status=" + sub_option_status
-//       + "&sub_option_entry_type=" + sub_option_entry_type
-//       + "&sub_option_custom_storage=" + sub_option_custom_storage
-//       + "&sub_option_entry_sum=" + sub_option_entry_sum
-//       + "&sub_option_custom_storage_table=" + sub_option_custom_storage_table
-//       + "&sub_option_custom_storage_column=" + sub_option_custom_storage_column
-//       + "&sub_option_field_type=" + sub_option_field_type
-//       + "&sub_option_formula=" + sub_option_formula
-//       + "&sub_option_editable=" + sub_option_editable
-//       + "&sub_option_visible=" + sub_option_visible
-//       + "&sub_option_table_visible=" + sub_option_table_visible
-//       + "&system_id=" + system_id
-//       + "&sub_option_id=" + sub_option_id);
-//   }
-// }
 
 function settings_option_delete_btn_click() {
   if(confirm("Are you sure to delete...?")){
