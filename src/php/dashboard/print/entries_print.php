@@ -110,42 +110,19 @@ if($result1->num_rows > 0){
                     if($row["option_type"] === "Input Number" || $row["option_type"] === "Input Number With Point"){
                         echo "<td style='text-align: center;'>".$row1["opt_".$row["id"]]."</td>";
                     }
+                    else if($row["option_type"] === "Select" && $row["option_othr_src_column_value"] === "id"){
+                        $sql_for_select_desc = "SELECT * FROM `".$row['option_othr_src_table']."_values` WHERE `id`='".$row1["opt_".$row["id"]]."'";
+                        $result_for_select_desc = mysqli_query($local_conn_db, $sql_for_select_desc);
+                        if($result_for_select_desc->num_rows > 0){
+                            while($row_for_select_desc = $result_for_select_desc->fetch_assoc()){
+                                echo "<td>".$row_for_select_desc[$row["option_othr_src_column"]]."</td>";
+                            }
+                        }
+                    }
                     else{
                         echo "<td>".$row1["opt_".$row["id"]]."</td>";
                     }
                 }
-            }
-        }
-        if($opt_id === "5"){
-            if($row1["opt_22"] === "Bags"){
-                $sum_bags = $sum_bags+($row1["opt_12"]/$row1["opt_21"]);
-            }
-            else if($row1["opt_22"] === "Bundles"){
-                $sum_bundles = $sum_bundles+($row1["opt_12"]/$row1["opt_21"]);
-            }
-        }
-        else if($opt_id === "6"){
-            if($row1["opt_26"] === "Bags"){
-                $sum_bags = $sum_bags+($row1["opt_16"]/$row1["opt_25"]);
-            }
-            else if($row1["opt_26"] === "Bundles"){
-                $sum_bundles = $sum_bundles+($row1["opt_16"]/$row1["opt_25"]);
-            }
-        }
-        else if($opt_id === "42"){
-            if($row1["opt_22"] === "Bags"){
-                $sum_bags = $sum_bags+($row1["opt_12"]/$row1["opt_21"]);
-            }
-            else if($row1["opt_22"] === "Bundles"){
-                $sum_bundles = $sum_bundles+($row1["opt_12"]/$row1["opt_21"]);
-            }
-        }
-        else if($opt_id === "43"){
-            if($row1["opt_26"] === "Bags"){
-                $sum_bags = $sum_bags+($row1["opt_16"]/$row1["opt_25"]);
-            }
-            else if($row1["opt_26"] === "Bundles"){
-                $sum_bundles = $sum_bundles+($row1["opt_16"]/$row1["opt_25"]);
             }
         }
         echo "</tr>";
@@ -181,40 +158,8 @@ if($result->num_rows > 0){
 }
 echo "</table>";
 
-if($opt_id === "5" || $opt_id === "6" || $opt_id === "42" || $opt_id === "43"){
-    echo "<table class='foot_table'>";
-    echo "<tr>";
-    echo "<td><strong>Total Bundles: </strong><label>".$sum_bundles."</label></td>";
-    echo "<td><strong>Total Bags: </strong><label>".$sum_bags."</label></td>";
-    if($opt_id === "5"){
-        $sql="SELECT Distinct(`opt_23`) as `discount` FROM `$table_values` WHERE `voucher_no`='$v_no'";
-    }
-    else if($opt_id === "6"){
-        $sql="SELECT Distinct(`opt_27`) as `discount` FROM `$table_values` WHERE `voucher_no`='$v_no'";
-    }
-    else if($opt_id === "42"){
-        $sql="SELECT Distinct(`opt_23`) as `discount` FROM `$table_values` WHERE `voucher_no`='$v_no'";
-    }
-    else if($opt_id === "43"){
-        $sql="SELECT Distinct(`opt_27`) as `discount` FROM `$table_values` WHERE `voucher_no`='$v_no'";
-    }
-    $result = mysqli_query($local_conn_db, $sql);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            echo "<td><strong>Discount (%): </strong><label id='discount_amount'>".$row["discount"]."</label></td>";
-        }
-    }
-    echo "<td><strong>Payable Amount: </strong><label id='payable_amount'></label></td>";
-    echo "</tr>";
-    echo "</table>";
-}
 ?>
 </body>
 </html>
 
 <script src="../../../js/print.js"></script>
-<?php
-if($opt_id === "5" || $opt_id === "6" || $opt_id === "42" || $opt_id === "43"){
-    echo "<script>payable_amount_purchase();</script>";
-}
-?>
